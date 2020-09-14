@@ -20,16 +20,24 @@ Om det finns lediga platser så kan man fortsätta, annars så får man gå till
 
 ### API
 Vi behöver 3 Models.
+
 Vi behöver en DTO för varje Model.
+
 Vi behöver en kontroller för varje Model.
+
 Vi behöver ett repository för varje Model.
+
 I Repository för Person bör en API request göras. Ifall personen inte är med i Starwars ska en HTTP Status Code 401 returneras.
+
 Varje repository ska ha ett IRepository.
 
 ### Metoder i Controllers
 Get: Parkinglots 
+
 Get: Parkingspot
+
 Update: Parkingspot
+
 Post: Receipt
 
 ### Metoder i Repositories
