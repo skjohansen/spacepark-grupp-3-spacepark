@@ -12,7 +12,6 @@ namespace PakingAPI.Services
     {
         public ParkinglotRepository(DataContext context, ILogger<ParkinglotRepository> logger) : base(context, logger)
         {
-
         }
 
         public virtual async Task<Parkinglot[]> GetAll()
