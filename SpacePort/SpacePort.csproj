@@ -5,6 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Folder Include="Services\Interfaces\" />
     <Folder Include="wwwroot\lib\" />
   </ItemGroup>
 
