@@ -6,10 +6,10 @@ using Microsoft.Extensions.Logging;
 
 namespace SpacePort.Services.Repositories
 {
-    public class ParkingSpotRepository
+    public class ParkingspotRepository
     {
-        private readonly ILogger<ParkingSpotRepository> _logger;
-        public ParkingSpotRepository(ILogger<ParkingSpotRepository> logger)
+        private readonly ILogger<ParkingspotRepository> _logger;
+        public ParkingspotRepository(ILogger<ParkingspotRepository> logger)
         {
             _logger = logger;
         }
