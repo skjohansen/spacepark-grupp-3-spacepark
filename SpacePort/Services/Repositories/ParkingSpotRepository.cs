@@ -3,15 +3,21 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
+using SpacePort.Models;
+using SpacePort.Services.Interfaces;
 
 namespace SpacePort.Services.Repositories
 {
-    public class ParkingspotRepository
+    public class ParkingspotRepository : IParkingspotRepository
     {
-        private readonly ILogger<ParkingspotRepository> _logger;
-        public ParkingspotRepository(ILogger<ParkingspotRepository> logger)
+        public ParkingspotRepository(DataContext context, ILogger<ParkingspotRepository> logger) : base(context, logger)
         {
-            _logger = logger;
+
+        }
+
+        public virtual async Task<Parkingspot[]> GetAll()
+        {
+            throw new NotImplementedException();
         }
     }
 }
