@@ -5,9 +5,8 @@ using System.Threading.Tasks;
 
 namespace SpacePort.Services.Interfaces
 {
-    interface IParkingspotRepository
+    interface IDriverRepository
     {
-        Task<Parkingspot[]> GetAll();
+
     }
 }
-
