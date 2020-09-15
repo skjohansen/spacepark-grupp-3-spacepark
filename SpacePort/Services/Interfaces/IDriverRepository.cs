@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace SpacePort.Services.Interfaces
 {
-    interface IDriver
+    interface IDriverRepository
     {
 
     }
