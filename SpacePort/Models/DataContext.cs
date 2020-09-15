@@ -40,46 +40,55 @@ namespace SpacePort.Models
             {
                 ParkingspotId = 1,
                 ParkinglotId = 1,
+                Occupied = false,
                 Size = 1
             }, new
             {
                 ParkingspotId = 2,
                 ParkinglotId = 1,
+                Occupied = false,
                 Size = 2
             }, new
             {
                 ParkingspotId = 3,
                 ParkinglotId = 1,
+                Occupied = false,
                 Size = 3
             }, new
             {
                 ParkingspotId = 4,
                 ParkinglotId = 2,
+                Occupied = false,
                 Size = 1
             }, new
             {
                 ParkingspotId = 5,
                 ParkinglotId = 2,
+                Occupied = false,
                 Size = 2
             }, new
             {
                 ParkingspotId = 6,
                 ParkinglotId = 2,
+                Occupied = false,
                 Size = 3
             }, new
             {
                 ParkingspotId = 7,
                 ParkinglotId = 3,
+                Occupied = false,
                 Size = 1
             }, new
             {
                 ParkingspotId = 8,
                 ParkinglotId = 3,
+                Occupied = false,
                 Size = 2
             }, new
             {
                 ParkingspotId = 9,
                 ParkinglotId = 3,
+                Occupied = false,
                 Size = 3
             });
             //// Receipt
