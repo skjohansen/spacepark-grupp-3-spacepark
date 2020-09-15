@@ -1,13 +1,25 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
+using SpacePort.Models;
+using SpacePort.Services.Interfaces;
+using SpacePort.Services.Repositories;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace PakingAPI.Services
 {
-    public class ParkinglotRepository
+    public class ParkinglotRepository : Repository, IParkinglotRepository
     {
-        private readonly ILogger<ParkinglotRepository> _logger;
-        public ParkinglotRepository(ILogger<ParkinglotRepository> logger)
+        public ParkinglotRepository(DataContext context, ILogger<ParkinglotRepository> logger) : base(context, logger)
         {
-            _logger = logger;
+
+        }
+
+        public virtual async Task<Parkinglot[]> GetAll()
+        {
+            _logger.LogInformation("Getting all Parkinglots");
+            IQueryable<Parkinglot> query = _context.Parkinglots;
+            return await query.ToArrayAsync();
         }
     }
 }
