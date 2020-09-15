@@ -5,6 +5,7 @@ namespace SpacePort.Services.Interfaces
 {
     public interface IReceiptRepository
     {
+        Task<Receipt[]> GetAll();
         Task<Receipt> GetReceiptById(int ReceiptId);
     }
 }
