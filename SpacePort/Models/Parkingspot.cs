@@ -12,6 +12,6 @@ namespace SpacePort.Models
         public int ParkingspotId { get; set; }
         public int Size { get; set; }
         public bool Occupied { get; set; }
-        public Parkinglot parkinglot { get; set; }
+        public Parkinglot Parkinglot { get; set; }
     }
 }
