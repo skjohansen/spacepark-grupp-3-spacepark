@@ -7,14 +7,11 @@ using System.Threading.Tasks;
 
 namespace PakingAPI.Services
 {
-    public class ParkinglotRepository : IParkinglotRepository
+    public class ParkinglotRepository : Repository, IParkinglotRepository
     {
-        private readonly DataContext _context;
-        private readonly ILogger<ParkinglotRepository> _logger;
-        public ParkinglotRepository(DataContext context, ILogger<ParkinglotRepository> logger)
+        public ParkinglotRepository(DataContext context, ILogger<ParkinglotRepository> logger) : base(context, logger)
         {
-            _context = context;
-            _logger = logger;
+        
         }
 
         public virtual async Task<Parkinglot[]> GetAll()
