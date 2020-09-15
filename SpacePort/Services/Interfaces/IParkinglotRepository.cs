@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace SpacePort.Services
+namespace SpacePort.Services.Interfaces
 {
     public interface IParkinglotRepository
     {
