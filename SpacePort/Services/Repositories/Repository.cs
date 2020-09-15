@@ -1,17 +1,14 @@
 ﻿using Microsoft.Extensions.Logging;
 using SpacePort.Models;
 using SpacePort.Services.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace SpacePort.Services.Repositories
 {
     public class Repository : IRepository
     {
-        private readonly DataContext _context;
-        private readonly ILogger<Repository> _logger;
+        protected readonly DataContext _context;
+        protected readonly ILogger<Repository> _logger;
 
         public Repository(DataContext context, ILogger<Repository> logger)
         {
