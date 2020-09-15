@@ -1,67 +1,77 @@
-### SpacePort 
-Bygga modeller i API och sedan göra en migration (Code First) 
+## SpacePort Projekt
 
-Välja Azure SQL relationsdatabas
+## Verktyg
+### Azure DevOps
+Vi valde att använda oss av Azure DevOps Boards för att sätta upp relevanta issues och strukturera vårat arbetssätt. Vi tyckte detta passade bra eftersom vi får så mycket som möjligt på samma ställe, till skillnad om vi hade använt t ex Jira.
 
-Slutmål är att få en Docker Image byggd av varje applikation (API och Presentation) till en Azure Container Registry och sedan Azure Container Instance
+### app.diagrams.net
+Vid början så gjorde vi skisser för flödesscheman på webbplatsen [app.diagrams.net](https://app.diagrams.net/).
+<img src="diagram-flowchart.png">
 
-### Hur ska parkering gå till
-Vi tänker oss vårat program som en mobile parking app. Man kan lämna först när man har betalat för sig, baserat på längden av vistelsen.
+### Övriga verktyg
+Vi använder oss av GitBash som verktyg för Git, Visual Studio för kodning, Discord för kommunikation.
 
-Vid start kan man få ett val att betala eller parkera. För att betala får man ange sitt användarid.
 
-### För att parkera
-Man ska vara medlem (Ha ett namn som finns med i Star Wars). 
-Man anger storlek på sitt skepp.
-Man väljer sedan Parklinglot
-Om det finns lediga platser så kan man fortsätta, annars så får man gå tillbaka och göra ett nytt val
+## Arbetssätt
+Vi börjar med att gemensamt sätta upp issues och eventuella tidsramar och tider för uppsamling. Vi jobbar enskilt med issues i separata branches som vi sedan, ofta gemensamt, mergar till master.
+
+
+## Själva programmet
+
+### Hur parkering går till
+Man kan vara ny kund eller återkommande kunder kan ange sitt kundId. Först kollas det upp om man har rätt att parkera. Om man har en pågående parkering måste man först betala den.
+
+Vi tänker oss vårat program som en mobile parking app. Man kan  inte parkera igen förrän man har betalat för sin tidigare parkering. 
+
 
 ## Komponenter
+Programmet ska använda sig av 3 komponenter - ett backend API, en frontend applikation och en databas. 
 
 ### API
-Vi behöver 3 Models.
+Använder sig av 4 Models: 
+```csharp
+public class Driver
+{
+    [Key] 
+    public int DriverId { get; set; }
 
-Vi behöver en DTO för varje Model.
+    public string Name { get; set; }
+    public ICollection<Receipt> Receipts { get; set; }
+}
+class Receipt 
+{
+    [Key] 
+    public int ReceiptId { get; set; }
 
-Vi behöver en kontroller för varje Model.
+    public int Price { get; set; }
+    public DateTime RegistrationTime { get; set; }
+    public DateTime EndTime { get; set; }
 
-Vi behöver ett repository för varje Model.
+    public Parkingspot Parkingspot { get; set; }
+}
+class Parkinglot 
+{
+    [Key]
+    public int ParkinglotId { get; set; }
+    public string Name { get; set; }
+    public ICollection<Parkingspot> Parkingspot { get; set; }
+}
+class Parkingspot 
+{
+    [Key]
+    public int ParkingspotId { get; set; }
+    public int Size { get; set; }
+    public bool Occupied { get; set; }
+    public Parkinglot Parkinglot { get; set; }
+}
+```
+Det ska finnas en DTO för varje Model. Varje Model har en egen Controller. Det ska finnas ett Repository för varje Model. Varje repository ska ha ett IRepository.
 
 I Repository för Person bör en API request göras. Ifall personen inte är med i Starwars ska en HTTP Status Code 401 returneras.
 
-Varje repository ska ha ett IRepository.
-
-### Metoder i Controllers
-Get: Parkinglots 
-
-Get: Parkingspot
-
-Update: Parkingspot
-
-Post: Receipt
-
-### Metoder i Repositories
 
 ## Presentation
 Under konstruktion.
 
 ### Vilka modeller vi behöver
-```csharp
-class Receipt {
- 	DateTime Registrationtime;
-	DateTime Endtime;
-	int Price;
-	Parkingspot Parkingspot;
-}
 
-class Parkinglot {
-	string Name;
-	List<Parkingspot> Parkingspots;
-}
-
-class Parkingspot {
-	Parkinglot Parkinglot;
-	bool Occupied;
-	enum Size;
-}
-```
