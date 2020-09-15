@@ -82,6 +82,9 @@ namespace SpacePort.Models
                 ParkinglotId = 3,
                 Size = 3
             });
+            //// Receipt
+            modelBuilder.Entity<Receipt>().ToTable("Receipt");
+            modelBuilder.Entity<Receipt>().HasKey(p => p.ReceiptId);
             //// Driver
             modelBuilder.Entity<Driver>().ToTable("Driver");
             modelBuilder.Entity<Driver>().HasKey(p => p.DriverId);

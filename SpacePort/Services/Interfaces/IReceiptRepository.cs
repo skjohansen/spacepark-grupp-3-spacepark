@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using SpacePort.Models;
+using System.Threading.Tasks;
 
 namespace SpacePort.Services.Interfaces
 {
