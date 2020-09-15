@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 
 namespace PakingAPI.Services
 {
-    public class ReceiptRepository : IReceiptRepository
+    public class ReceiptRepository : Repository, IReceiptRepository
     {
-        public ReceiptRepository(DataContext context, ILogger<ReceiptRepository> logger)
+        public ReceiptRepository(DataContext context, ILogger<ReceiptRepository> logger) : base(context, logger)
         {
 
         }
