@@ -8,7 +8,7 @@ using SpacePort.Services.Interfaces;
 
 namespace SpacePort.Services.Repositories
 {
-    public class ParkingspotRepository : IParkingspotRepository
+    public class ParkingspotRepository : Repository, IParkingspotRepository
     {
         public ParkingspotRepository(DataContext context, ILogger<ParkingspotRepository> logger) : base(context, logger)
         {
@@ -17,7 +17,7 @@ namespace SpacePort.Services.Repositories
 
         public virtual async Task<Parkingspot[]> GetAll()
         {
-            throw new NotImplementedException();
+            _logger.LogInformation("Getting all Parkingspots")
         }
     }
 }

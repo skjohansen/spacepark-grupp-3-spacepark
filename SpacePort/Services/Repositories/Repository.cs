@@ -12,6 +12,7 @@ namespace SpacePort.Services.Repositories
     {
         private readonly DataContext _context;
         private readonly ILogger<Repository> _logger;
+
         public Repository(DataContext context, ILogger<Repository> logger)
         {
             _context = context;
