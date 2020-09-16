@@ -17,16 +17,14 @@ namespace SpacePort.Controllers
     public class DriverController : Controller
     {
         private readonly IDriverRepository _repo;
-        private readonly ILogger<DriverController> _logger;
 
-        public DriverController(IDriverRepository repo, ILogger<DriverController> logger)
+        public DriverController(IDriverRepository repo)
         {
             _repo = repo;
-            _logger = logger;
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetAll()
+        public async Task<ActionResult<Driver[]>> GetAll()
         {
             try
             {
