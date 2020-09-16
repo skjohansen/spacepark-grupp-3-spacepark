@@ -10,8 +10,6 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using SpacePort.Models;
-using SpacePort.Services.Interfaces;
-using SpacePort.Services.Repositories;
 
 namespace SpacePort
 {
@@ -27,11 +25,6 @@ namespace SpacePort
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddScoped<IDriverRepository, DriverRepository>();
-            services.AddScoped<IParkinglotRepository, ParkinglotRepository>();
-            services.AddScoped<IParkingspotRepository, ParkingspotRepository>();
-            services.AddScoped<IReceiptRepository, ReceiptRepository>();
-
             services.AddControllersWithViews();
             services.AddDbContext<DataContext>(options => {
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"));
