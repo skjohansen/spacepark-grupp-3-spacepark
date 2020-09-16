@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
+using SpacePort.Models;
 using SpacePort.Services.Interfaces;
 using System;
 using System.Threading.Tasks;
@@ -19,7 +19,7 @@ namespace SpacePort.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetAll()
+        public async Task<ActionResult<Parkingspot[]>> GetAll()
         {
             try
             {
