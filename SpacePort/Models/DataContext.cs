@@ -8,10 +8,12 @@ namespace SpacePort.Models
 {
     public class DataContext : DbContext
     {
-        public DbSet<Parkinglot> Parkinglots { get; set; }
-        public DbSet<Parkingspot> Parkingspots { get; set; }
-        public DbSet<Receipt> Receipts { get; set; }
-        public DbSet<Driver> Drivers { get; set; }
+        public virtual DbSet<Parkinglot> Parkinglots { get; set; }
+        public virtual DbSet<Parkingspot> Parkingspots { get; set; }
+        public virtual DbSet<Receipt> Receipts { get; set; }
+        public virtual DbSet<Driver> Drivers { get; set; }
+
+        public DataContext() { }
 
         public DataContext(DbContextOptions options) : base(options) { }
 
