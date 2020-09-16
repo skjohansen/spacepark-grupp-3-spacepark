@@ -11,7 +11,7 @@ using Xunit;
 
 namespace SpacePort.Tests.RepositoryTests
 {
-    public class ParkingspotTest
+    public class ParkingspotTests
     {
         [Fact]
         public async void GettAllParkingspots()

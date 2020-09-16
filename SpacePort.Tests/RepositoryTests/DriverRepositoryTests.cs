@@ -11,9 +11,9 @@ using Castle.Core.Logging;
 using SpacePort.Services.Repositories;
 using Microsoft.Extensions.Logging;
 
-namespace SpacePort.Tests.RepositoryTest
+namespace SpacePort.Tests.RepositoryTests
 {
-    public class DriverRepositoryTest
+    public class DriverRepositoryTests
     {
         [Fact]
         public async void GetAll_ifAnyExist_ReturnTrue()

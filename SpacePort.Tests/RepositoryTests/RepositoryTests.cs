@@ -11,7 +11,7 @@ using Xunit;
 
 namespace SpacePort.Tests.RepositoryTests
 {
-    public class RepositoryTest
+    public class RepositoryTests
     {
         [Fact]
         public async void Add_ifObjectSaved_ReturnTrue()
