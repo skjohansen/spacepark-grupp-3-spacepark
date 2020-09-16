@@ -6,7 +6,7 @@ using SpacePort.Services.Repositories;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace PakingAPI.Services
+namespace SpacePort.Services.Repositories
 {
     public class ReceiptRepository : Repository, IReceiptRepository
     {
