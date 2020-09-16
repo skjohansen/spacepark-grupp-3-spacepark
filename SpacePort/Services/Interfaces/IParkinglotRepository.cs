@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 
 namespace SpacePort.Services.Interfaces
 {
-    public interface IParkinglotRepository
+    public interface IParkinglotRepository : IRepository
     {
         Task<Parkinglot[]> GetAll();
     }
