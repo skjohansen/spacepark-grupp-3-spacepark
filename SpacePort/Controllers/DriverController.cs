@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using SpacePort.Models;
@@ -16,18 +17,28 @@ namespace SpacePort.Controllers
     public class DriverController : Controller
     {
         private readonly IDriverRepository _repo;
-        private readonly ILogger<DriverController> _logger;
 
-        public DriverController(IDriverRepository repo, ILogger<DriverController> logger)
+        public DriverController(IDriverRepository repo)
         {
             _repo = repo;
-            _logger = logger;
         }
 
         [HttpGet]
-        public IActionResult Index()
+        public async Task<ActionResult<Driver[]>> GetAll()
         {
-            return View();
+            try
+            {
+                var result = await _repo.GetAll();
+                if(result == null)
+                {
+                    return NotFound();
+                }
+                return Ok(result);
+            }
+            catch (Exception e)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, $"Database failure {e.Message}");
+            }
         }
     }
 }
