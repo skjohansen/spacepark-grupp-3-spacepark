@@ -31,7 +31,7 @@ namespace SpacePort.Tests.RepositoryTests
             var result = await parkingspotRepository.GetAll();
 
             // Assert
-            Assert.True(result.Length == 1);
+            Assert.True(result.Length == 2);
         }
     }
 }

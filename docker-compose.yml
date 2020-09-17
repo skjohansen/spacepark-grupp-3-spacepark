@@ -1,0 +1,10 @@
+version: '3'
+services:
+  api:
+    image: "gr3-api:latest"
+    ports:
+      - "5001:80"
+  presentation:
+    image: "gr3-presentation:latest"
+    ports:
+      - "5000:80"
