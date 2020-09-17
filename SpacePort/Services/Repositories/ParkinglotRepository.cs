@@ -20,5 +20,12 @@ namespace SpacePort.Services.Repositories
             IQueryable<Parkinglot> query = _context.Parkinglots;
             return await query.ToArrayAsync();
         }
+
+        public virtual async Task<Parkinglot> GetParkinglotById(int id)
+        {
+            _logger.LogInformation($"Getting Parkinglot by id: {id}");
+            IQueryable<Parkinglot> query = _context.Parkinglots.Where(x => x.ParkinglotId == id);
+            return await query.FirstOrDefaultAsync();
+        }
     }
 }
