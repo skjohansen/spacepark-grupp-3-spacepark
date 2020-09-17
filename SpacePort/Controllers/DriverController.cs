@@ -35,5 +35,25 @@ namespace SpacePort.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError, $"Database failure {e.Message}");
             }
         }
+
+        [HttpGet("{id}")]
+        public async Task<ActionResult<Driver[]>> GetDriverById(int id)
+        {
+            try
+            {
+                var result = await _repo.GetDriverById(id);
+                if (result == null)
+                {
+                    return NotFound();
+                }
+
+                return Ok(result);
+            }
+            catch (Exception e)
+            {
+                return this.StatusCode(StatusCodes.Status500InternalServerError, $"Database failure {e.Message}");
+            }
+        }
+
     }
 }
