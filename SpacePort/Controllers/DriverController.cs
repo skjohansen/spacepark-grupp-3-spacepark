@@ -56,5 +56,12 @@ namespace SpacePort.Controllers
             }
         }
 
+        // This method should do a request to swapi
+        // For now it just posts back to Presentation
+        [HttpPost]
+        public ActionResult<Driver> CreateDriver(Driver driver)
+        {
+            return Ok(new Driver { DriverId = 1, Name = driver.Name });
+        }
     }
 }
