@@ -37,7 +37,7 @@ namespace SpacePort.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<Driver[]>> GetDriverById(int id)
+        public async Task<ActionResult<Driver>> GetDriverById(int id)
         {
             try
             {
