@@ -21,5 +21,12 @@ namespace SpacePort.Services.Repositories
             IQueryable<Driver> query = _context.Drivers;
             return await query.ToArrayAsync();
         }
+
+        public virtual async Task<Driver> GetDriverById(int id)
+        {
+            _logger.LogInformation($"Getting driver by id: {id}");
+            IQueryable<Driver> query = _context.Drivers.Where(x => x.DriverId == id);
+            return await query.FirstOrDefaultAsync();
+        }
     }
 }
