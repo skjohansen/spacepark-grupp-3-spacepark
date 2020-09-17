@@ -6,5 +6,6 @@ namespace SpacePort.Services.Interfaces
     public interface IParkinglotRepository : IRepository
     {
         Task<Parkinglot[]> GetAll();
+        Task<Parkinglot> GetParkinglotById(int ParkinglotId);
     }
 }

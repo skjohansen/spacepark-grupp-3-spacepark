@@ -6,5 +6,6 @@ namespace SpacePort.Services.Interfaces
     public interface IDriverRepository : IRepository
     {
         Task<Driver[]> GetAll();
+        Task<Driver> GetDriverById(int DriverId);
     }
 }
