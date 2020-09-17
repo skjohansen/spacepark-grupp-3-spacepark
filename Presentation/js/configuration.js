@@ -1,5 +1,5 @@
 /* 
-    Uppstartkonfigurering
+    configuration.js
 */
 
 var connected = false;

@@ -1,5 +1,5 @@
 /*
-    Felmeddelanden
+    messageboxes.js
 */
 
 $(document).on('click', '.close-error', function(){

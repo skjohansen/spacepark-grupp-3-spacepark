@@ -32,6 +32,11 @@ namespace SpacePort
             services.AddScoped<IParkingspotRepository, ParkingspotRepository>();
             services.AddScoped<IReceiptRepository, ReceiptRepository>();
 
+            services.AddCors(c =>
+            {
+                c.AddPolicy("AllowOrigin", options => options.AllowAnyOrigin());
+            });
+
             services.AddControllersWithViews();
             services.AddDbContext<DataContext>(options => {
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"));
@@ -41,6 +46,7 @@ namespace SpacePort
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            app.UseCors(options => options.AllowAnyOrigin());
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
