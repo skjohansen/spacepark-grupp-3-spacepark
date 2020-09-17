@@ -40,7 +40,7 @@ namespace SpacePort.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<Receipt[]>> GetReceiptById(int id)
+        public async Task<ActionResult<Receipt>> GetReceiptById(int id)
         {
             try
             {
