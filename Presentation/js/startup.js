@@ -24,7 +24,6 @@
         }).done(function(data) {
             console.log("Parsing items.");
 
-            var items = [];
             $.each(data, function(i, item) {
                 $('<option value="'+item.parkinglotId+'">'+item.name+'</option>').appendTo("#park-form-parkinglot");
             });
