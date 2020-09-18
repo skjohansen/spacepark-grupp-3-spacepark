@@ -24,7 +24,8 @@ namespace SpacePort.Services.Repositories
         public virtual async Task<Parkinglot> GetParkinglotById(int id)
         {
             _logger.LogInformation($"Getting Parkinglot by id: {id}");
-            IQueryable<Parkinglot> query = _context.Parkinglots.Where(x => x.ParkinglotId == id);
+            IQueryable<Parkinglot> query = _context.Parkinglots.Where(x => x.ParkinglotId == id)
+                .Include(x=> x.Parkingspot);
             return await query.FirstOrDefaultAsync();
         }
     }
