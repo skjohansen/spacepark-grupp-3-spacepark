@@ -16,5 +16,6 @@ namespace SpacePort.Models
         public DateTime EndTime { get; set; }
         
         public Parkingspot Parkingspot { get; set; }
+        public Driver Driver { get; set; }
     }
 }

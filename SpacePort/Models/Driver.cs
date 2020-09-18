@@ -12,6 +12,5 @@ namespace SpacePort.Models
         public int DriverId { get; set; }
 
         public string Name { get; set; }
-        public ICollection<Receipt> Receipts { get; set; }
     }
 }
