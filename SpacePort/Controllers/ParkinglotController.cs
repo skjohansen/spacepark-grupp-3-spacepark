@@ -58,7 +58,7 @@ namespace SpacePort.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<Parkingspot>>GetAvailableSpot(Parkinglot parkinglot, Parkingspot parkingspot)
+        public async Task<ActionResult<Parkingspot>> GetAvailableParkingspot([FromQuery]Parkinglot parkinglot, [FromQuery]Parkingspot parkingspot)
         {
             try
             {
