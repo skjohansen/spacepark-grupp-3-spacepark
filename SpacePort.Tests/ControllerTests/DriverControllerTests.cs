@@ -7,6 +7,8 @@ using SpacePort.Controllers;
 using Microsoft.Extensions.Logging;
 using SpacePort.Services.Repositories;
 using Microsoft.AspNetCore.Mvc;
+using SpacePort.Services.Interfaces;
+using System.Threading.Tasks;
 
 namespace SpacePort.Tests.ControllerTests
 {
@@ -34,41 +36,25 @@ namespace SpacePort.Tests.ControllerTests
         }
 
         [Fact]
-        public async void GetDriverById_ifExist_ExpectedNotNull()
+        public async void CreateDriver_IfCreateDriverNotNull_Expected201StatusCode()
         {
             //Arrange
-            var mockContext = new Mock<DataContext>();
-            mockContext.Setup(x => x.Drivers).ReturnsDbSet(GetDriver());
+            var driverRepo = new Mock<IDriverRepository>();
+            driverRepo.Setup(x => x.GetAll()).Returns(Task.FromResult(new Driver[1]));
+            driverRepo.Setup(x => x.Save()).Returns(Task.FromResult(true));
 
-            var logger = Mock.Of<ILogger<DriverRepository>>();
-            var driverRepo = new DriverRepository(mockContext.Object, logger);
-
-            var driverController = new DriverController(driverRepo);
+            var driverController = new DriverController(driverRepo.Object);
 
             //Act
-            var result = await driverController.GetDriverById(1);
+            var createdResult = await driverController.CreateDriver(new Driver
+            {
+                DriverId = 2,
+                Name = "Oskar"
+            });
+            var contentResult = createdResult.Result as NoContentResult;
 
             //Assert
-            Assert.NotNull(result.Value);
-        }
-
-        [Fact]
-        public async void GetDriverById_ifDoesNotExist_ExpectedIsNull()
-        {
-            //Arrange
-            var mockContext = new Mock<DataContext>();
-            mockContext.Setup(x => x.Drivers).ReturnsDbSet(GetDriver());
-
-            var logger = Mock.Of<ILogger<DriverRepository>>();
-            var driverRepo = new DriverRepository(mockContext.Object, logger);
-
-            var driverController = new DriverController(driverRepo);
-
-            //Act
-            var result = await driverController.GetDriverById(2);
-
-            //Assert
-            Assert.Null(result.Value);
+            Assert.Equal(204, contentResult.StatusCode);
         }
 
         public List<Driver> GetDriver()
