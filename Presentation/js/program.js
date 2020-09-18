@@ -3,11 +3,10 @@
 */
 
 {
-    let url = baseurl + "api/v1.0/drivers";
+    let url = baseurl + "drivers";
+    var errormessage = "";
 
     // Påbörja ny parkering
-
-    var errormessage = "";
     $("#start-parking").on("click", function() {
         if($("#park-form-name").val() < 1 && $("#park-form-driverid").val() < 1) {
             appendError("Du måste ange namn eller förarid");
@@ -24,19 +23,32 @@
             url: url,
             data: dataObject,
             type: "POST",
-            contentType: "application/json; charset=utf-8",
-
+            contentType: "application/json; charset=utf-8"
         }).done(function( data, statusText, xhr ) {
             if(xhr.status == 201) {
-                console.log(statusText + ". "+ data.name + " with id: " + data.driverId + " is part of Star Wars universe.");
+                console.log(statusText + ". Driver with id " + data.driverId + " was created.");
+                // Få ut en parkingspot
+
+                let url = baseurl + 'parkinglots';
+                $.ajax({
+                    url : url,
+                    data: JSON.stringify({
+                        ParkinglotId : $('#park-form-parkinglot').val(),
+                        Shipsize : $('#park-form-shipsize').val()
+                    }),
+                    type: "POST",
+                    contentType: "application/json; charset=utf-8"
+                }).done(function(response) {
+                    // Fått ut en parkingspot!
+                    console.log("parkingspot operation complete." + response.parkingspotId);
+                });
             }
             else {
-                errormessage = "not part of star wars";
+                errormessage = "Only people in Star Wars are allowed to park.";
                 appendError(errormessage);
             }
-        }).fail(function() {
-            console.log("Request failed");
-        }).always(function() {
+        }).always(function(jqXHR) {
+            console.log(jqXHR.statusText)
             unPausePage();
         });
     });
