@@ -55,6 +55,7 @@ input[type=text] {
   font-size: 20px;
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
+  color: #E6E039;
 }
 
 select, select option {
@@ -69,10 +70,10 @@ select, select option {
   -webkit-appearance: none;
      -moz-appearance: none;
           appearance: none;
+  color: #E6E039;
 }
 
 label {
-  color: #E6E039;
   font-weight: bold;
   letter-spacing: 1px;
 }
