@@ -26,3 +26,11 @@ $(".menu-button").on('click', function() {
         });
     }
 });
+
+function pausePage() {
+    $(".loading").fadeIn();
+}
+
+function unPausePage() {
+    $(".loading").fadeOut();
+}

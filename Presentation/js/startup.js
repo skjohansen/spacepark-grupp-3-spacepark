@@ -15,7 +15,7 @@
     //let url = "http://localhost:5001/api/v1.0/parkinglots";
 
     // manuell url
-    let url = "https://localhost:44314/api/v1.0/parkinglots";
+    let url = "https://localhost:5001/api/v1.0/parkinglots";
     var errormessage = "";
 
     // hämta parkinglots
@@ -24,7 +24,6 @@
         }).done(function(data) {
             console.log("Parsing items.");
 
-            var items = [];
             $.each(data, function(i, item) {
                 $('<option value="'+item.parkinglotId+'">'+item.name+'</option>').appendTo("#park-form-parkinglot");
             });
@@ -35,7 +34,7 @@
         .always(function() {
             console.log("Finished loading.");
             connected = true;
-            $(".loading").fadeOut();
+            unPausePage();
             if (errormessage.length > 0) {
                 appendError(errormessage);  
             }

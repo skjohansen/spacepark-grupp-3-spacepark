@@ -59,9 +59,30 @@ namespace SpacePort.Controllers
         // This method should do a request to swapi
         // For now it just posts back to Presentation
         [HttpPost]
-        public ActionResult<Driver> CreateDriver(Driver driver)
+        public async Task<ActionResult<Driver>> CreateDriver(Driver driver)
         {
-            return Ok(new Driver { DriverId = 1, Name = driver.Name });
+            try
+            {
+                bool driverInStarWars = await StarWarsApi.GetDriverName(driver.Name);
+
+                if (driverInStarWars)
+                {
+                    _repo.Add(driver);
+                    if(await _repo.Save())
+                    {
+                        return Created("/api/v1.0/drivers/" + driver.DriverId, new Driver { DriverId = driver.DriverId, Name = driver.Name });
+                    }
+                    return BadRequest();
+                }
+                else
+                {
+                    return NoContent();
+                }
+            }
+            catch (Exception e)
+            {
+                return this.StatusCode(StatusCodes.Status500InternalServerError, $"Database failure {e.Message}");
+            }
         }
     }
 }

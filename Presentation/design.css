@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@100;400&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Kufam:wght@100;400&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Oswald:wght@100;500&display=swap");
 .text-yellow {
   color: #E6E039 !important;
@@ -6,6 +6,14 @@
 
 .text-green {
   color: #22d35d !important;
+}
+
+.text-shadow {
+  text-shadow: 2px 1px black;
+}
+
+a {
+  color: white;
 }
 
 body, html, input, select {
@@ -16,14 +24,16 @@ body, html, input, select {
 body {
   height: 100%;
   min-height: 100%;
-  background: -webkit-gradient(linear, left top, left bottom, from(#212121), color-stop(16%, #313231), to(#313231));
-  background: linear-gradient(#212121 0%, #313231 16%, #313231 100%);
+  background-image: url(gfx/hangar.jpg);
+  background-size: 100% 100%;
+  background-position: center center;
+  background-attachment: fixed;
   background-repeat: no-repeat;
   background-color: #313231;
   color: #CECDCE;
-  font-family: "Roboto", sans-serif;
-  font-size: 18px;
-  z-index: 2;
+  font-family: "Kufam", sans-serif;
+  font-size: 16px;
+  z-index: 1;
 }
 
 input, h1, h2, h3, h4, p {
@@ -42,7 +52,7 @@ input[type=text] {
   border-radius: 4px;
   width: 100%;
   margin-top: 1em;
-  font-size: 16px;
+  font-size: 20px;
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
 }
@@ -55,18 +65,26 @@ select, select option {
   border-radius: 4px;
   width: 100%;
   margin-top: 1em;
-  font-size: 16px;
+  font-size: 20px;
   -webkit-appearance: none;
      -moz-appearance: none;
           appearance: none;
+}
+
+label {
+  color: #E6E039;
+  font-weight: bold;
+  letter-spacing: 1px;
 }
 
 .container {
   width: 1024px;
   text-align: center;
   margin: 0 auto;
-  margin-top: 6vh;
+  margin-top: 5vh;
   padding-top: 80px;
+  z-index: 3;
+  position: relative;
 }
 
 .logo {
@@ -111,7 +129,7 @@ select, select option {
 }
 
 .button.menu-button {
-  margin: 2vh;
+  margin: 12px;
   width: 50%;
   background-color: #4a4c4a;
 }
@@ -125,6 +143,24 @@ select, select option {
 
 .button.menu-button--active:hover {
   background-color: #a49f15 !important;
+}
+
+.bg-filter {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 2;
+}
+
+.forgot {
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+  color: #E6E039;
+  z-index: 4;
 }
 
 .loading {
@@ -257,7 +293,6 @@ select, select option {
   padding: 40px;
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
-  z-index: 1;
 }
 
 .footer {

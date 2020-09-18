@@ -8,10 +8,11 @@ using System.Threading.Tasks;
 
 namespace SpacePort.Services
 {
-    public class StarWarsApi
+    public static class StarWarsApi
     {
         private const string Path= "https://swapi.dev/api/";
-        public async Task<bool>GetDriverName(string name)
+
+        public static async Task<bool>GetDriverName(string name)
         {
             name = name.ToLower();
             var request = new RestRequest($"people/?search={name}", Method.GET);
@@ -20,13 +21,7 @@ namespace SpacePort.Services
             var response = await client.ExecuteAsync(request);
             JObject jObject = JObject.Parse(response.Content);
 
-            int count = (int)jObject["count"];
-            if (count< 1)
-            {
-                return false;
-            }
-            else
-            return true;
+            return (int)jObject["count"] > 0;
         }
     }
 }

@@ -3,7 +3,9 @@
 */
 
 {
-    let url = "https://localhost:44314/api/v1.0/drivers";
+    let url = "https://localhost:5001/api/v1.0/drivers";
+
+    // Påbörja ny parkering
 
     var errormessage = "";
     $("#start-parking").on("click", function() {
@@ -16,49 +18,26 @@
             'name': $('#park-form-name').val()
         });
 
+        // Gör kontroll av namn
+        pausePage();
         $.ajax({ 
             url: url,
             data: dataObject,
             type: "POST",
             contentType: "application/json; charset=utf-8",
 
-        })
-        .done(function( data ) {
-            console.log("Posting done.");
-            alert(data.name)
-        })
-        .fail(function() {
-            console.log("Posting failed.");
+        }).done(function( data, statusText, xhr ) {
+            if(xhr.status == 201) {
+                console.log(statusText + ". "+ data.name + " with id: " + data.driverId + " is part of Star Wars universe.");
+            }
+            else {
+                errormessage = "not part of star wars";
+                appendError(errormessage);
+            }
+        }).fail(function() {
+            console.log("Request failed");
+        }).always(function() {
+            unPausePage();
         });
-
-
-
-        // $.post( url )
-        // .done(function(data) {
-        //     console.log("Posting done.");
-        //     console.log(data);
-        // })
-        // .always(function() {
-        //     console.log("Posting finished.");
-        // });
-
-        // $.ajax({
-        //     url: url,
-        //     type: "POST",
-        //     data: dataObject,
-        //     contentType: "application/json; charset=utf-8",
-        //     dataType: "json",
-        //     success: function (response) {
-        //         console.log("from success: " + response.responseText);
-        //     },
-        //     error: function (response) {
-        //         console.log("from error: " + response);
-        //     },
-        //     failure: function (response) {
-        //         console.log("from failure: " + response.responseText);
-        //     }
-        // })
-
-
     });
 }
