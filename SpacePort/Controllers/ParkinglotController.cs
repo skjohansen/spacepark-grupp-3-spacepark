@@ -57,29 +57,27 @@ namespace SpacePort.Controllers
             }
         }
 
-        [HttpPost]
-        public async Task<ActionResult<Parkingspot>> GetAvailableParkingspot([FromQuery]Parkinglot parkinglot, [FromQuery]Parkingspot parkingspot)
+        public class PostParkingspotRequest
         {
-            try
-            {
-                Parkinglot lot = await _repo.GetParkinglotById(parkinglot.ParkinglotId);
-                if (lot == null)
-                {
-                    return NotFound($"Parkinglot with id {lot.ParkinglotId} not found");
-                }
+            public int ParkinglotId { get; set; }
+            public int Shipsize { get; set; }
+        }
 
-                Parkingspot spot = lot.Parkingspot.Where(x => x.Occupied == false && x.Size == parkingspot.Size).FirstOrDefault();
-                if (spot == null)
-                {
-                    return NotFound($"There is no avaible parkingspot with this specification: {lot.ParkinglotId}");
-                }
-                return Ok(spot);
+        [HttpPost]
+        public async Task<ActionResult<Parkingspot>> GetAvailableParkingspot(PostParkingspotRequest requestJson)
+        {
+            Parkinglot lot = await _repo.GetParkinglotById(requestJson.ParkinglotId);
+            if (lot == null)
+            {
+                return NotFound($"Parkinglot with id {lot.ParkinglotId} not found");
             }
 
-            catch (Exception e)
+            Parkingspot spot = lot.Parkingspot.Where(x => x.Occupied == false && x.Size == requestJson.Shipsize).FirstOrDefault();
+            if (spot == null)
             {
-                return this.StatusCode(StatusCodes.Status500InternalServerError, $"Database failure {e.Message}");
+                return NotFound($"There is no avaible parkingspot with this specification: {lot.ParkinglotId}");
             }
+            return Ok(spot);
         }
 
     }
