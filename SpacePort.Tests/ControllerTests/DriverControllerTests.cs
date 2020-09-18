@@ -33,44 +33,6 @@ namespace SpacePort.Tests.ControllerTests
             Assert.True(resultDriver.Length > 0);
         }
 
-        [Fact]
-        public async void GetDriverById_ifExist_ExpectedNotNull()
-        {
-            //Arrange
-            var mockContext = new Mock<DataContext>();
-            mockContext.Setup(x => x.Drivers).ReturnsDbSet(GetDriver());
-
-            var logger = Mock.Of<ILogger<DriverRepository>>();
-            var driverRepo = new DriverRepository(mockContext.Object, logger);
-
-            var driverController = new DriverController(driverRepo);
-
-            //Act
-            var result = await driverController.GetDriverById(1);
-
-            //Assert
-            Assert.NotNull(result.Value);
-        }
-
-        [Fact]
-        public async void GetDriverById_ifDoesNotExist_ExpectedIsNull()
-        {
-            //Arrange
-            var mockContext = new Mock<DataContext>();
-            mockContext.Setup(x => x.Drivers).ReturnsDbSet(GetDriver());
-
-            var logger = Mock.Of<ILogger<DriverRepository>>();
-            var driverRepo = new DriverRepository(mockContext.Object, logger);
-
-            var driverController = new DriverController(driverRepo);
-
-            //Act
-            var result = await driverController.GetDriverById(2);
-
-            //Assert
-            Assert.Null(result.Value);
-        }
-
         public List<Driver> GetDriver()
         {
             return new List<Driver>
