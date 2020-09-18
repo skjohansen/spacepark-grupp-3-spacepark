@@ -47,8 +47,7 @@
                 errormessage = "Only people in Star Wars are allowed to park.";
                 appendError(errormessage);
             }
-        }).always(function(jqXHR) {
-            console.log(jqXHR.statusText)
+        }).always(function() {
             unPausePage();
         });
     });
