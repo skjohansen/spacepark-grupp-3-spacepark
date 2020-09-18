@@ -11,7 +11,7 @@ namespace SpacePort.Tests.RepositoryTests
     public class ParkinglotRepositoryTests
     {
         [Fact]
-        public async void GetAllParkinglots_ReturnsObjects_ExpectedTrue()
+        public async void GetAll_ReturnsObjects_ExpectedTrue()
         {
             // Arrange
             var mockContext = new Mock<DataContext>();

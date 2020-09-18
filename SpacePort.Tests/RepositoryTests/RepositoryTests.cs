@@ -1,12 +1,7 @@
-﻿using Castle.Core.Logging;
-using Microsoft.Extensions.Logging;
+﻿using Microsoft.Extensions.Logging;
 using Moq;
 using SpacePort.Models;
 using SpacePort.Services.Repositories;
-using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading.Tasks;
 using Xunit;
 
 namespace SpacePort.Tests.RepositoryTests
@@ -14,7 +9,7 @@ namespace SpacePort.Tests.RepositoryTests
     public class RepositoryTests
     {
         [Fact]
-        public async void Add_ifObjectSaved_ReturnTrue()
+        public async void Add_ifObjectSaved_ExpectedTrue()
         {
             //Arrange
             var context = new Mock<DataContext>();
@@ -31,7 +26,7 @@ namespace SpacePort.Tests.RepositoryTests
         }
 
         [Fact]
-        public async void Update_ifEntityUpdated_ReturnTrue()
+        public async void Update_ifEntityUpdated_ExpectedTrue()
         {
             //Arrange
             var context = new Mock<DataContext>();
@@ -48,7 +43,7 @@ namespace SpacePort.Tests.RepositoryTests
         }
 
         [Fact]
-        public async void Delete_ifEntityDeleted_ReturnTrue()
+        public async void Delete_ifEntityDeleted_ExpectedTrue()
         {
             //Arrange
             var context = new Mock<DataContext>();
