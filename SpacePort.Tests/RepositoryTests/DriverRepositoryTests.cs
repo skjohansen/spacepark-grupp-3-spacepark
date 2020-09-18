@@ -33,6 +33,40 @@ namespace SpacePort.Tests.RepositoryTests
 
         }
 
+        [Fact]
+        public async void GetDriverById_ifExist_ReturnDriver()
+        {
+            //Arrange
+            var context = new Mock<DataContext>();
+            context.Setup(x => x.Drivers).ReturnsDbSet(GetDriver());
+
+            var logger = Mock.Of<ILogger<DriverRepository>>();
+            var driverRepo = new DriverRepository(context.Object, logger);
+
+            //Fact
+            var result = await driverRepo.GetDriverById(1);
+
+            //Assert
+            Assert.NotNull(result);
+        }
+
+        [Fact]
+        public async void GetDriverById_ifDoesNotExist_ReturnNull()
+        {
+            //Arrange
+            var context = new Mock<DataContext>();
+            context.Setup(x => x.Drivers).ReturnsDbSet(GetDriver());
+
+            var logger = Mock.Of<ILogger<DriverRepository>>();
+            var driverRepo = new DriverRepository(context.Object, logger);
+
+            //Fact
+            var result = await driverRepo.GetDriverById(2);
+
+            //Assert
+            Assert.Null(result);
+        }
+
         public List<Driver> GetDriver()
         {
             return new List<Driver>
