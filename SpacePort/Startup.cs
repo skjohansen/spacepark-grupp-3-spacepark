@@ -31,6 +31,10 @@ namespace SpacePort
             services.AddScoped<IParkinglotRepository, ParkinglotRepository>();
             services.AddScoped<IParkingspotRepository, ParkingspotRepository>();
             services.AddScoped<IReceiptRepository, ReceiptRepository>();
+            services.AddControllers().AddNewtonsoftJson(Options =>
+            {
+                Options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
+            });
 
             services.AddCors(c =>
             {
@@ -66,10 +70,16 @@ namespace SpacePort
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapControllerRoute(
-                    name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
+                endpoints.MapControllers();
             });
+
+
+            //app.UseEndpoints(endpoints =>
+            //{
+            //    endpoints.MapControllerRoute(
+            //        name: "default",
+            //        pattern: "{controller=Home}/{action=Index}/{id?}");
+            //});
         }
     }
 }
