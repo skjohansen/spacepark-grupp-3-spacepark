@@ -1,13 +1,8 @@
-﻿using Microsoft.EntityFrameworkCore.ChangeTracking.Internal;
-using Moq;
+﻿using Moq;
 using SpacePort.Models;
-using System;
 using System.Collections.Generic;
-using System.Text;
-using System.Threading.Tasks;
 using Moq.EntityFrameworkCore;
 using Xunit;
-using Castle.Core.Logging;
 using SpacePort.Services.Repositories;
 using Microsoft.Extensions.Logging;
 
@@ -19,13 +14,13 @@ namespace SpacePort.Tests.RepositoryTests
         public async void GetAll_ifAnyExist_ReturnTrue()
         {
             //Arrange
-            var context = new Mock<DataContext>();
-            context.Setup(x => x.Drivers).ReturnsDbSet(GetDriver());
+            var mockContext = new Mock<DataContext>();
+            mockContext.Setup(x => x.Drivers).ReturnsDbSet(GetDriver());
 
             var logger = Mock.Of<ILogger<DriverRepository>>();
-            var driverRepo = new DriverRepository(context.Object, logger);
+            var driverRepo = new DriverRepository(mockContext.Object, logger);
 
-            //Fact
+            //Act
             var result = await driverRepo.GetAll();
 
             //Assert
@@ -34,16 +29,16 @@ namespace SpacePort.Tests.RepositoryTests
         }
 
         [Fact]
-        public async void GetDriverById_ifExist_ReturnDriver()
+        public async void GetDriverById_ifExist_AssertNotNull()
         {
             //Arrange
-            var context = new Mock<DataContext>();
-            context.Setup(x => x.Drivers).ReturnsDbSet(GetDriver());
+            var mockContext = new Mock<DataContext>();
+            mockContext.Setup(x => x.Drivers).ReturnsDbSet(GetDriver());
 
             var logger = Mock.Of<ILogger<DriverRepository>>();
-            var driverRepo = new DriverRepository(context.Object, logger);
+            var driverRepo = new DriverRepository(mockContext.Object, logger);
 
-            //Fact
+            //Act
             var result = await driverRepo.GetDriverById(1);
 
             //Assert
@@ -51,16 +46,16 @@ namespace SpacePort.Tests.RepositoryTests
         }
 
         [Fact]
-        public async void GetDriverById_ifDoesNotExist_ReturnNull()
+        public async void GetDriverById_ifDoesNotExist_AssertIsNull()
         {
             //Arrange
-            var context = new Mock<DataContext>();
-            context.Setup(x => x.Drivers).ReturnsDbSet(GetDriver());
+            var mockContext = new Mock<DataContext>();
+            mockContext.Setup(x => x.Drivers).ReturnsDbSet(GetDriver());
 
             var logger = Mock.Of<ILogger<DriverRepository>>();
-            var driverRepo = new DriverRepository(context.Object, logger);
+            var driverRepo = new DriverRepository(mockContext.Object, logger);
 
-            //Fact
+            //Act
             var result = await driverRepo.GetDriverById(2);
 
             //Assert
@@ -77,7 +72,6 @@ namespace SpacePort.Tests.RepositoryTests
                     Name="Pierre"
                 }
             };
-
         }
     }
 }
