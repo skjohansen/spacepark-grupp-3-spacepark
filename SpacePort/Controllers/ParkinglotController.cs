@@ -66,18 +66,17 @@ namespace SpacePort.Controllers
         [HttpPost]
         public async Task<ActionResult<Parkingspot>> GetAvailableParkingspot(PostParkingspotRequest requestJson)
         {
-            Parkinglot lot = await _repo.GetParkinglotById(requestJson.ParkinglotId);
-            if (lot == null)
+            try
             {
-                return NotFound($"Parkinglot with id {lot.ParkinglotId} not found");
+                Parkinglot lot = await _repo.GetParkinglotById(requestJson.ParkinglotId);
+                Parkingspot spot = lot.Parkingspot.Where(x => x.Occupied == false && x.Size == requestJson.Shipsize).FirstOrDefault();
+                return Ok(spot);
             }
-
-            Parkingspot spot = lot.Parkingspot.Where(x => x.Occupied == false && x.Size == requestJson.Shipsize).FirstOrDefault();
-            if (spot == null)
+            catch (Exception e)
             {
-                return NotFound($"There is no avaible parkingspot with this specification: {lot.ParkinglotId}");
+                return this.StatusCode(StatusCodes.Status500InternalServerError, $"Database failure {e.Message}");
             }
-            return Ok(spot);
+            
         }
 
     }
