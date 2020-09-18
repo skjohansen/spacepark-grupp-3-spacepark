@@ -34,7 +34,7 @@ namespace SpacePort.Tests.RepositoryTests
         [Theory]
         [InlineData(1, "LotA")]
         [InlineData(2, "LotB")]
-        public async void GetParkinglotByIdTest_CheckIfReturnedObjectContainsCorrectName(int inlineInt, string expected)
+        public async void GetParkinglotByIdTest_CheckIfReturnedObject_ContainsCorrectName(int inlineInt, string expected)
         {
             //Arrange
             IList<Parkinglot> parkinglots = GenerateParkinglots();
