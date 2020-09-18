@@ -13,6 +13,5 @@ namespace SpacePort.Models
         [MinLength(2,ErrorMessage ="Name should be longer than 2 characters")]
         public string Name { get; set; }
         public ICollection<Parkingspot> Parkingspot { get; set; }
-
     }
 }

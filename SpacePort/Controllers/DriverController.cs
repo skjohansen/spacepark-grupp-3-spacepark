@@ -56,10 +56,8 @@ namespace SpacePort.Controllers
             }
         }
 
-        // This method should do a request to swapi
-        // For now it just posts back to Presentation
         [HttpPost]
-        public async Task<ActionResult<Driver>> CreateDriver(Driver driver)
+        public async Task<ActionResult<Driver>> CreateDriver(Driver driver) 
         {
             try
             {

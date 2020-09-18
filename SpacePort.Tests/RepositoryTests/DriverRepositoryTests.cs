@@ -40,8 +40,7 @@ namespace SpacePort.Tests.RepositoryTests
                 new Driver
                 {
                     DriverId=1,
-                    Name="Pierre", 
-                    Receipts= null
+                    Name="Pierre"
                 }
             };
 
