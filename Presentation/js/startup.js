@@ -15,7 +15,7 @@
     //let url = "http://localhost:5001/api/v1.0/parkinglots";
 
     // manuell url
-    let url = baseurl + "api/v1.0/parkinglots";
+    let url = baseurl + "parkinglots";
     var errormessage = "";
 
     // hämta parkinglots

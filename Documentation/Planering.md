@@ -15,6 +15,12 @@ Vi använder oss av GitBash som verktyg för Git, Visual Studio för kodning, Di
 ## Arbetssätt
 Vi börjar med att gemensamt sätta upp issues och eventuella tidsramar och tider för uppsamling. Vi jobbar enskilt med issues i separata branches som vi sedan, ofta gemensamt, mergar till master.
 
+### Testkonvention
+Så mycket som möjligt ska testas. Testnamn ska skrivas utförliga utifrån följande:
+```
+Metodensnamn_VadSomTestas_VadSomFörväntas
+```
+
 
 ## Själva programmet
 
