@@ -1,7 +1,7 @@
 /* 
     configuration.js
 */
-
+var baseurl = "https://localhost:5001/";
 var connected = false;
 
 $(".box__content[data-content='" + 2 +"']").hide().slideUp();

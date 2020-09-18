@@ -3,7 +3,7 @@
 */
 
 {
-    let url = "https://localhost:5001/api/v1.0/drivers";
+    let url = baseurl + "api/v1.0/drivers";
 
     // Påbörja ny parkering
 
