@@ -34,13 +34,15 @@
                     url : url,
                     data: JSON.stringify({
                         ParkinglotId : $('#park-form-parkinglot').val(),
-                        Shipsize : $('#park-form-shipsize').val()
+                        Shipsize : 4//$('#park-form-shipsize').val()
                     }),
                     type: "POST",
                     contentType: "application/json; charset=utf-8"
                 }).done(function(response) {
                     // Fått ut en parkingspot!
                     console.log("parkingspot operation complete." + response.parkingspotId);
+                }).fail(function(){
+                    appendError("Kunde inte hitta en parkering som passar ditt skepps mått.");
                 });
             }
             else {

@@ -251,13 +251,15 @@ label {
 }
 
 .box__error {
-  background: #9e4a4a;
-  border: 1px solid red;
+  background: #b35050;
+  border: 2px solid #b84315 134, 22, 22;
   padding: 40px;
   margin: 40px;
+  border-radius: 4px;
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
   position: relative;
+  color: white;
 }
 
 .box__error .close-error {
