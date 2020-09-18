@@ -57,29 +57,26 @@ namespace SpacePort.Controllers
             }
         }
 
+        public class PostParkingspotRequest
+        {
+            public int ParkinglotId { get; set; }
+            public int Shipsize { get; set; }
+        }
+
         [HttpPost]
-        public async Task<ActionResult<Parkingspot>> GetAvailableParkingspot([FromQuery]Parkinglot parkinglot, [FromQuery]Parkingspot parkingspot)
+        public async Task<ActionResult<Parkingspot>> GetAvailableParkingspot(PostParkingspotRequest requestJson)
         {
             try
             {
-                Parkinglot lot = await _repo.GetParkinglotById(parkinglot.ParkinglotId);
-                if (lot == null)
-                {
-                    return NotFound($"Parkinglot with id {lot.ParkinglotId} not found");
-                }
-
-                Parkingspot spot = lot.Parkingspot.Where(x => x.Occupied == false && x.Size == parkingspot.Size).FirstOrDefault();
-                if (spot == null)
-                {
-                    return NotFound($"There is no avaible parkingspot with this specification: {lot.ParkinglotId}");
-                }
+                Parkinglot lot = await _repo.GetParkinglotById(requestJson.ParkinglotId);
+                Parkingspot spot = lot.Parkingspot.Where(x => x.Occupied == false && x.Size == requestJson.Shipsize).FirstOrDefault();
                 return Ok(spot);
             }
-
             catch (Exception e)
             {
                 return this.StatusCode(StatusCodes.Status500InternalServerError, $"Database failure {e.Message}");
             }
+            
         }
 
     }
