@@ -25,7 +25,7 @@ namespace SpacePort.Tests.RepositoryTests
             var logger = Mock.Of<ILogger<DriverRepository>>();
             var driverRepo = new DriverRepository(context.Object, logger);
 
-            //Fact
+            // Fact
             var result = await driverRepo.GetAll();
 
             //Assert
