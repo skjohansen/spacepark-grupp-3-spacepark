@@ -61,13 +61,19 @@ namespace SpacePort.Controllers
             }
         }
 
+        public class PostReceipt
+        {
+            public int ParkingspotId { get; set; }
+            public int DriverId { get; set; }
+        }
+
         [HttpPost]
-        public async Task<ActionResult<Receipt>>CreateReceipt([FromQuery]Parkingspot parkingspot, [FromQuery]Driver driver)
+        public async Task<ActionResult<Receipt>>CreateReceipt(PostReceipt receipt)
         {
             try
             {
-                var getDriver = await _driverRepo.GetDriverById(driver.DriverId);
-                var getParkingspot = await _spotRepo.GetparkingspotById(parkingspot.ParkingspotId);
+                var getDriver = await _driverRepo.GetDriverById(receipt.DriverId);
+                var getParkingspot = await _spotRepo.GetparkingspotById(receipt.ParkingspotId);
 
 
                 Receipt entity = new Receipt
@@ -90,19 +96,6 @@ namespace SpacePort.Controllers
                 }
                 return BadRequest();
 
-                //var entity = new 
-                //{
-                //    RegistrationTime = DateTime.Now, 
-                //    DriverId= driver.DriverId,
-                //    ParkingspotId=parkingspot.ParkingspotId
-                //};
-
-                //_repo.Add(entity);
-                //if (await _repo.Save())
-                //{
-                //    return Created($"/api/v1.0/Receipts", new Receipt { });
-                //}
-                //return BadRequest();
             }
             catch (Exception e)
             {
