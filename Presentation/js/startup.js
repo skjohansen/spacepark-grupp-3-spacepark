@@ -19,7 +19,7 @@
     var errormessage = "";
 
     // hämta parkinglots
-    var jqxhr = $.getJSON(url, function() {
+    $.getJSON(url, function() {
             console.log("Requesting parkinglots from API.");
         }).done(function(data) {
             console.log("Parsing items.");

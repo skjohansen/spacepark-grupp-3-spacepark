@@ -143,14 +143,6 @@ label {
     z-index: 2;
 }
 
-.forgot {
-    position: fixed;
-    bottom: 20px;
-    left: 20px;
-    color: $yellow;
-    z-index: 4;
-}
-
 .loading {
     position: fixed;
     top: 0;
@@ -204,9 +196,7 @@ label {
     width: 100%;
     margin-top: 2em;
 
-    &__error {
-        background: #b35050;
-        border: 2px solid rgb(184, 67, 21)(134, 22, 22);
+    &__info {
         padding: 40px;
         margin: 40px;
         border-radius: 4px;
@@ -214,7 +204,23 @@ label {
         position: relative;
         color: white;
 
-        .close-error {
+        &--error {
+            background: #b35050;
+            border: 2px solid rgb(184, 67, 21)(134, 22, 22);
+        }
+
+        &--success {
+            background: #289c45;
+            border: 2px solid rgb(18, 155, 64)(134, 22, 22);
+            color: $back;
+            text-align: left;
+
+            p {
+                padding: 5px 0;
+            }
+        }
+
+        .close-error, .close-success {
             position: absolute;
             top: 20px;
             right: 20px;
@@ -223,8 +229,11 @@ label {
             background-image: url(gfx/cross.png);
             background-size: cover;
             cursor: pointer;
-            filter: invert(90%);
         }   
+
+        .close-error {
+            filter: invert(90%);
+        }
     }
 
     &__columns {

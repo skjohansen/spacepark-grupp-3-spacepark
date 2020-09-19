@@ -68,7 +68,7 @@ namespace SpacePort.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<Receipt>>CreateReceipt(PostReceipt receipt)
+        public async Task<ActionResult<Receipt>> CreateReceipt(PostReceipt receipt)
         {
             try
             {
@@ -80,7 +80,7 @@ namespace SpacePort.Controllers
                 {
                     RegistrationTime = DateTime.Now,
                     Driver = getDriver,
-                    Parkingspot =getParkingspot
+                    Parkingspot = getParkingspot
                 };
 
                 _repo.Add(entity);
@@ -91,7 +91,7 @@ namespace SpacePort.Controllers
                         ReceiptId=entity.ReceiptId,
                         RegistrationTime=entity.RegistrationTime,
                         Driver=entity.Driver,
-                        Parkingspot=entity.Parkingspot,
+                        Parkingspot=entity.Parkingspot
                     });
                 }
                 return BadRequest();
