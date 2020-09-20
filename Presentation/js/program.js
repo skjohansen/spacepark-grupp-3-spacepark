@@ -106,6 +106,8 @@ function unPausePage() {
                 unPausePage();
             }
         }).fail(function() {
+            errormessage = "Ingen kontakt med API.";
+            appendError(errormessage);
             unPausePage();
         });
     }
@@ -149,7 +151,8 @@ function unPausePage() {
                 ajaxCall_OccupyParkingspot(parkingspotId, driverId);
             }
         }).fail(function(){
-            appendError("Unknown error. Parking failed.");
+            errormessage = "Okänt fel, parkeringen misslyckades.";
+            appendError(errormessage);
             unPausePage();
         });
     }
@@ -171,7 +174,8 @@ function unPausePage() {
             }
             unPausePage();
         }).fail(function(){
-            appendError("Unknown error. Could not update parkingspot status.");
+            errormessage = "Okänt fel, parkeringen misslyckades.";
+            appendError(errormessage);
             unPausePage();
         });
     }
