@@ -41,7 +41,6 @@ function unPausePage() {
     let url = baseurl + "parkinglots";
     let errormessage = "";
 
-    // hämta parkinglots
     $.getJSON(url, function() {
             console.log("Requesting parkinglots from API.");
         }).done(function(data) {
