@@ -2,6 +2,68 @@
     program.js
 */
 
+// Configuration
+var baseurl = "https://localhost:5001/api/v1.0/";
+
+$(".box__content[data-content='" + 2 +"']").hide().slideUp();
+
+$(".menu-button").on('click', function() {
+    if(!$(this).hasClass("menu-button--active")) { 
+        
+        $(".box__error").slideUp();
+        var clicked = $(this).data('button');
+
+        $(".menu-button").each(function() { 
+            $(this).toggleClass("menu-button--active");
+        });
+
+        $('.box__content[data-content]').each(function(){
+            if( $(this).attr('data-content') == clicked ) {
+                $(this).slideDown().show();
+            }
+            else {
+                $(this).slideUp().hide();
+            }
+        });
+    }
+});
+
+function pausePage() {
+    $(".loading").fadeIn();
+}
+
+function unPausePage() {
+    $(".loading").fadeOut();
+}
+
+// Startup
+{
+    let url = baseurl + "parkinglots";
+    let errormessage = "";
+
+    // hämta parkinglots
+    $.getJSON(url, function() {
+            console.log("Requesting parkinglots from API.");
+        }).done(function(data) {
+            console.log("Parsing items.");
+
+            $.each(data, function(i, item) {
+                $('<option value="'+item.parkinglotId+'">'+item.name+'</option>').appendTo("#park-form-parkinglot");
+            });
+            console.log("Done parsing items.")
+        }).fail(function() {
+            errormessage = "Ingen kontakt med API.";
+        })
+        .always(function() {
+            console.log("Finished loading.");
+            unPausePage();
+            if (errormessage.length > 0) {
+                appendError(errormessage);  
+            }
+    });
+}
+
+// Program
 {
     let url = baseurl + "drivers";
     var errormessage;
