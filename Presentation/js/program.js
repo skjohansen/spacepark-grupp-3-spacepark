@@ -42,6 +42,7 @@
             else {
                 errormessage = "Only people in Star Wars are allowed to park.";
                 appendError(errormessage);
+                unPausePage();
             }
         }).fail(function() {
             unPausePage();
