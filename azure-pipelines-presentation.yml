@@ -1,3 +1,4 @@
+##lägger ihop release och build
 trigger:
 - master
 
