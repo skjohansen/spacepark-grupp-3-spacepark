@@ -11,15 +11,6 @@ variables:
 pool:
   vmImage: $(vmImageName)
 
-steps:
-- task: DotNetCoreCLI@2
-  inputs: 
-    command: test
-    project: '/SpacePort.Tests/*.csproj'
-    arguments: '--configuration $(buildConfiguration)'
-- script: dotnet build --configuration $(buildConfiguration)
-  displayName: 'dotnet build $(buildConfiguration)'
-
 stages:
 - stage: Build
   displayName: Build and push stage
@@ -38,3 +29,12 @@ stages:
         containerRegistry: diceappacr
         tags: |
           $(tag)
+
+steps:
+- task: DotNetCoreCLI@2
+  inputs: 
+    command: test
+    project: '/SpacePort.Tests/*.csproj'
+    arguments: '--configuration $(buildConfiguration)'
+- script: dotnet build --configuration $(buildConfiguration)
+  displayName: 'dotnet build $(buildConfiguration)'
