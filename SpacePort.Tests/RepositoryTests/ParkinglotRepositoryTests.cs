@@ -11,7 +11,7 @@ namespace SpacePort.Tests.RepositoryTests
     public class ParkinglotRepositoryTests
     {
         [Fact]
-        public async void GetAllParkinglots_ReturnsObjects_ExpectedTrue()
+        public async void GetAll_ReturnsObjects_ExpectedTrue()
         {
             // Arrange
             var mockContext = new Mock<DataContext>();
@@ -30,5 +30,44 @@ namespace SpacePort.Tests.RepositoryTests
             // Assert
             Assert.True(result.Length == 2);
         }
+
+        [Theory]
+        [InlineData(1, "LotA")]
+        [InlineData(2, "LotB")]
+        public async void GetParkinglotByIdTest_CheckIfReturnedObject_ContainsCorrectName(int inlineInt, string expected)
+        {
+            //Arrange
+            IList<Parkinglot> parkinglots = GenerateParkinglots();
+            var mockContext = new Mock<DataContext>();
+            mockContext.Setup(p => p.Parkinglots).ReturnsDbSet(parkinglots);
+
+            var logger = Mock.Of<ILogger<ParkinglotRepository>>();
+            var parkinglotRepository = new ParkinglotRepository(mockContext.Object, logger);
+
+            //Act
+            var theParkinglot = await parkinglotRepository.GetParkinglotById(inlineInt);
+
+            //Assert
+            Assert.Equal(expected, theParkinglot.Name);
+        }
+
+        private static IList<Parkinglot> GenerateParkinglots()
+        {
+            return new List<Parkinglot>
+            {
+                new Parkinglot
+                {
+                    ParkinglotId = 1,
+                    Name = "LotA"
+
+                },
+                new Parkinglot
+                {
+                    ParkinglotId = 2,
+                    Name = "LotB"
+                }
+            };
+        }
+
     }
 }

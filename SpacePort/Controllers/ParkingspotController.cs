@@ -55,5 +55,38 @@ namespace SpacePort.Controllers
 
             }
         }
+
+        public class PutParkingspotRequest
+        {
+            public int ParkingspotId { get; set; }
+            public bool Occupied { get; set; }
+        }
+
+        [HttpPut]
+        public async Task<ActionResult<Parkingspot>> UpdateParkingspot(PutParkingspotRequest parkingspotRequest)
+        {
+            try
+            {
+                var parkingspot = await _repo.GetparkingspotById(parkingspotRequest.ParkingspotId);
+                if (parkingspot == null)
+                {
+                    return NotFound();
+                }
+
+                parkingspot.Occupied = parkingspotRequest.Occupied;
+                _repo.Update(parkingspot);
+                if(await _repo.Save())
+                {
+                    return Ok(parkingspot);
+                }
+                return BadRequest();
+
+            }
+            catch (Exception e)
+            {
+                return this.StatusCode(StatusCodes.Status500InternalServerError, $"Database failure {e.Message}");
+
+            }
+        }
     }
 }

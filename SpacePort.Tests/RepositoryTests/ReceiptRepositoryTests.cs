@@ -3,7 +3,6 @@ using Moq;
 using Moq.EntityFrameworkCore;
 using SpacePort.Services.Repositories;
 using SpacePort.Models;
-using System;
 using System.Collections.Generic;
 using Xunit;
 
@@ -12,7 +11,7 @@ namespace SpacePort.Tests.RepositoryTests
     public class ReceiptRepositoryTests
     {
         [Fact]
-        public async void GetAllReceipts_ReturnsObjects_ExpectedTrue()
+        public async void GetAll_ReturnsObjects_ExpectedTrue()
         {
             // Arrange
             var mockContext = new Mock<DataContext>();

@@ -19,9 +19,4 @@
     <ProjectReference Include="..\SpacePort\SpacePort.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="ControllerTests\" />
-    <Folder Include="ControllerTests\" />
-  </ItemGroup>
-
 </Project>

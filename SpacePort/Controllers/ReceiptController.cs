@@ -14,10 +14,13 @@ namespace SpacePort.Controllers
     public class ReceiptController : Controller
     {
         private readonly IReceiptRepository _repo;
-
-        public ReceiptController(IReceiptRepository repo)
+        private readonly IParkingspotRepository _spotRepo;
+        private readonly IDriverRepository _driverRepo;
+        public ReceiptController(IReceiptRepository repo, IDriverRepository d, IParkingspotRepository s)
         {
             _repo = repo;
+            _spotRepo = s;
+            _driverRepo = d;
         }
 
         [HttpGet]
@@ -55,6 +58,48 @@ namespace SpacePort.Controllers
             catch (Exception e)
             {
                 return this.StatusCode(StatusCodes.Status500InternalServerError, $"Database failure {e.Message}");
+            }
+        }
+
+        public class PostReceipt
+        {
+            public int ParkingspotId { get; set; }
+            public int DriverId { get; set; }
+        }
+
+        [HttpPost]
+        public async Task<ActionResult<Receipt>> CreateReceipt(PostReceipt receipt)
+        {
+            try
+            {
+                var getDriver = await _driverRepo.GetDriverById(receipt.DriverId);
+                var getParkingspot = await _spotRepo.GetparkingspotById(receipt.ParkingspotId);
+
+
+                Receipt entity = new Receipt
+                {
+                    RegistrationTime = DateTime.Now,
+                    Driver = getDriver,
+                    Parkingspot = getParkingspot
+                };
+
+                _repo.Add(entity);
+                if (await _repo.Save())
+                {
+                    return Created($"/api/v1.0/Receipts/{entity.ReceiptId}", new Receipt 
+                    { 
+                        ReceiptId=entity.ReceiptId,
+                        RegistrationTime=entity.RegistrationTime,
+                        Driver=entity.Driver,
+                        Parkingspot=entity.Parkingspot
+                    });
+                }
+                return BadRequest();
+
+            }
+            catch (Exception e)
+            {
+                return this.StatusCode(StatusCodes.Status500InternalServerError, $"Database failure{e.Message}");
             }
         }
     }
