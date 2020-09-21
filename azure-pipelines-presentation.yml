@@ -16,3 +16,9 @@ steps:
     rootFolderOrFile: '$(Build.ArtifactStagingDirectory)'
     includeRootFolder: false
 - task: PublishBuildArtifacts@1
+- task: Docker@2
+  inputs:
+    containerRegistry: 'presentationConnection'
+    repository: 'presentationregistry.azurecr.io'
+    command: 'buildAndPush'
+    Dockerfile: '**/Dockerfile'
