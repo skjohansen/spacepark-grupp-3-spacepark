@@ -6,6 +6,10 @@ pool:
 
 variables:
   buildConfiguration: 'Release'
+  imageRepository: 'spaceportregistry.azurecr.io'
+  containerRegistry: 'spaceportConnection'
+  tag: '$(Build.BuildId)'
+  vmImageName: 'ubuntu-latest'
 
 steps:
 - task: DotNetCoreCLI@2
@@ -15,3 +19,25 @@ steps:
     arguments: '--configuration $(buildConfiguration)'
 - script: dotnet build --configuration $(buildConfiguration)
   displayName: 'dotnet build $(buildConfiguration)'
+
+resources:
+- repo: self
+
+stages:
+- stage: Build
+  displayName: Build and push stage
+  jobs:
+  - job: Build
+    displayName: Build
+    pool:
+      vmImage: $(vmImageName)
+    steps:
+    - task: Docker@2
+      displayName: Build and push an image to container registry
+      inputs:
+        command: buildAndPush
+        repository: $(imageRepository)
+        dockerfile: SpacePort/Dockerfile
+        containerRegistry: $(containerRegistry)
+        tags: |
+          $(tag)
