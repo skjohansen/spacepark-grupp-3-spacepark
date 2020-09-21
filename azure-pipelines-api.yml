@@ -3,9 +3,9 @@ trigger:
 
 variables:
   buildConfiguration: 'Release'
-  imageRepository: 'mydiceapp.azurecr.io'
-  containerRegistry: 'mydiceapp'
-  tag: 'latest'
+  imageRepository: 'spaceportregistry.azurecr.io'
+  containerRegistry: 'spaceportConnection'
+  tag: '$(Build.BuildId)'
   vmImageName: 'ubuntu-latest'
   
 pool:
