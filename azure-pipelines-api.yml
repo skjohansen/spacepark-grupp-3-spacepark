@@ -1,11 +1,15 @@
 trigger:
 - master
 
-pool:
-  vmImage: 'ubuntu-latest'
-
 variables:
   buildConfiguration: 'Release'
+  imageRepository: 'mydiceapp.azurecr.io'
+  containerRegistry: 'mydiceapp'
+  tag: 'latest'
+  vmImageName: 'ubuntu-latest'
+  
+pool:
+  vmImage: $(vmImageName)
 
 steps:
 - task: DotNetCoreCLI@2
@@ -15,3 +19,22 @@ steps:
     arguments: '--configuration $(buildConfiguration)'
 - script: dotnet build --configuration $(buildConfiguration)
   displayName: 'dotnet build $(buildConfiguration)'
+
+stages:
+- stage: Build
+  displayName: Build and push stage
+  jobs:
+  - job: Build
+    displayName: Build
+    pool:
+      vmImage: $(vmImageName)
+    steps:
+    - task: Docker@2
+      displayName: Build and push an image to container registry
+      inputs:
+        command: buildAndPush
+        repository: $(imageRepository)
+        dockerfile: DiceAppMVC/Dockerfile
+        containerRegistry: diceappacr
+        tags: |
+          $(tag)
