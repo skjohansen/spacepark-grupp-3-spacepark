@@ -6,7 +6,7 @@ resources:
 
 variables:
   imageRepository: 'presentationregistry.azurecr.io'
-  containerRegistry: 'presentationRegistry'
+  containerRegistry: 'presentationConnection'
   tag: '$(Build.BuildId)'
   vmImageName: 'ubuntu-latest'
 
