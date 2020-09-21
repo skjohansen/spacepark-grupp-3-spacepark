@@ -1,34 +1,11 @@
 trigger:
 - master
 
+pool:
+  vmImage: 'ubuntu-latest'
+
 variables:
   buildConfiguration: 'Release'
-  imageRepository: 'spaceportregistry.azurecr.io'
-  containerRegistry: 'spaceportConnection'
-  tag: '$(Build.BuildId)'
-  vmImageName: 'ubuntu-latest'
-  
-pool:
-  vmImage: $(vmImageName)
-
-stages:
-- stage: Build
-  displayName: Build and push stage
-  jobs:
-  - job: Build
-    displayName: Build
-    pool:
-      vmImage: $(vmImageName)
-    steps:
-    - task: Docker@2
-      displayName: Build and push an image to container registry
-      inputs:
-        command: buildAndPush
-        repository: $(imageRepository)
-        dockerfile: DiceAppMVC/Dockerfile
-        containerRegistry: diceappacr
-        tags: |
-          $(tag)
 
 steps:
 - task: DotNetCoreCLI@2
