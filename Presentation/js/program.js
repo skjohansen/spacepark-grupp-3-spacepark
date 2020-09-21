@@ -5,6 +5,11 @@
 // Configuration
 var baseurl = "https://localhost:5001/api/v1.0/";
 
+var errormessage;
+var successMessage;
+
+var paused = false;
+
 $(".box__content[data-content='" + 2 +"']").hide().slideUp();
 
 $(".menu-button").on('click', function() {
@@ -39,7 +44,6 @@ function unPausePage() {
 // Startup
 {
     let url = baseurl + "parkinglots";
-    let errormessage = "";
 
     $.getJSON(url, function() {
             console.log("Requesting parkinglots from API.");
@@ -65,16 +69,13 @@ function unPausePage() {
 // Program
 {
     let url = baseurl + "drivers";
-    var errormessage;
-    var successMessage;
-
-    var paused = false;
 
     $("#start-parking").on("click", function() {
         if($("#park-form-name").val() < 1 && $("#park-form-driverid").val() < 1) {
             appendError("Du måste ange namn eller förarid");
             return;
         }
+        
         errormessage = "";
         successMessage = "";
 
