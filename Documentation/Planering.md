@@ -1,5 +1,5 @@
 ## SpacePort Projekt
-Projektet  går ut på att bygga ett program för ett parkingsföretag där enbart folk från Star Warsfår lov att parkera. Viktigare än själva programmet var i denna övning att utforska Azure Tjänster, CI och CD. 
+Projektet går ut på att bygga ett program för ett parkingsföretag där enbart folk från Star Wars får lov att parkera. Viktigare än själva programmet var i denna övning att utforska Azure Tjänster, CI och CD. 
 
 ##### Innehållsförteckning 
 1. [Arbetssätt](#arbetssätt)
