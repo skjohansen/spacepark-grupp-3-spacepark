@@ -71,22 +71,29 @@ function unPausePage() {
     let url = baseurl + "drivers";
 
     $("#start-parking").on("click", function() {
-        if($("#park-form-name").val() < 1 && $("#park-form-driverid").val() < 1) {
-            appendError("Du måste ange namn eller förarid");
+        if($("#park-form-name").val() < 1) {
+            appendError("Du måste ange ditt namn");
             return;
         }
         
         errormessage = "";
         successMessage = "";
 
-        if($("#park-form-driverid").val().length > 0) {
-            appendError("Man kan inte parkera med DriverId ännu!");
+        pausePage();
+        paused = true;
+        ajaxCall_ValidateDriver();
+    });
+
+    $("#pay-parking").on("click", function() {
+        if($("#park-form-driverid").val() < 1) {
+            appendError("Du måste ange ditt FörarId");
+            return;
+        } else if (!$.isNumeric($("#park-form-driverid").val())) {
+            appendError("Ditt förarId måste vara nummer");
         }
-        else {
-            pausePage();
-            paused = true;
-            ajaxCall_ValidateDriver();
-        }
+        
+        errormessage = "";
+        successMessage = "";
     });
 
     function ajaxCall_ValidateDriver() {

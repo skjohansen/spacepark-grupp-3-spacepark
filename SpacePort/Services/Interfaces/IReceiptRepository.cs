@@ -7,5 +7,6 @@ namespace SpacePort.Services.Interfaces
     {
         Task<Receipt[]> GetAll();
         Task<Receipt> GetReceiptById(int ReceiptId);
+        Task<Receipt> GetReceiptByDriverId(int driverId);
     }
 }
