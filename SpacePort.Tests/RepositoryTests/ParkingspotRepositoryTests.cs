@@ -28,7 +28,7 @@ namespace SpacePort.Tests.RepositoryTests
         }
 
         [Fact]
-        public async void GetParkingspotById_ifExist_AssertNotNull()
+        public async void GetParkingspotById_ifExist_ExpectedNotNull()
         {
             //Arrange
             var mockContext = new Mock<DataContext>();
@@ -45,7 +45,7 @@ namespace SpacePort.Tests.RepositoryTests
         }
 
         [Fact]
-        public async void GetParkingspotById_ifDoesNotExist_AssertIsNull()
+        public async void GetParkingspotById_ifDoesNotExist_ExpectedIsNull()
         {
             //Arrange
             var mockContext = new Mock<DataContext>();

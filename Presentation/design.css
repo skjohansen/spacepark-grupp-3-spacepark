@@ -55,6 +55,7 @@ input[type=text] {
   font-size: 20px;
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
+  color: #E6E039;
 }
 
 select, select option {
@@ -69,10 +70,10 @@ select, select option {
   -webkit-appearance: none;
      -moz-appearance: none;
           appearance: none;
+  color: #E6E039;
 }
 
 label {
-  color: #E6E039;
   font-weight: bold;
   letter-spacing: 1px;
 }
@@ -153,14 +154,6 @@ label {
   height: 100%;
   background: rgba(0, 0, 0, 0.5);
   z-index: 2;
-}
-
-.forgot {
-  position: fixed;
-  bottom: 20px;
-  left: 20px;
-  color: #E6E039;
-  z-index: 4;
 }
 
 .loading {
@@ -249,17 +242,33 @@ label {
   margin-top: 2em;
 }
 
-.box__error {
-  background: #9e4a4a;
-  border: 1px solid red;
+.box__info {
   padding: 40px;
   margin: 40px;
+  border-radius: 4px;
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
   position: relative;
+  color: white;
 }
 
-.box__error .close-error {
+.box__info--error {
+  background: #b35050;
+  border: 2px solid #b84315 134, 22, 22;
+}
+
+.box__info--success {
+  background: #289c45;
+  border: 2px solid #129b40 134, 22, 22;
+  color: #313231;
+  text-align: left;
+}
+
+.box__info--success p {
+  padding: 5px 0;
+}
+
+.box__info .close-error, .box__info .close-success {
   position: absolute;
   top: 20px;
   right: 20px;
@@ -268,6 +277,9 @@ label {
   background-image: url(gfx/cross.png);
   background-size: cover;
   cursor: pointer;
+}
+
+.box__info .close-error {
   -webkit-filter: invert(90%);
           filter: invert(90%);
 }

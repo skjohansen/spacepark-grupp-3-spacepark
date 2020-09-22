@@ -13,7 +13,7 @@ namespace SpacePort.Models
 
         public int Price { get; set; }
         public DateTime RegistrationTime { get; set; }
-        public DateTime EndTime { get; set; }
+        public DateTime? EndTime { get; set; }
         
         public Parkingspot Parkingspot { get; set; }
         public Driver Driver { get; set; }
