@@ -28,6 +28,7 @@ $(".menu-button").on('click', function() {
     }
 });
 
+// Functions
 function pausePage() {
     $(".loading").fadeIn();
 }
@@ -85,7 +86,7 @@ function unPausePage() {
             appendError("Du måste ange ditt FörarId");
             return;
         } else if (!$.isNumeric($("#park-form-driverid").val())) {
-            appendError("Ditt förarId måste vara nummer");
+            appendError("Ditt FörarId måste vara nummer");
         }
         
         errormessage = "";
@@ -104,7 +105,7 @@ function unPausePage() {
         }).done(function(response, statusText, xhr) {
             if(xhr.status == 200) {
                 console.log(statusText + ". Found driver with id " + response.driverId);
-                //ajaxCall_GetReceiptByDriverId(response.driverId)
+                ajaxCall_GetReceiptByDriverId(response.driverId)
             }
             else {
                 appendError("Okänt fel.");
@@ -113,6 +114,20 @@ function unPausePage() {
         }).fail(function() {
             appendError("Ingen kontakt med API.");
             unPausePage();
+        });
+    }
+
+    function ajaxCall_GetReceiptByDriverId(driverId) {
+        let url = baseurl + "drivers";
+        $.ajax({
+            url: url,
+            data: JSON.stringify({'driverId': driverId}),
+            type: "GET",
+            contentType: "application/json; charset=utf-8"
+        }).done(function(response, statusText, xhr) {
+            
+        }).fail(function() {
+            appendError("Okänt fel.");
         });
     }
 
