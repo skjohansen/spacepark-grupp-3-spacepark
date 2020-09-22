@@ -40,10 +40,6 @@ input, h1, h2, h3, h4, p {
   margin: 0;
 }
 
-p {
-  padding: 1vh 0;
-}
-
 input[type=text] {
   border: 4px solid #CECDCE;
   color: #CECDCE;
@@ -250,10 +246,11 @@ label {
   border: 1px solid #c3e6cb;
   color: #155724;
   text-align: left;
+  padding: 40px;
 }
 
 .box__info--success p {
-  padding: 5px;
+  padding-bottom: 2px;
   line-height: 20px;
 }
 

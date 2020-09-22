@@ -5,11 +5,6 @@
 // Configuration
 var baseurl = "https://localhost:5001/api/v1.0/";
 
-var errormessage;
-var successMessage;
-
-var paused = false;
-
 $(".box__content[data-content='" + 2 +"']").hide().slideUp();
 
 $(".menu-button").on('click', function() {
@@ -44,6 +39,7 @@ function unPausePage() {
 // Startup
 {
     let url = baseurl + "parkinglots";
+    let errormessage = "";
 
     $.getJSON(url, function() {
             console.log("Requesting parkinglots from API.");
@@ -68,7 +64,8 @@ function unPausePage() {
 
 // Program
 {
-    let url = baseurl + "drivers";
+    var errormessage = "";
+    var succesmessage = "";
 
     $("#start-parking").on("click", function() {
         if($("#park-form-name").val() < 1) {
@@ -77,10 +74,9 @@ function unPausePage() {
         }
         
         errormessage = "";
-        successMessage = "";
+        successmessage = "";
 
         pausePage();
-        paused = true;
         ajaxCall_ValidateDriver();
     });
 
@@ -93,10 +89,35 @@ function unPausePage() {
         }
         
         errormessage = "";
-        successMessage = "";
+        successmessage = "";
+
+        pausePage();
+        ajaxCall_ValidateDriverById();
     });
 
+    function ajaxCall_ValidateDriverById() {
+        let url = baseurl + "drivers/" + $("#pay-form-driverid").val();
+        $.ajax({
+            url : url,
+            type: "GET",
+            contentType: "application/json; charset=utf-8"
+        }).done(function(response, statusText, xhr) {
+            if(xhr.status == 200) {
+                console.log(statusText + ". Found driver with id " + response.driverId);
+                //ajaxCall_GetReceiptByDriverId(response.driverId)
+            }
+            else {
+                appendError("Okänt fel.");
+                unPausePage();
+            }
+        }).fail(function() {
+            appendError("Ingen kontakt med API.");
+            unPausePage();
+        });
+    }
+
     function ajaxCall_ValidateDriver() {
+        let url = baseurl + "drivers";
         $.ajax({ 
             url: url,
             data: JSON.stringify({'name': $('#park-form-name').val()}),
@@ -105,17 +126,15 @@ function unPausePage() {
         }).done(function( response, statusText, xhr ) {
             if(xhr.status == 201) {
                 console.log(statusText + ". Driver with id " + response.driverId + " was created.");
-                successMessage += "<p>Ditt Förar Id: " + response.driverId + " </p>";
+                successmessage += "<p>Ditt Förar Id: " + response.driverId + " </p>";
                 ajaxCall_FindFreeSpot(response.driverId);
             }
             else {
-                errormessage = "Only people in Star Wars are allowed to park.";
-                appendError(errormessage);
+                appendError("Only people in Star Wars are allowed to park.");
                 unPausePage();
             }
         }).fail(function() {
-            errormessage = "Ingen kontakt med API.";
-            appendError(errormessage);
+            appendError("Ingen kontakt med API.");
             unPausePage();
         });
     }
@@ -133,7 +152,7 @@ function unPausePage() {
         }).done(function(response, statusText, xhr) {
             if(xhr.status == 200) {
                 console.log(statusText + ". Found parkingspot with id: " + response.parkingspotId + " for driver with Id: "+ driverId);
-                successMessage += "<p>Din parkeringsplats: "+response.parkingspotId+"</p>";
+                successmessage += "<p>Din parkeringsplats: "+response.parkingspotId+"</p>";
                 ajaxCall_CreateReceipt(response.parkingspotId, driverId);
             }
         }).fail(function(){
@@ -155,12 +174,11 @@ function unPausePage() {
         }).done(function(response, statusText, xhr) {
             if(xhr.status == 201) {
                 console.log(statusText + ". A receipt with id " + response.receiptId + " was created.");
-                successMessage += "<p>En kvittens har skrivits ut.</p>"
+                successmessage += "<p>En kvittens har skrivits ut.</p>"
                 ajaxCall_OccupyParkingspot(parkingspotId, driverId);
             }
         }).fail(function(){
-            errormessage = "Okänt fel, parkeringen misslyckades.";
-            appendError(errormessage);
+            appendError("Okänt fel, parkeringen misslyckades.");
             unPausePage();
         });
     }
@@ -177,13 +195,12 @@ function unPausePage() {
             contentType: "application/json; charset=utf-8"
         }).done(function(response, statusText, xhr) {
             if(xhr.status == 200) {
-                appendSuccess("<h1>Grattis</h1>" + successMessage + " <p>Återvänd med ditt FörarId för att slutföra.</p>");
+                appendSuccess("<h1>Grattis</h1><div style='margin-top: .75em;'>" + successmessage + " <p>Återvänd med ditt FörarId för att slutföra.</p></div>");
                 console.log(statusText + ". Parkingspot with Id: " + parkingspotId + " was updated.");
             }
             unPausePage();
         }).fail(function(){
-            errormessage = "Okänt fel, parkeringen misslyckades.";
-            appendError(errormessage);
+            appendError("Okänt fel, parkeringen misslyckades.");
             unPausePage();
         });
     }
