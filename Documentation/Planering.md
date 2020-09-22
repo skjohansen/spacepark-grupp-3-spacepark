@@ -2,21 +2,21 @@
 Projektet går ut på att bygga ett program för ett parkingsföretag där enbart folk från Star Wars får lov att parkera. Viktigare än själva programmet var i denna övning att utforska Azure Tjänster, CI och CD. 
 
 ##### Innehållsförteckning 
-1. [Arbetssätt](#arbetssätt)
-        [Testkonvention](#testkonvention)
-2. [Verktyg](#verktyg)
-        [Azure Devops](#azure-devops)
-        [app.diagrams.net](#app.diagrams.net)  
-        [Övriga Verktyg](#övriga-verktyg)
-3. [3 lagers-arkitektur](#3-lagers-arkitektur)
-        [Presentationslager](#presentationslager)
-        [Applikationslager](#applikationslager)
-        [Datalager](#datalager)
-4. [CI](#CI)
-        [Repositories](#repositories)
-        [Build Pipeline](#build-pipeline)
-                [Pipeline Presentation](#pipeline-presentation)
-                [Pipeline API](#pipeline-api)
+- [Arbetssätt](#arbetssätt)
+  * [Testkonvention](#testkonvention)
+- [Verktyg](#verktyg)
+  * [Azure Devops](#azure-devops)
+  * [app.diagrams.net](#diagram)  
+  * [Övriga Verktyg](#övriga-verktyg)
+- [3 lagers-arkitektur](#3-lagers-arkitektur)
+  * [Presentationslager](#presentationslager)
+  * [Applikationslager](#applikationslager)
+  * [Datalager](#datalager)
+- [CI](#ci)
+  * [Repositories](#repositories)
+  * [Build Pipeline](#build-pipeline)
+    + [Pipeline Presentation](#pipeline-presentation)
+    + [Pipeline API](#pipeline-api)
         
 
 ## Arbetssätt
@@ -33,7 +33,7 @@ MetodensNamn_VadSomTestas_VadSomFörväntas
 ### Azure DevOps
 Vi valde att använda oss av Azure DevOps Boards för att sätta upp relevanta issues och strukturera vårat arbetssätt. Vi tyckte detta passade bra eftersom vi får så mycket som möjligt på samma ställe, till skillnad om vi hade använt t ex Jira.
 
-### app.diagrams.net
+### Diagram
 Vid början så gjorde vi skisser för flödesscheman på webbplatsen [app.diagrams.net](https://app.diagrams.net/).
 
 <img src="diagram-flowchart.png">
