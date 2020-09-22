@@ -67,13 +67,13 @@ namespace SpacePort.Tests.ControllerTests
             parkingspotRepo.Setup(x => x.Save()).Returns(Task.FromResult(true));
 
             var parkingspotController = new ParkingspotController(parkingspotRepo.Object);
-            var parkingspotRequest = new PutParkingspotRequest
+            var parkingspot = new Parkingspot
             {
                 ParkingspotId = 1,
                 Occupied = true
             };
             //Act
-            var result = await parkingspotController.UpdateParkingspot(parkingspotRequest);
+            var result = await parkingspotController.UpdateParkingspot(parkingspot);
             var contentResult = result.Result as OkObjectResult;
 
             //Assert
