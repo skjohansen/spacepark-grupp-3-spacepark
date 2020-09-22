@@ -90,11 +90,19 @@ namespace SpacePort.Controllers
                     return NotFound($"Receipt with id: {receipt.ReceiptId} could not be found");
                 }
 
-                TimeSpan time = (TimeSpan)(oldReceipt.EndTime - oldReceipt.RegistrationTime);
+                DateTime currentTime = DateTime.Now;
 
-                oldReceipt.Price = oldReceipt.EndTime - oldReceipt.RegistrationTime;
-                oldReceipt.EndTime = DateTime.Now;
+                oldReceipt.EndTime = currentTime;
                 oldReceipt.Parkingspot.Occupied = true;
+
+                DateTime start = oldReceipt.RegistrationTime;
+                DateTime end = currentTime;
+
+                TimeSpan span = end - start;
+                int hPrice = (10 * span.Hours);
+                float mPrice = (10 / 60.0f) * span.Minutes;
+                int totalPrice = Convert.ToInt32(hPrice + mPrice);
+                oldReceipt.Price = totalPrice;
 
                 _repo.Update(oldReceipt);
                 if (await _repo.Save())
