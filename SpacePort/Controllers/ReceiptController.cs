@@ -107,7 +107,7 @@ namespace SpacePort.Controllers
                 _repo.Update(oldReceipt);
                 if (await _repo.Save())
                 {
-                    return NoContent();
+                    return Ok(oldReceipt);
                 }
                 return BadRequest();
             }
