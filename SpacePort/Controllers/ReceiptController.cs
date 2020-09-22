@@ -61,6 +61,54 @@ namespace SpacePort.Controllers
             }
         }
 
+        [HttpPost()]
+        public async Task<ActionResult<Receipt>>GetReceiptByDriverId(Driver driver)
+        {
+            try
+            {
+                var result = await _repo.GetReceiptByDriverId(driver.DriverId);
+                if (result == null)
+                {
+                    return NotFound();
+                }
+                return Ok(result);
+            }
+            catch (Exception e)
+            {
+                return this.StatusCode(StatusCodes.Status500InternalServerError, $"Database failure {e.Message}");
+            }
+        }
+
+        [HttpPut]
+        public async Task<ActionResult<Receipt>>UpdateReceipt(Receipt receipt)
+        {
+            try
+            {
+                var oldReceipt = await _repo.GetReceiptById(receipt.ReceiptId);
+                if (oldReceipt==null)
+                {
+                    return NotFound($"Receipt with id: {receipt.ReceiptId} could not be found");
+                }
+
+                TimeSpan time = (TimeSpan)(oldReceipt.EndTime - oldReceipt.RegistrationTime);
+
+                oldReceipt.Price = oldReceipt.EndTime - oldReceipt.RegistrationTime;
+                oldReceipt.EndTime = DateTime.Now;
+                oldReceipt.Parkingspot.Occupied = true;
+
+                _repo.Update(oldReceipt);
+                if (await _repo.Save())
+                {
+                    return NoContent();
+                }
+                return BadRequest();
+            }
+            catch(Exception e)
+            {
+                return this.StatusCode(StatusCodes.Status500InternalServerError, $"Database failure {e.Message}");
+            }
+        }
+
         public class PostReceipt
         {
             public int ParkingspotId { get; set; }

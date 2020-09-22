@@ -22,10 +22,19 @@ namespace SpacePort.Services.Repositories
             return await query.ToArrayAsync();
         }
 
+        public virtual async Task<Receipt> GetReceiptByDriverId(int driverId)
+        {
+            _logger.LogInformation($"gettting receipt by driver id {driverId}");
+            IQueryable<Receipt> query = _context.Receipts.Include(x => x.Driver)
+                .Where(x => x.Driver.DriverId == driverId);
+
+            return await query.FirstOrDefaultAsync();
+        }
+
         public virtual async Task<Receipt> GetReceiptById(int id)
         {
             _logger.LogInformation($"Getting receipt by id: {id}");
-            IQueryable<Receipt> query = _context.Receipts.Where(x => x.ReceiptId == id);
+            IQueryable<Receipt> query = _context.Receipts.Include(x=> x.Parkingspot).Where(x => x.ReceiptId == id);
             return await query.FirstOrDefaultAsync();
         }
     }
