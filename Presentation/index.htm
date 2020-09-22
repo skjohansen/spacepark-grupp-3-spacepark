@@ -21,7 +21,7 @@
     <div class="container">
         <div class="box">
             <div class="box__columns">
-                <button data-button="1" class="button menu-button menu-button--active">Ny Parkering</button>
+                <button data-button="1" class="button menu-button menu-button--active">Ny parkering</button>
                 <button data-button="2" class="button menu-button">Betala</button>
             </div>
             <div class="box__info box__info--error"></div>
@@ -30,17 +30,13 @@
                 <div data-content="1" class="box__content box__content text-shadow">
                     <div class="content-item-box" style="margin-top: 0;">
                         <div>
-                            <h1 class="text-red" style="margin-bottom: 12px">Ny parkering med Namn eller FörarId</h1>
+                            <h1 class="text-red" style="margin-bottom: 12px">Påbörja ny parkering</h1>
                         </div>
                     </div>
-                    <div class="content-item-box doubles">
+                    <div class="content-item-box">
                         <div>
-                            <label for="name">Ange ditt namn </label>
+                            <label for="name">Ange ditt namn</label>
                             <input id="park-form-name" type="text" name="name" placeholder="Ange ditt Namn">
-                        </div>
-                        <div>
-                            <label for="name">Ange ditt <span class="text-bold">FörarId</span></label>
-                            <input id="park-form-driverid" type="text" name="name" placeholder="Ange ditt FörarId">
                         </div>
                     </div>
                     <div class="content-item-box">
@@ -65,7 +61,20 @@
                     </div>
                 </div>
                 <div data-content="2" class="box__content text-shadow">
-                    <h1>Betala med FörarId</h1>
+                    <div class="content-item-box" style="margin-top: 0;">
+                        <div>
+                            <h1>Betala med FörarId</h1>
+                        </div>  
+                    </div>
+                    <div class="content-item-box">
+                        <div>
+                            <label for="name">Ange ditt FörarId</label>
+                            <input id="park-form-driverid" type="text" name="name" placeholder="FörarId">
+                        </div>
+                    </div>
+                    <div class="content-item-box">
+                        <button class="button text-yellow" id="pay-parking">avsluta parkering och betala</button>
+                    </div>
                 </div>
             </div>
         </div>
