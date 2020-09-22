@@ -143,5 +143,11 @@ steps:
     arguments: '--configuration $(buildConfiguration)'
 - script: dotnet build --configuration $(buildConfiguration)
   displayName: 'dotnet build $(buildConfiguration)'
+- task: Docker@2
+  inputs:
+    containerRegistry: 'spaceportConnection'
+    repository: 'spaceportConnection'
+    command: 'buildAndPush'
+    Dockerfile: '**/Dockerfile'
 ```
 
