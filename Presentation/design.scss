@@ -51,7 +51,7 @@ input[type=text] {
     border-radius: 4px;
     width: 100%;
     margin-top: 1em;
-    font-size: 20px;
+    font-size: 22px;
     box-sizing: border-box;
     color: $yellow;
 }
@@ -70,6 +70,7 @@ select, select option {
 label {
     font-weight: bold;
     letter-spacing: 1px;
+    font-size: 20px;
 }
 
 .container {
@@ -172,23 +173,6 @@ label {
 
 .content-item-box {
     margin: 1.75em 0;
-
-    &.doubles {
-
-        display: flex;
-        justify-content: space-between;
-        
-        div {
-            flex: 1;
-
-            &:first-of-type {
-                margin-right: 2px;
-            }
-            &:last-of-type {
-                margin-left: 2px;
-            }
-        }
-    }
 }
 
 .box {
@@ -203,37 +187,39 @@ label {
         box-sizing: border-box;
         position: relative;
         color: white;
+        position: relative;
 
         &--error {
-            background: #b35050;
-            border: 2px solid rgb(184, 67, 21)(134, 22, 22);
+            background-color: #fff3cd;
+            border: 2px solid #ffeeba;
+            color: #856404;
         }
 
         &--success {
-            background: #289c45;
-            border: 2px solid rgb(18, 155, 64)(134, 22, 22);
-            color: $back;
+            background-color: #d4edda;;
+            border: 1px solid #c3e6cb;
+            color: #155724;
             text-align: left;
 
             p {
-                padding: 5px 0;
+                padding: 5px;
+                line-height: 20px;
             }
         }
 
         .close-error, .close-success {
             position: absolute;
-            top: 20px;
-            right: 20px;
-            width: 25px;
-            height: 25px;
+            top: 50%;
+            transform: translateY(-50%);
+            right: 40px;
+            width: 20px;
+            height: 20px;
             background-image: url(gfx/cross.png);
             background-size: cover;
             cursor: pointer;
+            opacity: 0.75;
+            box-sizing: border-box;
         }   
-
-        .close-error {
-            filter: invert(90%);
-        }
     }
 
     &__columns {
