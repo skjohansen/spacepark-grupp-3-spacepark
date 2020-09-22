@@ -56,24 +56,18 @@ namespace SpacePort.Controllers
             }
         }
 
-        public class PutParkingspotRequest
-        {
-            public int ParkingspotId { get; set; }
-            public bool Occupied { get; set; }
-        }
-
         [HttpPut]
-        public async Task<ActionResult<Parkingspot>> UpdateParkingspot(PutParkingspotRequest parkingspotRequest)
+        public async Task<ActionResult<Parkingspot>> UpdateParkingspot(Parkingspot spot)
         {
             try
             {
-                var parkingspot = await _repo.GetparkingspotById(parkingspotRequest.ParkingspotId);
+                var parkingspot = await _repo.GetparkingspotById(spot.ParkingspotId);
                 if (parkingspot == null)
                 {
                     return NotFound();
                 }
 
-                parkingspot.Occupied = parkingspotRequest.Occupied;
+                parkingspot.Occupied = spot.Occupied;
                 _repo.Update(parkingspot);
                 if(await _repo.Save())
                 {
