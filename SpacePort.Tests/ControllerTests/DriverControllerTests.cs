@@ -1,38 +1,37 @@
-﻿using SpacePort.Models;
-using System;
+﻿using Moq;
+using SpacePort.Models;
 using System.Collections.Generic;
-using System.Text;
-using Xunit;
-using Moq;
 using Moq.EntityFrameworkCore;
-using Castle.Core.Logging;
-using SpacePort.Services.Repositories;
+using Xunit;
+using SpacePort.Controllers;
 using Microsoft.Extensions.Logging;
+using SpacePort.Services.Repositories;
+using Microsoft.AspNetCore.Mvc;
 
 namespace SpacePort.Tests.ControllerTests
 {
     public class DriverControllerTests
     {
-        [Theory]
-        [InlineData(1, "Luke")]
-        [InlineData(2, "Yoda")]
-        public async void GetDriverByIdTest_CheckIfReturnedObject_ContainsCorrectName(int inlineInt, string expected)
+        [Fact]
+        public async void GetDriverById_IfExist_ReturnTrue()
         {
+
             //Arrange
-            IList<Driver> drivers = GenerateDrivers();
             var mockContext = new Mock<DataContext>();
-            mockContext.Setup(d => d.Drivers).ReturnsDbSet(drivers);
+            mockContext.Setup(x => x.Drivers).ReturnsDbSet(GetDriver());
 
             var logger = Mock.Of<ILogger<DriverRepository>>();
-            var driverRepository = new DriverRepository(mockContext.Object, logger);
+            var driverRepo = new DriverRepository(mockContext.Object, logger);
+
+            var driverController = new DriverController(driverRepo);
 
             //Act
-            var theDriver = await driverRepository.GetDriverById(inlineInt);
-
-            //Assert
-            Assert.Equal(expected, theDriver.Name);
+            var result = await driverController.GetDriverById();
+            var contentResult = result.Result as OkObjectResult;
+            var resultDriver = contentResult.Value as Driver[];
         }
-        private static IList<Driver> GenerateDrivers()
+
+        public List<Driver> GetDriver()
         {
             return new List<Driver>
             {
@@ -40,11 +39,6 @@ namespace SpacePort.Tests.ControllerTests
                 {
                     DriverId = 1,
                     Name = "Luke"
-                },
-                new Driver
-                {
-                    DriverId = 2,
-                    Name = "Yoda"
                 }
             };
         }
