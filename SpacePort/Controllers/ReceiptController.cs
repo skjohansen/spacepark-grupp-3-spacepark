@@ -61,6 +61,62 @@ namespace SpacePort.Controllers
             }
         }
 
+        [HttpPost()]
+        public async Task<ActionResult<Receipt>>GetReceiptByDriverId(Driver driver)
+        {
+            try
+            {
+                var result = await _repo.GetReceiptByDriverId(driver.DriverId);
+                if (result == null)
+                {
+                    return NotFound();
+                }
+                return Ok(result);
+            }
+            catch (Exception e)
+            {
+                return this.StatusCode(StatusCodes.Status500InternalServerError, $"Database failure {e.Message}");
+            }
+        }
+
+        [HttpPut]
+        public async Task<ActionResult<Receipt>>UpdateReceipt(Receipt receipt)
+        {
+            try
+            {
+                var oldReceipt = await _repo.GetReceiptById(receipt.ReceiptId);
+                if (oldReceipt==null)
+                {
+                    return NotFound($"Receipt with id: {receipt.ReceiptId} could not be found");
+                }
+
+                DateTime currentTime = DateTime.Now;
+
+                oldReceipt.EndTime = currentTime;
+                oldReceipt.Parkingspot.Occupied = true;
+
+                DateTime start = oldReceipt.RegistrationTime;
+                DateTime end = currentTime;
+
+                TimeSpan span = end - start;
+                int hPrice = (10 * span.Hours);
+                float mPrice = (10 / 60.0f) * span.Minutes;
+                int totalPrice = Convert.ToInt32(hPrice + mPrice);
+                oldReceipt.Price = totalPrice;
+
+                _repo.Update(oldReceipt);
+                if (await _repo.Save())
+                {
+                    return Ok(oldReceipt);
+                }
+                return BadRequest();
+            }
+            catch(Exception e)
+            {
+                return this.StatusCode(StatusCodes.Status500InternalServerError, $"Database failure {e.Message}");
+            }
+        }
+
         public class PostReceipt
         {
             public int ParkingspotId { get; set; }
