@@ -36,7 +36,7 @@ namespace SpacePort.Tests.ControllerTests
         }
 
         [Fact]
-        public async void CreateDriver_IfCreateDriverNotNull_Expected201StatusCode()
+        public async void CreateDriver_IfCreateDriverNotInStarWars_Expected204StatusCode()
         {
             //Arrange
             var driverRepo = new Mock<IDriverRepository>();
