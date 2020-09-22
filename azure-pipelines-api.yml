@@ -1,9 +1,9 @@
+##lägger ihop release och build
 trigger:
 - master
 
 pool:
   vmImage: 'ubuntu-latest'
-
 
 variables:
   buildConfiguration: 'Release'

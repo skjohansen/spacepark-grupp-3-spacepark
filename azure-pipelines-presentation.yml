@@ -1,0 +1,25 @@
+##lägger ihop release och build
+trigger:
+- master
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+steps:
+- task: CopyFiles@2
+  inputs:
+    SourceFolder: 'Presentation'
+    Contents: '**'
+    TargetFolder: '$(Build.ArtifactStagingDirectory)'
+    OverWrite: true
+- task: ArchiveFiles@2
+  inputs:
+    rootFolderOrFile: '$(Build.ArtifactStagingDirectory)'
+    includeRootFolder: false
+- task: PublishBuildArtifacts@1
+- task: Docker@2
+  inputs:
+    containerRegistry: 'presentationConnection'
+    repository: 'presentationregistry.azurecr.io'
+    command: 'buildAndPush'
+    Dockerfile: '**/Dockerfile'

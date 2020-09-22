@@ -25,7 +25,6 @@ namespace SpacePort.Tests.RepositoryTests
 
             //Assert
             Assert.True(result.Length > 0);
-
         }
 
         [Fact]

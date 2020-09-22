@@ -5,9 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SpacePark</title>
     <link rel="stylesheet" href="design.css">
-    <script src="js/configuration.js" defer></script>
     <script src="js/messageboxes.js" defer></script>
-    <script src="js/startup.js" defer></script>
     <script src="js/program.js" defer></script>
     <script
     src="https://code.jquery.com/jquery-3.5.1.min.js"
@@ -15,8 +13,6 @@
     crossorigin="anonymous"></script>
 </head>
 <body>
-    <div class="forgot">Glömt vart du ställde din Star Destroyer?<br>Jävligt dumt men aja <a href="#">klicka här</a></div>
-
     <div class="bg-filter"></div>
 
     <div class="loading"><div class="loader"></div></div>
@@ -25,12 +21,13 @@
     <div class="container">
         <div class="box">
             <div class="box__columns">
-                <button data-button="1" class="button menu-button menu-button--active">Ny parkering</button>
+                <button data-button="1" class="button menu-button menu-button--active">Ny Parkering</button>
                 <button data-button="2" class="button menu-button">Betala</button>
             </div>
-            <div class="box__error"></div>
+            <div class="box__info box__info--error"></div>
+            <div class="box__info box__info--success"></div>
             <div class="box__container">
-                <div data-content="1" class="box__content box__content  text-shadow">
+                <div data-content="1" class="box__content box__content text-shadow">
                     <div class="content-item-box" style="margin-top: 0;">
                         <div>
                             <h1 class="text-red" style="margin-bottom: 12px">Ny parkering med Namn eller FörarId</h1>
@@ -67,7 +64,7 @@
                         <button class="button text-yellow" id="start-parking">Påbörja parkering</button>
                     </div>
                 </div>
-                <div data-content="2" class="box__content  text-shadow">
+                <div data-content="2" class="box__content text-shadow">
                     <h1>Betala med FörarId</h1>
                 </div>
             </div>
