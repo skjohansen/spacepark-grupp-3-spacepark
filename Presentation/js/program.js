@@ -118,7 +118,7 @@ function unPausePage() {
     }
 
     function ajaxCall_GetReceiptByDriverId(driverId) {
-        let url = baseurl + "drivers";
+        let url = baseurl + "receipts";
         $.ajax({
             url: url,
             data: JSON.stringify({'driverId': driverId}),

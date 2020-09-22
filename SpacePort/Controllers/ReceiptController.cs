@@ -61,12 +61,12 @@ namespace SpacePort.Controllers
             }
         }
 
-        [HttpPost()]
-        public async Task<ActionResult<Receipt>>GetReceiptByDriverId(Driver driver)
+        [HttpGet("{id}")]
+        public async Task<ActionResult<Receipt>> GetReceiptByDriverId(int driverId)
         {
             try
             {
-                var result = await _repo.GetReceiptByDriverId(driver.DriverId);
+                var result = await _repo.GetReceiptByDriverId(driverId);
                 if (result == null)
                 {
                     return NotFound();
@@ -80,7 +80,7 @@ namespace SpacePort.Controllers
         }
 
         [HttpPut]
-        public async Task<ActionResult<Receipt>>UpdateReceipt(Receipt receipt)
+        public async Task<ActionResult<Receipt>> UpdateReceipt(Receipt receipt)
         {
             try
             {
