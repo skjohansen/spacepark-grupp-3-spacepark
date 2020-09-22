@@ -49,10 +49,10 @@ input[type=text] {
   color: #CECDCE;
   background: 0;
   padding: 12px 8px;
-  border-radius: 4px;
+  border-radius: 0.25em;
   width: 100%;
   margin-top: 1em;
-  font-size: 22px;
+  font-size: 18px;
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
   color: #E6E039;
@@ -63,10 +63,10 @@ select, select option {
   color: #CECDCE;
   background: #313231;
   padding: 12px 8px;
-  border-radius: 4px;
+  border-radius: 0.25em;
   width: 100%;
   margin-top: 1em;
-  font-size: 20px;
+  font-size: 18px;
   -webkit-appearance: none;
      -moz-appearance: none;
           appearance: none;
@@ -76,7 +76,7 @@ select, select option {
 label {
   font-weight: bold;
   letter-spacing: 1px;
-  font-size: 20px;
+  font-size: 18px;
 }
 
 .container {
@@ -111,12 +111,12 @@ label {
   text-decoration: none;
   background-color: #4a4c4a;
   text-transform: uppercase;
-  padding: 20px;
-  border-radius: 5px;
+  padding: 20px 10px;
+  border-radius: 0.25em;
   border: none;
   -webkit-transition: all 0.4s ease 0s;
   transition: all 0.4s ease 0s;
-  font-size: 24px;
+  font-size: 20px;
   font-family: "Oswald", sans-serif;
   cursor: pointer;
 }
@@ -131,9 +131,16 @@ label {
 }
 
 .button.menu-button {
-  margin: 12px;
   width: 50%;
   background-color: #4a4c4a;
+}
+
+.button.menu-button:first-of-type {
+  margin-right: 12px;
+}
+
+.button.menu-button:last-of-type {
+  margin-left: 12px;
 }
 
 .button.menu-button--active {
@@ -215,20 +222,21 @@ label {
 }
 
 .box {
-  min-height: 200px;
   width: 100%;
   margin-top: 2em;
 }
 
 .box__info {
-  padding: 40px;
-  margin: 40px;
-  border-radius: 4px;
+  margin: 20px 40px;
+  border-radius: 0.25em;
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
+}
+
+.box__info--error, .box__info-success {
+  padding: 40px;
   position: relative;
-  color: white;
-  position: relative;
+  border-radius: 0.25em;
 }
 
 .box__info--error {
@@ -254,7 +262,7 @@ label {
   top: 50%;
   -webkit-transform: translateY(-50%);
           transform: translateY(-50%);
-  right: 40px;
+  right: 30px;
   width: 20px;
   height: 20px;
   background-image: url(gfx/cross.png);
@@ -266,6 +274,7 @@ label {
 }
 
 .box__columns {
+  padding: 0px 40px;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -283,7 +292,7 @@ label {
 
 .box__content {
   width: 100%;
-  padding: 40px;
+  padding: 20px 40px;
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
 }

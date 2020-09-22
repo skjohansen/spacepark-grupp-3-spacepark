@@ -9,6 +9,8 @@ $green: #22d35d;
 $front: #CECDCE;
 $back: #313231;
 
+$border-radius: .25em;
+
 .text-yellow { color: $yellow !important; }
 .text-green { color: $green !important; }
 .text-shadow { text-shadow: 2px 1px black; }
@@ -48,10 +50,10 @@ input[type=text] {
     color: $front;
     background: 0;
     padding: 12px 8px;
-    border-radius: 4px;
+    border-radius: $border-radius;
     width: 100%;
     margin-top: 1em;
-    font-size: 22px;
+    font-size: 18px;
     box-sizing: border-box;
     color: $yellow;
 }
@@ -60,17 +62,17 @@ select, select option {
     color: $front;
     background: $back;
     padding: 12px 8px;
-    border-radius: 4px;
+    border-radius: $border-radius;
     width: 100%;
     margin-top: 1em;
-    font-size: 20px;
+    font-size: 18px;
     appearance: none;
     color: $yellow;
 }
 label {
     font-weight: bold;
     letter-spacing: 1px;
-    font-size: 20px;
+    font-size: 18px;
 }
 
 .container {
@@ -101,11 +103,11 @@ label {
     text-decoration: none;
     background-color: lighten($back, 10%);
     text-transform: uppercase;
-    padding: 20px;
-    border-radius: 5px;
+    padding: 20px 10px;
+    border-radius: $border-radius;
     border: none;
     transition: all 0.4s ease 0s;
-    font-size: 24px;
+    font-size: 20px;
     font-family: $header;
     cursor: pointer;
 
@@ -117,10 +119,15 @@ label {
     }
 
     &.menu-button {
-    margin: 12px;
-    width: 50%;
-    background-color: lighten($back, 10%);
+        width: 50%;
+        background-color: lighten($back, 10%);
 
+        &:first-of-type {
+            margin-right: 12px;
+        }
+        &:last-of-type {
+            margin-left: 12px;
+        }
         &--active {
             background-color: $yellow;
             letter-spacing: 1px;
@@ -176,18 +183,19 @@ label {
 }
 
 .box {
-    min-height: 200px;
     width: 100%;
     margin-top: 2em;
 
     &__info {
-        padding: 40px;
-        margin: 40px;
-        border-radius: 4px;
+        margin: 20px 40px;
+        border-radius: $border-radius;
         box-sizing: border-box;
-        position: relative;
-        color: white;
-        position: relative;
+
+        &--error, &-success {
+            padding: 40px;
+            position: relative;
+            border-radius: $border-radius;
+        }
 
         &--error {
             background-color: #fff3cd;
@@ -211,7 +219,7 @@ label {
             position: absolute;
             top: 50%;
             transform: translateY(-50%);
-            right: 40px;
+            right: 30px;
             width: 20px;
             height: 20px;
             background-image: url(gfx/cross.png);
@@ -223,6 +231,7 @@ label {
     }
 
     &__columns {
+        padding: 0px 40px;
         display: flex;
         flex-flow: row wrap;   
     }
@@ -235,7 +244,7 @@ label {
     
     &__content {
         width: 100%;
-        padding: 40px;
+        padding: 20px 40px;
         box-sizing: border-box;
     }
 }
