@@ -14,6 +14,7 @@ namespace SpacePort.Tests.ControllerTests
 {
     public class DriverControllerTests
     {
+
         [Fact]
         public async void GetAll_ifAnyExist_ReturnTrue()
         {
@@ -57,14 +58,38 @@ namespace SpacePort.Tests.ControllerTests
             Assert.Equal(204, contentResult.StatusCode);
         }
 
+        [Fact]
+        public async void GetDriverById_IfExist_ReturnTrue()
+        {
+
+            //Arrange
+            var mockContext = new Mock<DataContext>();
+            mockContext.Setup(x => x.Drivers).ReturnsDbSet(GetDriver());
+
+            var logger = Mock.Of<ILogger<DriverRepository>>();
+            var driverRepo = new DriverRepository(mockContext.Object, logger);
+
+            var driverController = new DriverController(driverRepo);
+
+            //Act
+            var result = await driverController.GetDriverById(1);
+            var contentResult = result.Result as OkObjectResult;
+            var resultDriver = contentResult.Value as Driver;
+
+            //Assert
+            Assert.NotNull(resultDriver);
+
+
+        }
+
         public List<Driver> GetDriver()
         {
             return new List<Driver>
             {
                 new Driver
                 {
-                    DriverId=1,
-                    Name="Pierre"
+                    DriverId = 1,
+                    Name = "Luke"
                 }
             };
         }
