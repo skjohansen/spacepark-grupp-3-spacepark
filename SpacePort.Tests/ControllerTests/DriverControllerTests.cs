@@ -7,25 +7,17 @@ using SpacePort.Controllers;
 using Microsoft.Extensions.Logging;
 using SpacePort.Services.Repositories;
 using Microsoft.AspNetCore.Mvc;
-<<<<<<< HEAD
-=======
 using SpacePort.Services.Interfaces;
 using System.Threading.Tasks;
->>>>>>> master
 
 namespace SpacePort.Tests.ControllerTests
 {
     public class DriverControllerTests
     {
-        [Fact]
-<<<<<<< HEAD
-        public async void GetDriverById_IfExist_ReturnTrue()
-        {
 
-=======
+        [Fact]
         public async void GetAll_ifAnyExist_ReturnTrue()
         {
->>>>>>> master
             //Arrange
             var mockContext = new Mock<DataContext>();
             mockContext.Setup(x => x.Drivers).ReturnsDbSet(GetDriver());
@@ -36,11 +28,6 @@ namespace SpacePort.Tests.ControllerTests
             var driverController = new DriverController(driverRepo);
 
             //Act
-<<<<<<< HEAD
-            var result = await driverController.GetDriverById();
-            var contentResult = result.Result as OkObjectResult;
-            var resultDriver = contentResult.Value as Driver[];
-=======
             var result = await driverController.GetAll();
             var contentResult = result.Result as OkObjectResult;
             var resultDriver = contentResult.Value as Driver[];
@@ -69,7 +56,30 @@ namespace SpacePort.Tests.ControllerTests
 
             //Assert
             Assert.Equal(204, contentResult.StatusCode);
->>>>>>> master
+        }
+
+        [Fact]
+        public async void GetDriverById_IfExist_ReturnTrue()
+        {
+
+            //Arrange
+            var mockContext = new Mock<DataContext>();
+            mockContext.Setup(x => x.Drivers).ReturnsDbSet(GetDriver());
+
+            var logger = Mock.Of<ILogger<DriverRepository>>();
+            var driverRepo = new DriverRepository(mockContext.Object, logger);
+
+            var driverController = new DriverController(driverRepo);
+
+            //Act
+            var result = await driverController.GetDriverById(1);
+            var contentResult = result.Result as OkObjectResult;
+            var resultDriver = contentResult.Value as Driver;
+
+            //Assert
+            Assert.NotNull(resultDriver);
+
+
         }
 
         public List<Driver> GetDriver()
@@ -78,13 +88,8 @@ namespace SpacePort.Tests.ControllerTests
             {
                 new Driver
                 {
-<<<<<<< HEAD
                     DriverId = 1,
                     Name = "Luke"
-=======
-                    DriverId=1,
-                    Name="Pierre"
->>>>>>> master
                 }
             };
         }
