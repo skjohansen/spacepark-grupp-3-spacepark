@@ -25,7 +25,7 @@ namespace SpacePort.Controllers
             try
             {
                 var result = await _repo.GetAll();
-                if(result == null)
+                if (result == null)
                 {
                     return NotFound();
                 }

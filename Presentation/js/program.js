@@ -118,14 +118,16 @@ function unPausePage() {
     }
 
     function ajaxCall_GetReceiptByDriverId(driverId) {
-        let url = baseurl + "receipts";
+        let url = baseurl + "receipts/drivers/"+driverId;
         $.ajax({
             url: url,
-            data: JSON.stringify({'driverId': driverId}),
             type: "GET",
             contentType: "application/json; charset=utf-8"
         }).done(function(response, statusText, xhr) {
-            
+            if(xhr.status == 200) {
+                console.log(statusText + ". ReceiptId: " +response.receiptId);
+            }
+            unPausePage();
         }).fail(function() {
             appendError("Okänt fel.");
         });

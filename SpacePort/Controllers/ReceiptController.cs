@@ -61,7 +61,7 @@ namespace SpacePort.Controllers
             }
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("drivers/{id}")]
         public async Task<ActionResult<Receipt>> GetReceiptByDriverId(int driverId)
         {
             try
