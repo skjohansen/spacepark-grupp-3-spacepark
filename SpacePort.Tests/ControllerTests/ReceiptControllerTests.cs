@@ -1,5 +1,4 @@
-﻿using Castle.Core.Logging;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Moq;
 using Moq.EntityFrameworkCore;
@@ -7,9 +6,7 @@ using SpacePort.Controllers;
 using SpacePort.Models;
 using SpacePort.Services.Interfaces;
 using SpacePort.Services.Repositories;
-using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 using Xunit;
 using static SpacePort.Controllers.ReceiptController;
@@ -73,7 +70,6 @@ namespace SpacePort.Tests.ControllerTests
         {
             //Arrange
             var receiptRepo = new Mock<IReceiptRepository>();
-            receiptRepo.Setup(x => x.GetAll()).Returns(Task.FromResult(new Receipt[1]));
             receiptRepo.Setup(x => x.Save()).Returns(Task.FromResult(true));
             var driverRepo = new Mock<IDriverRepository>();
             var parkingspotRepo = new Mock<IParkingspotRepository>();
