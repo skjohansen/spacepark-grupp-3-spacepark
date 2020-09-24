@@ -99,6 +99,7 @@ function unPausePage() {
     function ajaxCall_ValidateDriverById() {
         let driverId = $("#pay-form-driverid").val();
         let url = baseurl + "drivers/" + driverId;
+
         $.ajax({
             url : url,
             type: "GET",
@@ -141,8 +142,10 @@ function unPausePage() {
         }).done(function(response, statusTex, xhr) {
             if(xhr.status == 200) {
                 console.log("receipt: " + response.receiptId + " has been updated");
-                appendSuccess("<h2>Klart</h2><p>Din faktura gick på " + response.Price + "</p>" +
+                appendSuccess("<h2>Klart</h2><p>Din faktura gick på " + response.price + " kr</p>" +
                 "<p>Välkommen åter.</p>");
+                console.log(response.parkingspot);
+                ajaxCall_UpdateParkingspot(response.parkingspot.parkingspotId, false);
             }
         }).fail(function() {
             appendError("<p>Något gick snett. Kunde inte hitta en pågående parkering.</p><p>Kanske har du redan betalat din faktura eller se över ditt Förar Id.</p>");
@@ -208,8 +211,8 @@ function unPausePage() {
         }).done(function(response, statusText, xhr) {
             if(xhr.status == 201) {
                 console.log(statusText + ". A receipt with id " + response.receiptId + " was created.");
-                successmessage += "<p>En kvittens har skrivits ut.</p>"
-                ajaxCall_OccupyParkingspot(parkingspotId, driverId);
+                appendSuccess("<h2>Klart</h2>" + successmessage + "<p>Återvänd med ditt FörarId för att slutföra.</p>");
+                ajaxCall_UpdateParkingspot(parkingspotId, true);
             }
         }).fail(function(){
             appendError("Okänt fel, parkeringen misslyckades.");
@@ -217,19 +220,18 @@ function unPausePage() {
         });
     }
 
-    function ajaxCall_OccupyParkingspot(parkingspotId, driverId) {
+    function ajaxCall_UpdateParkingspot(parkingspotId, occupied) {
         let url = baseurl + 'parkingspots';
         $.ajax({
             url : url,
             data: JSON.stringify({
                 ParkingspotId : parkingspotId,
-                Occupied : "True"
+                Occupied : occupied
             }),
             type: "PUT",
             contentType: "application/json; charset=utf-8"
         }).done(function(response, statusText, xhr) {
             if(xhr.status == 200) {
-                appendSuccess("<h2>Klart</h2>" + successmessage + "<p>Återvänd med ditt FörarId för att slutföra.</p>");
                 console.log(statusText + ". Parkingspot with Id: " + parkingspotId + " was updated.");
             }
             unPausePage();
