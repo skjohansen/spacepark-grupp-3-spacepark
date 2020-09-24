@@ -19,6 +19,6 @@ steps:
 - task: Docker@2
   inputs:
     containerRegistry: 'sp3api'
-    repository: 'spaceportConnection'
+    repository: 'pierresp3api'
     command: 'buildAndPush'
     Dockerfile: '**/Dockerfile'
