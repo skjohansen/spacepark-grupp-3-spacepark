@@ -18,7 +18,7 @@ steps:
   displayName: 'dotnet build $(buildConfiguration)'
 - task: Docker@2
   inputs:
-    containerRegistry: 'spaceportConnection'
+    containerRegistry: 'sp3api'
     repository: 'spaceportConnection'
     command: 'buildAndPush'
     Dockerfile: '**/Dockerfile'
