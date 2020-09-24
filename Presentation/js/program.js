@@ -85,9 +85,9 @@ function unPausePage() {
         if($("#park-form-driverid").val() < 1) {
             appendError("Du måste ange ditt FörarId");
             return;
-        } else if (!$.isNumeric($("#park-form-driverid").val())) {
-            appendError("Ditt FörarId måste vara nummer");
-        }
+        } else if (!$.isNumeric($("#pay-form-driverid").val())) {
+            appendError("Ditt FörarId måste vara nummer.");
+        } 
         
         errormessage = "";
         successmessage = "";
@@ -97,7 +97,8 @@ function unPausePage() {
     });
 
     function ajaxCall_ValidateDriverById() {
-        let url = baseurl + "drivers/" + $("#pay-form-driverid").val();
+        let driverId = $("#pay-form-driverid").val();
+        let url = baseurl + "drivers/" + driverId;
         $.ajax({
             url : url,
             type: "GET",
@@ -107,12 +108,9 @@ function unPausePage() {
                 console.log(statusText + ". Found driver with id " + response.driverId);
                 ajaxCall_GetReceiptByDriverId(response.driverId)
             }
-            else {
-                appendError("Okänt fel.");
-                unPausePage();
-            }
         }).fail(function() {
-            appendError("Ingen kontakt med API.");
+            appendError("Okänt fel.");
+        }).always(function() {
             unPausePage();
         });
     }
@@ -126,8 +124,25 @@ function unPausePage() {
         }).done(function(response, statusText, xhr) {
             if(xhr.status == 200) {
                 console.log(statusText + ". ReceiptId: " +response.receiptId);
+                ajaxCall_UpdateReceipt(response.receiptId);
             }
-            unPausePage();
+        }).fail(function() {
+            appendError("Okänt fel.");
+        });
+    }
+
+    function ajaxCall_UpdateReceipt(receiptId) {
+        let url = baseurl + "receipts";
+        $.ajax({
+            url: url,
+            type: "PUT",
+            data: JSON.stringify({'receiptId' : receiptId}),
+            contentType: "application/json; charset=utf-8"
+        }).done(function(response, statusTex, xhr) {
+            if(xhr.status == 200) {
+                console.log("receipt: " + response.receiptId + " has been updated");
+            }
+            console.log(xhr.status);
         }).fail(function() {
             appendError("Okänt fel.");
         });
@@ -152,6 +167,7 @@ function unPausePage() {
             }
         }).fail(function() {
             appendError("Ingen kontakt med API.");
+        }).always(function() {
             unPausePage();
         });
     }

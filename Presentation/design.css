@@ -54,6 +54,26 @@ input[type=text] {
   color: #E6E039;
 }
 
+input[type=text]::-webkit-input-placeholder {
+  opacity: 1;
+  color: #a49f15;
+}
+
+input[type=text]:-ms-input-placeholder {
+  opacity: 1;
+  color: #a49f15;
+}
+
+input[type=text]::-ms-input-placeholder {
+  opacity: 1;
+  color: #a49f15;
+}
+
+input[type=text]::placeholder {
+  opacity: 1;
+  color: #a49f15;
+}
+
 select, select option {
   border: 4px solid #CECDCE;
   color: #CECDCE;
