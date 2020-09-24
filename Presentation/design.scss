@@ -191,8 +191,9 @@ label {
         margin: 20px 40px;
         border-radius: $border-radius;
         box-sizing: border-box;
+        
 
-        &--error, &-success {
+        &--error, &--success {
             padding: 40px;
             position: relative;
             border-radius: $border-radius;
@@ -209,7 +210,6 @@ label {
             border: 1px solid #c3e6cb;
             color: #155724;
             text-align: left;
-            padding: 40px;
 
             p {
                 padding-bottom: 2px;

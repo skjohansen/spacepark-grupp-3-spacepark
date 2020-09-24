@@ -141,10 +141,11 @@ function unPausePage() {
         }).done(function(response, statusTex, xhr) {
             if(xhr.status == 200) {
                 console.log("receipt: " + response.receiptId + " has been updated");
+                appendSuccess("<h2>Klart</h2><p>Din faktura gick på " + response.Price + "</p>" +
+                "<p>Välkommen åter.</p>");
             }
-            console.log(xhr.status);
         }).fail(function() {
-            appendError("Okänt fel.");
+            appendError("<p>Något gick snett. Kunde inte hitta en pågående parkering.</p><p>Kanske har du redan betalat din faktura eller se över ditt Förar Id.</p>");
         });
     }
 
@@ -228,7 +229,7 @@ function unPausePage() {
             contentType: "application/json; charset=utf-8"
         }).done(function(response, statusText, xhr) {
             if(xhr.status == 200) {
-                appendSuccess("<h1>Grattis</h1><div style='margin-top: .75em;'>" + successmessage + " <p>Återvänd med ditt FörarId för att slutföra.</p></div>");
+                appendSuccess("<h2>Klart</h2>" + successmessage + "<p>Återvänd med ditt FörarId för att slutföra.</p>");
                 console.log(statusText + ". Parkingspot with Id: " + parkingspotId + " was updated.");
             }
             unPausePage();

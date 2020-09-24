@@ -249,7 +249,7 @@ label {
           box-sizing: border-box;
 }
 
-.box__info--error, .box__info-success {
+.box__info--error, .box__info--success {
   padding: 40px;
   position: relative;
   border-radius: 0.25em;
@@ -266,7 +266,6 @@ label {
   border: 1px solid #c3e6cb;
   color: #155724;
   text-align: left;
-  padding: 40px;
 }
 
 .box__info--success p {
