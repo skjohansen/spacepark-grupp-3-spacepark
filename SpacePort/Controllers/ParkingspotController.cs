@@ -52,7 +52,6 @@ namespace SpacePort.Controllers
             catch (Exception e)
             {
                 return this.StatusCode(StatusCodes.Status500InternalServerError, $"Database failure {e.Message}");
-
             }
         }
 
@@ -74,12 +73,10 @@ namespace SpacePort.Controllers
                     return Ok(parkingspot);
                 }
                 return BadRequest();
-
             }
             catch (Exception e)
             {
                 return this.StatusCode(StatusCodes.Status500InternalServerError, $"Database failure {e.Message}");
-
             }
         }
     }

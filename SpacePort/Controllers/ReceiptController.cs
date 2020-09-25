@@ -61,12 +61,12 @@ namespace SpacePort.Controllers
             }
         }
 
-        [HttpPost()]
-        public async Task<ActionResult<Receipt>>GetReceiptByDriverId(Driver driver)
+        [HttpGet("drivers/{id}")]
+        public async Task<ActionResult<Receipt>> GetReceiptByDriverId(int id)
         {
             try
             {
-                var result = await _repo.GetReceiptByDriverId(driver.DriverId);
+                var result = await _repo.GetReceiptByDriverId(id);
                 if (result == null)
                 {
                     return NotFound();
@@ -80,7 +80,7 @@ namespace SpacePort.Controllers
         }
 
         [HttpPut]
-        public async Task<ActionResult<Receipt>>UpdateReceipt(Receipt receipt)
+        public async Task<ActionResult<Receipt>> UpdateReceipt(Receipt receipt)
         {
             try
             {
@@ -88,6 +88,9 @@ namespace SpacePort.Controllers
                 if (oldReceipt==null)
                 {
                     return NotFound($"Receipt with id: {receipt.ReceiptId} could not be found");
+                } else if (oldReceipt.Price != 0)
+                {
+                    return NotFound();
                 }
 
                 DateTime currentTime = DateTime.Now;
@@ -102,7 +105,7 @@ namespace SpacePort.Controllers
                 int hPrice = (10 * span.Hours);
                 float mPrice = (10 / 60.0f) * span.Minutes;
                 int totalPrice = Convert.ToInt32(hPrice + mPrice);
-                oldReceipt.Price = totalPrice;
+                oldReceipt.Price = (totalPrice == 0) ? 10 : totalPrice;
 
                 _repo.Update(oldReceipt);
                 if (await _repo.Save())
@@ -130,7 +133,6 @@ namespace SpacePort.Controllers
             {
                 var getDriver = await _driverRepo.GetDriverById(receipt.DriverId);
                 var getParkingspot = await _spotRepo.GetparkingspotById(receipt.ParkingspotId);
-
 
                 Receipt entity = new Receipt
                 {

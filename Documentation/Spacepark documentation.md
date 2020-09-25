@@ -1,33 +1,153 @@
-# Spacepark
+## SpacePort Projekt
+Projektet går ut på att bygga ett program för ett parkingsföretag där enbart folk från Star Wars får lov att parkera. Viktigare än själva programmet var i denna övning att utforska Azure Tjänster, CI och CD. 
 
-Spacepark är ett samarbetsprojekt mellan Samir, Pierre, Oskar och Jakob. Uppgiften går ut på att bygga ett program för ett parkingsföretag där enbart folk från star wars får lov att parkera. Viktigare än programmet var att utforska azure tjänster, CI och CD. 
+##### Innehållsförteckning 
+- [Arbetssätt](#arbetssätt)
+  * [Testkonvention](#testkonvention)
+- [Verktyg](#verktyg)
+  * [Azure Devops](#azure-devops)
+  * [app.diagrams.net](#diagram)  
+  * [Övriga Verktyg](#övriga-verktyg)
+- [3 lagers-arkitektur](#3-lagers-arkitektur)
+  * [Presentationslager](#presentationslager)
+  * [Applikationslager](#applikationslager)
+  * [Datalager](#datalager)
+- [CI](#ci)
+  * [Repositories](#repositories)
+  * [Build Pipeline](#build-pipeline)
+    + [Pipeline Presentation](#pipeline-presentation)
+    + [Pipeline API](#pipeline-api)
+        
 
 ## Arbetssätt
+Vi börjar med att gemensamt sätta upp issues och eventuella tidsramar och tider för uppsamling. Vi jobbar enskilt med issues i separata branches som vi sedan, ofta gemensamt, mergar till master.
 
-### Planering
+Varje vardag då vi inte har lektion jobbar vi på projektet från 9 till 16. Behöver man komma in senare, gå tidigare eller rent av missa  en dag ska man kommunicera det i god tid.
+### Testkonvention
+Så mycket som möjligt ska testas. Testnamn ska skrivas utförliga utifrån följande:
+```
+MetodensNamn_VadSomTestas_VadSomFörväntas
+```
 
-Vi har gemensamt planerat och skissat hur projektet ska byggas och hur många timmar vi ska arbeta för att hinna med projektet. Vi har aldrig kännt tidspress för att hinna med, utan kännt att vi har haft gott om tid. 
+## Verktyg
+### Azure DevOps
+Vi valde att använda oss av Azure DevOps Boards för att sätta upp relevanta issues och strukturera vårat arbetssätt. Vi tyckte detta passade bra eftersom vi får så mycket som möjligt på samma ställe, till skillnad om vi hade använt t ex Jira.
 
-Vi har planerat att bygga API delen och koppla det till databasen och sedan bygga frontend delen.  
+### Diagram
+Vid början så gjorde vi skisser för flödesscheman på webbplatsen [app.diagrams.net](https://app.diagrams.net/).
 
-### Arbetstimmar  
+<img src="diagram-flowchart.png">
 
-Vi har varje dag samlats för att diskutera hur vi ligger till med projektet. Våran utgångspunkt har varit att jobba mellan kl 9 till 4. 
+### Övriga verktyg
+Vi använder oss av GitBash som verktyg för Git, Visual Studio för kodning, Discord för kommunikation.
 
+## 3 lagers-arkitektur
+Programmet använder sig av 3 komponenter i ett så kallat 3 lagers-arkitektur (eller *n*-tiered architecture).
 
+### Presentationslager
+Vi valde att bygga vårat Presentationslager som en anpassad webbsida. Denna är byggd på HTML, CSS och JavaScript (JQuery). Vi gjorde och såg detta valet som fördelaktigt för att slippa lära oss t ex Razorpages, och kunde hellre fokusera på CI och CD genom projektets gång.
 
-## Designbeslut
+### Applikationslager
+Vårat Applikationslager är ett .NET Core API som fungerar som en mellanhand och arbetare mellan presentationen och datalagret. API:et använder sig av 4 modeller: 
+```csharp
+public class Driver
+{
+    [Key] 
+    public int DriverId { get; set; }
+    public string Name { get; set; }
+}
+class Receipt 
+{
+    [Key] 
+    public int ReceiptId { get; set; }
+    public int Price { get; set; }
+    public DateTime RegistrationTime { get; set; }
+    public DateTime EndTime { get; set; }
+	public Driver Driver { get; set; }
+    public Parkingspot Parkingspot { get; set; }
+}
+class Parkinglot 
+{
+    [Key]
+    public int ParkinglotId { get; set; }
+    public string Name { get; set; }
+    public ICollection<Parkingspot> Parkingspot { get; set; }
+}
+class Parkingspot 
+{
+    [Key]
+    public int ParkingspotId { get; set; }
+    public int Size { get; set; }
+    public bool Occupied { get; set; }
+    public Parkinglot Parkinglot { get; set; }
+}
+```
+Varje Model har en tillhörande Controller och ett tillhörande Repository. Interfaces ska skrivas för samtliga repositories för att behålla låg koppling. En fördel med att bygga på detta viset är att vi inte får för avancerade relationer i databasen, och API:et blir behändigt att arbeta med.
 
-Vi valde att komma igång med azure pipeline tidigt i projektet för att sedan kunna bygga vår API med tester och automatiskt testa. Detta sparade oss mycket tid eftersom vi kunde snabbt se resultaten av våra tester. Vi har gemensamt beslutat att fyra modeller var tillräckligt för våra ändamål. Dessa fyra modeller är Driver, Receipt, Parkinglot och Parkingspot. 
+### Datalager
+Vi använder en Azure SQL relationsdatabas. Vi valde sedan att bygga upp och populera denna med EntityFrameworkCore och Code first metoden. Vi var alla som mest bekanta med relationsdatabaser och detta var ett väldigt billigt alternativ.
 
-## Modeller
+<img src="datalayer.png">
 
+## CI
+### Repositories
+För vårat projekt använder vi ett GitHub repository. Detta repository kopplar vi till ett projekt i Azure DevOps där vi tidigt i projektets gång sätter upp våra build pipelines.
 
+### Build Pipeline
+Vi använder vi oss av 2 st build pipelines, en för API:et och en för vår Web App. Dessa yaml-filer(pipelines) ska genomföra testning och konstruktion (build) av hela applikationen. Slutligen ska dessa pipelines skapa Docker Images som sedan skickas upp till Azure Container Registry (ACR).
 
+#### Pipeline Presentation
+```yaml
+trigger:
+- master
 
+pool:
+  vmImage: 'ubuntu-latest'
 
+steps:
+- task: CopyFiles@2
+  inputs:
+    SourceFolder: 'Presentation'
+    Contents: '**'
+    TargetFolder: '$(Build.ArtifactStagingDirectory)'
+    OverWrite: true
+- task: ArchiveFiles@2
+  inputs:
+    rootFolderOrFile: '$(Build.ArtifactStagingDirectory)'
+    includeRootFolder: false
+- task: PublishBuildArtifacts@1
+- task: Docker@2
+  inputs:
+    containerRegistry: '<dolt>'
+    repository: '<dolt>'
+    command: 'buildAndPush'
+    Dockerfile: '**/Dockerfile'
+```
+#### Pipeline API
+> ***Uppdatera här!***
+```yaml
+trigger:
+- master
 
+pool:
+  vmImage: 'ubuntu-latest'
 
-## Programflöde
+variables:
+  buildConfiguration: 'Release'
 
- 
+steps:
+- task: DotNetCoreCLI@2
+  inputs: 
+    command: test
+    project: '/SpacePort.Tests/*.csproj'
+    arguments: '--configuration $(buildConfiguration)'
+- script: dotnet build --configuration $(buildConfiguration)
+  displayName: 'dotnet build $(buildConfiguration)'
+- task: Docker@2
+  inputs:
+    containerRegistry: 'spaceportConnection'
+    repository: 'spaceportConnection'
+    command: 'buildAndPush'
+    Dockerfile: '**/Dockerfile'
+```
+
