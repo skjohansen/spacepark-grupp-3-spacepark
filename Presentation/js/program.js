@@ -3,7 +3,7 @@
 */
 
 // Configuration
-var baseurl = "https://localhost:44372/api/v1.0/";
+var baseurl = "https://localhost:5001/api/v1.0/";
 
 $(".box__content[data-content='" + 2 +"']").hide().slideUp();
 
