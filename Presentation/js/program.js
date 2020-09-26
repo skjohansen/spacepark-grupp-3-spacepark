@@ -3,7 +3,7 @@
 */
 
 // Configuration
-var baseurl = "https://localhost:5001/api/v1.0/";
+var baseurl = "https://localhost:44372/api/v1.0/";
 
 var errormessage;
 var successMessage;
@@ -71,29 +71,22 @@ function unPausePage() {
     let url = baseurl + "drivers";
 
     $("#start-parking").on("click", function() {
-        if($("#park-form-name").val() < 1) {
-            appendError("Du måste ange ditt namn");
+        if($("#park-form-name").val() < 1 && $("#park-form-driverid").val() < 1) {
+            appendError("Du måste ange namn eller förarid");
             return;
         }
         
         errormessage = "";
         successMessage = "";
 
-        pausePage();
-        paused = true;
-        ajaxCall_ValidateDriver();
-    });
-
-    $("#pay-parking").on("click", function() {
-        if($("#park-form-driverid").val() < 1) {
-            appendError("Du måste ange ditt FörarId");
-            return;
-        } else if (!$.isNumeric($("#park-form-driverid").val())) {
-            appendError("Ditt förarId måste vara nummer");
+        if($("#park-form-driverid").val().length > 0) {
+            appendError("Man kan inte parkera med DriverId ännu!");
         }
-        
-        errormessage = "";
-        successMessage = "";
+        else {
+            pausePage();
+            paused = true;
+            ajaxCall_ValidateDriver();
+        }
     });
 
     function ajaxCall_ValidateDriver() {
