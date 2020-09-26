@@ -23,10 +23,22 @@ namespace SpacePort
         }
 
         public IConfiguration Configuration { get; }
-
+        //private readonly string _allowThisOrigin = "_myAllowSpecificOrigins";  
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            //services.AddCors(option =>
+            //{
+            //    option.AddPolicy(name: _allowThisOrigin,
+            //        builder =>
+            //        {
+            //            builder.WithOrigins("http://127.0.0.1:5500")
+            //            .AllowAnyHeader()
+            //            .AllowAnyMethod()
+            //            .AllowAnyOrigin();
+            //        });
+            //});
+
             services.AddScoped<IDriverRepository, DriverRepository>();
             services.AddScoped<IParkinglotRepository, ParkinglotRepository>();
             services.AddScoped<IParkingspotRepository, ParkingspotRepository>();
@@ -50,7 +62,7 @@ namespace SpacePort
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            app.UseCors(options => options.AllowAnyOrigin());
+            app.UseCors(options => options.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod());
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -63,11 +75,8 @@ namespace SpacePort
             }
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-
             app.UseRouting();
-
             app.UseAuthorization();
-
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
