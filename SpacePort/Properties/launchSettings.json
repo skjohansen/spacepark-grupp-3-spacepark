@@ -4,7 +4,7 @@
     "anonymousAuthentication": true,
     "iisExpress": {
       "applicationUrl": "http://localhost:80",
-      "sslPort": 44314
+      "sslPort": 80
     }
   },
   "profiles": {
@@ -17,13 +17,13 @@
       }
     },
     "SpacePort": {
-      "commandName": "Project",
-      "launchBrowser": true,
-      "launchUrl": "api/v1.0/drivers",
-      "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Development"
-      },
-      "applicationUrl": "https://localhost:5001"
+        "commandName": "Project",
+        "launchBrowser": true,
+        "launchUrl": "api/v1.0/drivers",
+        "environmentVariables": {
+            "ASPNETCORE_ENVIRONMENT": "Development"
+        },
+        "applicationUrl": "https://localhost:443/;http://localhost:80"
     }
   }
 }
