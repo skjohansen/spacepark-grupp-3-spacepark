@@ -23,7 +23,7 @@ steps:
     publishLocation: 'Container'
 - task: Docker@2
   inputs:
-    containerRegistry: 'spaceportConnection'
+    containerRegistry: 'apiConnection'
     repository: 'sp3api'
     command: 'buildAndPush'
     Dockerfile: 'SpacePort/Dockerfile'
