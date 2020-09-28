@@ -12,11 +12,12 @@ steps:
     Contents: '**'
     TargetFolder: '$(Build.ArtifactStagingDirectory)'
     OverWrite: true
-- task: ArchiveFiles@2
-  inputs:
-    rootFolderOrFile: '$(Build.ArtifactStagingDirectory)'
-    includeRootFolder: false
-- task: PublishBuildArtifacts@1
+
+##- task: ArchiveFiles@2
+##  inputs:
+##    rootFolderOrFile: '$(Build.ArtifactStagingDirectory)'
+##    includeRootFolder: false
+##- task: PublishBuildArtifacts@1
 - task: Docker@2
   inputs:
     containerRegistry: 'spaceportConnection'
