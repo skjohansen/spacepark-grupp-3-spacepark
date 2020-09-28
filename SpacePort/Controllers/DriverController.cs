@@ -37,6 +37,12 @@ namespace SpacePort.Controllers
             }
         }
 
+        [HttpGet("test")]
+        public IActionResult Feedback()
+        {
+            return Json("Hej från API");
+        }
+
         [HttpGet("{id}")]
         public async Task<ActionResult<Driver>> GetDriverById(int id)
         {
