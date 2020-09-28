@@ -2,28 +2,39 @@
   "iisSettings": {
     "windowsAuthentication": false,
     "anonymousAuthentication": true,
+    "iis": {
+      "applicationUrl": "http://localhost/SpacePort",
+      "sslPort": 0
+    },
     "iisExpress": {
-      "applicationUrl": "http://localhost:80",
-      "sslPort": 80
+      "applicationUrl": "http://localhost:5001",
+      "sslPort": 0
     }
   },
-  "profiles": {
-    "IIS Express": {
-      "commandName": "IISExpress",
-      "launchBrowser": true,
-      "launchUrl": "api/v1.0/drivers",
-      "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Development"
-      }
-    },
-    "SpacePort": {
-        "commandName": "Project",
-        "launchBrowser": true,
-        "launchUrl": "api/v1.0/drivers",
-        "environmentVariables": {
-            "ASPNETCORE_ENVIRONMENT": "Development"
+    "profiles": {
+        "IIS Express": {
+            "commandName": "IISExpress",
+            "launchBrowser": true,
+            "launchUrl": "api/v1.0/drivers",
+            "environmentVariables": {
+                "ASPNETCORE_ENVIRONMENT": "Development"
+            }
         },
-        "applicationUrl": "https://localhost:443/;http://localhost:80"
+        "SpacePort": {
+            "commandName": "IISExpress",
+            "launchBrowser": true,
+            "launchUrl": "api/v1.0/drivers",
+            "environmentVariables": {
+                "ASPNETCORE_ENVIRONMENT": "Development"
+            },
+            "applicationUrl": "https://localhost:443/;http://localhost:80"
+        },
+        "Docker": {
+            "commandName": "Docker",
+            "launchBrowser": true,
+            "launchUrl": "{Scheme}://{ServiceHost}:{ServicePort}",
+            "publishAllPorts": true,
+            "useSSL": true
+        }
     }
-  }
 }
