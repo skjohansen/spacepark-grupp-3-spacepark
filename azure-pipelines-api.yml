@@ -6,7 +6,7 @@ resources:
 
 variables:
 #  dockerRegistryServiceConnection: 'cce69a0c-b1d9-4f54-a6d0-666d6bea7ac1'
-  imageRepository: 'spaceportAPIRegistry'
+  imageRepository: 'APIRepo'
   #containerRegistry: 'spaceportregistry.azurecr.io'
   dockerfilePath: '$(Build.SourcesDirectory)/SpacePort/Dockerfile'
   tag: '$(Build.BuildId)'
