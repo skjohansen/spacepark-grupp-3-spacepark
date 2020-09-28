@@ -1,6 +1,7 @@
 **obj/
 **bin/
-**.json
+**appsettings.Development.json
+**appsettings.json
 **.vs/
 **.user
 web.config
