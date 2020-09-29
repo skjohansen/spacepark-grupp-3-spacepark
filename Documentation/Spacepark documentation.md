@@ -21,16 +21,16 @@
     * Build och Test pipeline
     * Release pipeline
 - [CI/CD](#ci/cd)
-  * [Repositories](#repositories)
-  * [Build Pipeline](#build-pipeline)
-    * Automatiserade tester
-    * [Pipeline Presentation](#pipeline-presentation)
-    * [Pipeline API](#pipeline-api)
+  * [Code repositories](#code-repositories)
+  * [Build pipeline](#build-pipeline)
+    * [Build pipeline presentation](#build-pipeline-presentation)
+    * [Build pipeline API](#build-pipeline-api)
 - Resultat
 
 # Lista över förkortningar och begrepp
 - **CI:** Continuous Integration
 - **CD:** Continuous Development/Deployment
+- **Presentation:** Frontend
 
 # Bakgrund
 Projektet innefattar att använda oss utav **Molntjänster** och **Azure DevOps**  samt bygga en applikation. Applikationen som ska byggas är ett parkeringssystem för ett företag där enbart folk med namn ifrån Star Wars får lov att parkera. Särskilt intressant med detta projekt är att vi redan är bekanta med applikationen från en tidigare uppgift. Alltså kan vi i detta projekt dra nytta utav misstag och framsteg vi tidigare gjort och integrera det i en så kallad *DevOps*-utvecklingsmiljö. Vi ska i projektet bland annat utnyttja oss av Continuous Integration (CI) samt Continuous Development (CD).
@@ -52,12 +52,18 @@ Molntjänster vi ämnar att använda i projektet är åtminstone:
 -  **Container Registry**
 -  **Container Instance**, alternativt **App Service**
 
-
 # Metod
-## Arbetssätt
-Vi börjar med att gemensamt sätta upp issues och eventuella tidsramar och tider för uppsamling. Vi jobbar enskilt med issues i separata branches som vi sedan, ofta gemensamt, mergar till master.
 
-Varje vardag då vi inte har lektion jobbar vi på projektet från 9 till 16. Behöver man komma in senare, gå tidigare eller rent av missa  en dag ska man kommunicera det i god tid.
+I detta avsnitt förklarar du hur du gick tillväga för att kunna utföra ditt exjobb. Vilka metoder, arbetssätt, verktyg, mätinstrument, maskiner och system har du använt dig av och varför?
+
+Beskriv så systematiskt och tydligt du kan vad du gjort och hur du gjort det. Inkludera all information som behövs för att läsaren ska förstå och få förtroende för det du har gjort, dvs att ditt arbete har gjorts på ett pålitligt sätt. 
+
+Kanske kan det vara en fördel att beskriva ordningen på de olika momenten eller beskriva de olika arbetssätten du valt. Ibland kan det vara en fördel att använda bilder och figurer för att förklara på ett bra sätt. Se tidigare rubrik i detta dokument, Examensarbete och Figur 1, för hur du använder figurer i examensarbetet. 
+
+## Arbetssätt
+Vi började dagarna med att samlas på Discord och diskutera hur vi låg till. Vi satte sedan gemensamt upp **Issues** för att arbeta med i separata GitHub-branches. Varje branch fick lov att mergas till GitHub master när minst 2 kontrollanter gav godkännande.
+
+Våra arbetstider var vardagar **9** till **16**. Kunde man inte komma in och arbeta skulle man ge förvarning om det.
 
 
 ## Unit Tester
@@ -115,8 +121,7 @@ Vi använder en Azure SQL relationsdatabas. Vi valde sedan att bygga upp och pop
 <img src="datalayer.png">
 
 ## Azure Portal
-
-Vi använde Azure Portal för att skapa app service och container registry eftersom det är lättare och mer tydligt att skapa saker. Man kan till exempel se vilken specifikation har en container registry och vad det kostar per månad. Med CLI det är svårare att skapa saker eftersom man måste följa en viss order när man matar in kommanden och det är lätt att få error på grund av felstavning eller fel kommand order. Om man får error man är tvungen att skriva om allting från början vilket är jobbigt. 
+Vi valde använder Azure Portal för att skapa **App Service** och **Container Registry** eftersom vi finner alternativet enklare än Azure CLI. Man kan till exempel se vilken specifikation har en container registry har och vad det kostar per månad. Med CLI det är svårare att skapa saker eftersom man måste följa en viss ordning när man matar in kommandon och det är lätt att få fel på grund av felstavning. Om man får fel man är tvungen att skriva om allting från början vilket är besvärligt. 
 
 ## Azure DevOps 
 ### Boards
@@ -138,13 +143,17 @@ Vi har skapat två release pipeline, en pipeline för API(backend) och en för p
 
 
 ## CI/CD
-### Repositories
-För vårat projekt använder vi ett GitHub repository. Detta repository kopplar vi till ett projekt i Azure DevOps där vi tidigt i projektets gång sätter upp våra build pipelines.
+Continuous- Integration/Development var ett fokus för detta projekt. Dessa arbetsfilosofiska begrepp beskriver kontinuerligt integrerande av kod, byggnad, testning och slutligen publicering av projektet. I vårt projekt använder vi främst CI då vi testar och bygger upp Docker Images kontinuerligt. Denna pipeline är länkad till vår GitHub master branch, vilket vill säga att varje committill - samt pull request mot - master bygger upp vår applikation.
+
+### Code Repository
+För vårat projekt använde vi ett GitHub repository. Detta repository kopplar vi till ett projekt i Azure DevOps där vi tidigt i projektets gång sätter upp våra build pipelines.
 
 ### Build Pipeline
-Vi använder vi oss av 2 st build pipelines, en för API:et och en för vår Web App. Dessa yaml-filer(pipelines) ska genomföra testning och konstruktion (build) av hela applikationen. Slutligen ska dessa pipelines skapa Docker Images som sedan skickas upp till Azure Container Registry (ACR).
+Vi väljer att separera våra build pipelines i 2 st filer. Detta för att lättare hålla isär projektspecifika skillnader, och dela upp kod:
+- **azure-pipelines-api.yml**
+- **azure-pipelines-presentation.yml**
 
-#### Pipeline Presentation
+#### Build pipeline Presentation
 ```yaml
 trigger:
 - master
@@ -172,8 +181,8 @@ steps:
     Dockerfile: '**/Dockerfile'
 ```
 
-#### Pipeline API
-> ***Uppdatera här!***
+#### Build pipeline API
+I vårat API körs våra unit tester, och ger felutskrift ifall versionen ej går igenom testprocessen. Annars så fortlöper processen, bygger samt publicerar en Docker Container.
 ```yaml
 trigger:
 - master
