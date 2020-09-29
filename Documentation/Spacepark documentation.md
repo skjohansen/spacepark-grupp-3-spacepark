@@ -3,7 +3,7 @@
 
 ##### Innehållsförteckning 
 
-- [Lista över förkortningar och begrepp](#lista-over-förkortningar-och-begrepp)
+- [Lista över förkortningar och begrepp](#lista-över-förkortningar-och-begrepp)
 - [Bakgrund](#bakgrund) 
   * [DevOps](#devops)
   * [Molntjänster](#molntjänster)
