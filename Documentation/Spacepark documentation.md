@@ -25,6 +25,7 @@ Projektet går ut på att bygga ett program för ett parkingsföretag där enbar
     * Automatiserade tester
     * [Pipeline Presentation](#pipeline-presentation)
     * [Pipeline API](#pipeline-api)
+- Resultat
 
 
 # Bakgrund
@@ -161,3 +162,4 @@ steps:
     Dockerfile: '**/Dockerfile'
 ```
 
+# Resultat
