@@ -96,6 +96,9 @@ Vi använder en Azure SQL relationsdatabas. Vi valde sedan att bygga upp och pop
 
 ## Azure DevOps 
 ### Boards
+
+Vi valde att använda oss utav Azure DevOps Boards mestadels för att vi skulle ha ett bra sett att organisera oss på och för att ha ett bra sätt att dela upp vårat arbete på. När vi började projektet så diskuterade vi i gruppen om vi skulle använda oss utav Boards eller Jira. Vi valde i slutändan Boards eftersom ingen av oss hade använt sig utav det tidigare och vi tyckte det skulle vara intressant att lära oss ett till sätt att skapa sprints etc. Dessutom så var det en fördel med Boards eftersom vi redan använde oss utav Azure DevOps så det blev lite smidigare att ha så mycket samlat på samma ""verktyg"" som möjligt.
+
 ### Build och Test pipeline
 ### Release pipeline
 
