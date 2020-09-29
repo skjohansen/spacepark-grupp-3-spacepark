@@ -115,10 +115,27 @@ Vi använder en Azure SQL relationsdatabas. Vi valde sedan att bygga upp och pop
 <img src="datalayer.png">
 ## Azure Portal
 
+Vi använde Azure Portal för att skapa app service och container registry eftersom det är lättare och mer tydligt att skapa saker. Man kan till exempel se vilken specifikation har en container registry och vad det kostar per månad. Med CLI det är svårare att skapa saker eftersom man måste följa en viss order när man matar in kommanden och det är lätt att få error på grund av felstavning eller fel kommand order. Om man får error man är tvungen att skriva om allting från början vilket är jobbigt. 
+
 ## Azure DevOps 
 ### Boards
+
+För att behålla allting på en samma ställe använde oss av Azure DevOps Boards för att skapa issues för vår gruppmedlemmar.  Detta gjorde vår arbete lättare eftersom vi behövde inte navigera till en annan sida för att logga in och skapa issues. 
+
 ### Build och Test pipeline
 ### Release pipeline
+
+Vi har skapat två release pipeline, en pipeline för API(backend) och en för presentation(frontend). 
+
+#### Presentation Release Pipeline
+
+
+
+#### API Release Pipeline
+
+
+
+
 
 ## CI/CD
 ### Repositories
