@@ -21,7 +21,7 @@
     * Build och Test pipeline
     * Release pipeline
 - [CI/CD](#ci/cd)
-  * [Code repositories](#code-repositories)
+  * [Code repository](#code-repository)
   * [Build pipeline](#build-pipeline)
     * [Build pipeline presentation](#build-pipeline-presentation)
     * [Build pipeline API](#build-pipeline-api)
