@@ -5,16 +5,13 @@ resources:
 - repo: self
 
 variables:
-#  dockerRegistryServiceConnection: 'cce69a0c-b1d9-4f54-a6d0-666d6bea7ac1'
   imageRepository: 'APIRepo'
-  #containerRegistry: 'spaceportregistry.azurecr.io'
   dockerfilePath: '$(Build.SourcesDirectory)/SpacePort/Dockerfile'
   tag: '$(Build.BuildId)'
   apiFolder: '$(Build.SourcesDirectory)/SpacePort'
   testFolder: '$(Build.SourcesDirectory)/SpacePort.Tests'
 
   
-  # Agent VM image name
   vmImageName: 'ubuntu-latest'
 
 stages:
@@ -42,3 +39,8 @@ stages:
         containerRegistry: 'spaceportConnection'
         tags: |
           $(tag)
+    - task: PublishBuildArtifacts@1
+      inputs:
+        PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+        ArtifactName: 'drop'
+        publishLocation: 'Container'
