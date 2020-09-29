@@ -24,7 +24,7 @@ steps:
 
 - task: Docker@2
   inputs:
-    containerRegistry: 'spacepark-api-dev-connnection'
-    repository: 'spacepark-api-dev-01'
+    containerRegistry: 'apiConnection'
+    repository: 'apiRepo'
     command: 'buildAndPush'
-    Dockerfile: '**/Dockerfile'
+    Dockerfile: Presentation/Dockerfile
