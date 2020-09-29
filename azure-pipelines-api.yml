@@ -48,7 +48,7 @@ stages:
     steps:
     - task: Docker@2
       inputs:
-        containerRegistry: 'apiCnnection'
+        containerRegistry: 'apiConnection'
         repository: 'spaceportRepo'
         command: 'buildAndPush'
         Dockerfile: SpacePort/Dockerfile
