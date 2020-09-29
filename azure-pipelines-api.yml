@@ -1,47 +1,54 @@
 trigger:
 - master
 
-variables:
-  buildConfiguration: 'Release'
-  imageRepository: 'spaceportreg.azurecr.io'
-  tag: '$(Build.BuildId)'
-  vmImageName: 'ubuntu-latest'
-
 pool:
-  vmImage: 'ubuntu-latest'
+  vmImage: 'windows-latest'
 
-steps:
-- task: DotNetCoreCLI@2
-  inputs: 
-    command: test
-    projects: '/SpacePort.Tests/*.csproj'
-    arguments: '--configuration $(buildConfiguration)'
-- script: dotnet build --configuration $(buildConfiguration)
-  displayName: 'dotnet build $(buildConfiguration)'
+variables:
+  solution: 'SpacePort/*.sln'
+  buildPlatform: 'Any CPU'
+  buildConfiguration: 'Release'
+  tag: '$(Build.BuildId)'
 
 stages:
 - stage: Build
-  displayName: Build and push stage
   jobs:
   - job: Build
-    displayName: Build
-    pool:
-      vmImage: $(vmImageName)
+    steps:
+    - task: NuGetToolInstaller@1
+    - task: NuGetCommand@2
+      inputs:
+        restoreSolution: '$(solution)'
+    
+    - task: VSBuild@1
+      inputs:
+        solution: '$(solution)'
+        msbuildArgs: '/p:DeployOnBuild=true /p:WebPublishMethod=Package /p:PackageAsSingleFile=true /p:SkipInvalidConfigurations=true /p:DesktopBuildPackageLocation="$(build.artifactStagingDirectory)\WebApp.zip" /p:DeployIisAppPath="Default Web Site"'
+        platform: '$(buildPlatform)'
+        configuration: '$(buildConfiguration)'
+
+- stage: Test
+  dependsOn: Build
+  condition: succeeded()
+  jobs:
+  - job: Test
+    steps:
+    - task: VSTest@2
+      inputs:
+        platform: '$(buildPlatform)'
+        configuration: '$(buildConfiguration)'
+
+- stage: Push
+  dependsOn: Test
+  condition: succeeded()
+  pool:
+   -vmImage: 'ubuntu-latest'
+  jobs:
+  - job: Push
     steps:
     - task: Docker@2
-      displayName: Build and push an image to container registry
       inputs:
-        command: buildAndPush
-        repository: $(imageRepository)
-        dockerfile: SpacePort/Dockerfile
-        containerRegistry: spaceportReg
-        tags: |
-          $(tag)
-
-
-# - task: Docker@2
-#   inputs:
-#     containerRegistry: 'apiConnection'
-#     repository: 'sp3api'
-#     command: 'buildAndPush'
-#     Dockerfile: SpacePort/Dockerfile
+        containerRegistry: 'apiCnnection'
+        repository: 'spaceportRepo'
+        command: 'buildAndPush'
+        Dockerfile: SpacePort/Dockerfile
