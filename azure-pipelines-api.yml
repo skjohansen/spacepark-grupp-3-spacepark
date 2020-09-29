@@ -27,4 +27,4 @@ steps:
     containerRegistry: 'apiConnection'
     repository: 'apiRepo'
     command: 'buildAndPush'
-    Dockerfile: Presentation/Dockerfile
+    Dockerfile: SpacePort/Dockerfile
