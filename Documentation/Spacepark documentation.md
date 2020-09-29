@@ -1,46 +1,49 @@
-## SpacePort Projekt
+<h2 align="center">SpacePort grupp 3</h2>
 Projektet går ut på att bygga ett program för ett parkingsföretag där enbart folk från Star Wars får lov att parkera. Viktigare än själva programmet var i denna övning att utforska Azure Tjänster, CI och CD. 
 
 ##### Innehållsförteckning 
-- [Arbetssätt](#arbetssätt)
-  * [Testkonvention](#testkonvention)
-- [Verktyg](#verktyg)
-  * [Azure Devops](#azure-devops)
-  * [app.diagrams.net](#diagram)  
-  * [Övriga Verktyg](#övriga-verktyg)
-- [3 lagers-arkitektur](#3-lagers-arkitektur)
-  * [Presentationslager](#presentationslager)
-  * [Applikationslager](#applikationslager)
-  * [Datalager](#datalager)
-- [CI](#ci)
+
+- Bakgrund 
+  * DevOps
+  * Molntjänster
+- Metod
+  * Arbetssätt
+  * Unit Tester
+    * Testkonvention
+  * [3 lagers-arkitektur](#3-lagers-arkitektur)
+    * [Presentationslager](#presentationslager)
+    * [Applikationslager](#applikationslager)
+    * [Datalager](#datalager)
+  * Azure Portal
+  * Azure DevOps 
+    * Boards
+    * Build och Test pipeline
+    * Release pipeline
+- [CI/CD](#ci/cd)
   * [Repositories](#repositories)
   * [Build Pipeline](#build-pipeline)
-    + [Pipeline Presentation](#pipeline-presentation)
-    + [Pipeline API](#pipeline-api)
-        
+    * Automatiserade tester
+    * [Pipeline Presentation](#pipeline-presentation)
+    * [Pipeline API](#pipeline-api)
 
+
+# Bakgrund
+## DevOps
+## Molntjänster
+
+# Metod
 ## Arbetssätt
 Vi börjar med att gemensamt sätta upp issues och eventuella tidsramar och tider för uppsamling. Vi jobbar enskilt med issues i separata branches som vi sedan, ofta gemensamt, mergar till master.
 
 Varje vardag då vi inte har lektion jobbar vi på projektet från 9 till 16. Behöver man komma in senare, gå tidigare eller rent av missa  en dag ska man kommunicera det i god tid.
+
+
+## Unit Tester
 ### Testkonvention
 Så mycket som möjligt ska testas. Testnamn ska skrivas utförliga utifrån följande:
 ```
 MetodensNamn_VadSomTestas_VadSomFörväntas
 ```
-
-## Verktyg
-### Azure DevOps
-Vi valde att använda oss av Azure DevOps Boards för att sätta upp relevanta issues och strukturera vårat arbetssätt. Vi tyckte detta passade bra eftersom vi får så mycket som möjligt på samma ställe, till skillnad om vi hade använt t ex Jira.
-
-### Diagram
-Vid början så gjorde vi skisser för flödesscheman på webbplatsen [app.diagrams.net](https://app.diagrams.net/).
-
-<img src="diagram-flowchart.png">
-
-### Övriga verktyg
-Vi använder oss av GitBash som verktyg för Git, Visual Studio för kodning, Discord för kommunikation.
-
 ## 3 lagers-arkitektur
 Programmet använder sig av 3 komponenter i ett så kallat 3 lagers-arkitektur (eller *n*-tiered architecture).
 
@@ -88,8 +91,14 @@ Varje Model har en tillhörande Controller och ett tillhörande Repository. Inte
 Vi använder en Azure SQL relationsdatabas. Vi valde sedan att bygga upp och populera denna med EntityFrameworkCore och Code first metoden. Vi var alla som mest bekanta med relationsdatabaser och detta var ett väldigt billigt alternativ.
 
 <img src="datalayer.png">
+## Azure Portal
 
-## CI
+## Azure DevOps 
+### Boards
+### Build och Test pipeline
+### Release pipeline
+
+## CI/CD
 ### Repositories
 För vårat projekt använder vi ett GitHub repository. Detta repository kopplar vi till ett projekt i Azure DevOps där vi tidigt i projektets gång sätter upp våra build pipelines.
 
@@ -123,6 +132,7 @@ steps:
     command: 'buildAndPush'
     Dockerfile: '**/Dockerfile'
 ```
+
 #### Pipeline API
 > ***Uppdatera här!***
 ```yaml
