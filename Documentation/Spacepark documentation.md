@@ -9,7 +9,8 @@
   * [Molntjänster](#molntjänster)
 - [Metod](#metod)
   * [Arbetssätt](#arbetssätt)
-  * [Unit Tester](#unit-tester)
+  * [Tester](#tester)
+  	* [Typ av tester](#typ-av-tester)
     * [Testkonvention](#testkonvention)
   * [3 lagers-arkitektur](#3-lagers-arkitektur)
     * [Presentationslager](#presentationslager)
@@ -65,13 +66,30 @@ Vi började dagarna med att samlas på Discord och diskutera hur vi låg till. V
 
 Våra arbetstider var vardagar **9** till **16**. Kunde man inte komma in och arbeta skulle man ge förvarning om det.
 
+## Tester
 
-## Unit Tester
+### Typ av tester
+
+Vi valde att endast använda oss av unit tester och inte försöka oss på integrations eller funktionell testning. Detta för att vi inte använt oss av annat än unit tester innan och detta då skulle ta alldeles för stor del i projektet.
+
 ### Testkonvention
-Så mycket som möjligt ska testas. Testnamn ska skrivas utförliga utifrån följande:
+
+Vi valde xUnit som vårat test ramverk. Så mycket som möjligt ska testas helst att alla klasser åtminstone har ett test. Dessa tester ska köras automatiskt i våran pipeline.
+
+ Testklassnamn ska skrivas utifrån följande:
+
+```
+KlassensNamnTests
+```
+
+Testmetodnamn ska skrivas utifrån följande:
+
 ```
 MetodensNamn_VadSomTestas_VadSomFörväntas
 ```
+
+Däremot valde vi att förutom namnen på klasser och metoder inte ha någon mer invecklad standard på hur man skriver själva testet utan att detta är upp till var och en vad man föredrar.
+
 ## 3 lagers-arkitektur
 Programmet använder sig av 3 komponenter i ett så kallat 3 lagers-arkitektur (eller *n*-tiered architecture).
 
