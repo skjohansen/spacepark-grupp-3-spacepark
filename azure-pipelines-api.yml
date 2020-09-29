@@ -1,54 +1,29 @@
 trigger:
 - master
 
-pool:
-  vmImage: 'windows-latest'
+resources:
+- repo: self
 
 variables:
-  solution: 'SpacePort/*.sln'
-  buildPlatform: 'Any CPU'
-  buildConfiguration: 'Release'
   tag: '$(Build.BuildId)'
+
+  vmImageName: 'ubuntu-latest'
 
 stages:
 - stage: Build
+  displayName: Build and push stage
   jobs:
   - job: Build
-    steps:
-    - task: NuGetToolInstaller@1
-    - task: NuGetCommand@2
-      inputs:
-        restoreSolution: '$(solution)'
-    
-    - task: VSBuild@1
-      inputs:
-        solution: '$(solution)'
-        msbuildArgs: '/p:DeployOnBuild=true /p:WebPublishMethod=Package /p:PackageAsSingleFile=true /p:SkipInvalidConfigurations=true /p:DesktopBuildPackageLocation="$(build.artifactStagingDirectory)\WebApp.zip" /p:DeployIisAppPath="Default Web Site"'
-        platform: '$(buildPlatform)'
-        configuration: '$(buildConfiguration)'
-
-- stage: Test
-  dependsOn: Build
-  condition: succeeded()
-  jobs:
-  - job: Test
-    steps:
-    - task: VSTest@2
-      inputs:
-        platform: '$(buildPlatform)'
-        configuration: '$(buildConfiguration)'
-
-- stage: Push
-  dependsOn: Test
-  condition: succeeded()
-  pool:
-   -vmImage: 'ubuntu-latest'
-  jobs:
-  - job: Push
+    displayName: Build
+    pool:
+      vmImage: $(vmImageName)
     steps:
     - task: Docker@2
+      displayName: Build and push an image to container registry
       inputs:
-        containerRegistry: 'apiConnection'
-        repository: 'spaceportRepo'
-        command: 'buildAndPush'
-        Dockerfile: SpacePort/Dockerfile
+        command: buildAndPush
+        repository: spaceportRepo
+        dockerfile: SpacePort/Dockerfile
+        containerRegistry: apiConnection
+        tags: |
+          $(tag)
