@@ -39,6 +39,6 @@ stages:
         command: buildAndPush
         repository: $(imageRepository)
         dockerfile: $(dockerfilePath)
-        containerRegistry: $(spaceportConnection)
+        containerRegistry: 'spaceportConnection'
         tags: |
           $(tag)
