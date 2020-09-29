@@ -15,9 +15,9 @@
     * [Presentationslager](#presentationslager)
     * [Applikationslager](#applikationslager)
     * [Datalager](#datalager)
-  * Azure Portal
-  * Azure DevOps 
-    * Boards
+  * [Azure Portal](#azure-portal)
+  * [Azure DevOps](#azure-devops) 
+    * [Boards](#boards)
     * Build och Test pipeline
     * Release pipeline
 - [CI/CD](#ci/cd)
@@ -120,7 +120,7 @@ Vi använde Azure Portal för att skapa app service och container registry efter
 ## Azure DevOps 
 ### Boards
 
-För att behålla allting på en samma ställe använde oss av Azure DevOps Boards för att skapa issues för vår gruppmedlemmar.  Detta gjorde vår arbete lättare eftersom vi behövde inte navigera till en annan sida för att logga in och skapa issues. 
+För att behålla allting på en samma ställe använde vi oss av Azure DevOps Boards för att skapa issues för vår gruppmedlemmar.  Detta gjorde vår arbete lättare eftersom vi behövde inte navigera till en annan sida för att logga in och skapa issues. 
 
 ### Build och Test pipeline
 ### Release pipeline
