@@ -31,9 +31,9 @@ stages:
       displayName: Build and push an image to container registry
       inputs:
         command: buildAndPush
-        repository: spaceportReg
+        repository: sp3api
         Dockerfile: SpacePort/Dockerfile
-        containerRegistry: 'spaceportConnection'
+        containerRegistry: 'sp3connection'
 ##        tags: |
 ##          $(tag)
     - task: PublishBuildArtifacts@1
