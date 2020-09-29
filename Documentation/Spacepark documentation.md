@@ -113,6 +113,7 @@ Varje Model har en tillhörande Controller och ett tillhörande Repository. Inte
 Vi använder en Azure SQL relationsdatabas. Vi valde sedan att bygga upp och populera denna med EntityFrameworkCore och Code first metoden. Vi var alla som mest bekanta med relationsdatabaser och detta var ett väldigt billigt alternativ.
 
 <img src="datalayer.png">
+
 ## Azure Portal
 
 Vi använde Azure Portal för att skapa app service och container registry eftersom det är lättare och mer tydligt att skapa saker. Man kan till exempel se vilken specifikation har en container registry och vad det kostar per månad. Med CLI det är svårare att skapa saker eftersom man måste följa en viss order när man matar in kommanden och det är lätt att få error på grund av felstavning eller fel kommand order. Om man får error man är tvungen att skriva om allting från början vilket är jobbigt. 
