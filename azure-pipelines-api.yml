@@ -5,13 +5,10 @@ resources:
 - repo: self
 
 variables:
-  imageRepository: 'APIRepo'
-  dockerfilePath: '$(Build.SourcesDirectory)/SpacePort/Dockerfile'
-  tag: '$(Build.BuildId)'
+##  tag: '$(Build.BuildId)'
   apiFolder: '$(Build.SourcesDirectory)/SpacePort'
   testFolder: '$(Build.SourcesDirectory)/SpacePort.Tests'
 
-  
   vmImageName: 'ubuntu-latest'
 
 stages:
@@ -34,11 +31,11 @@ stages:
       displayName: Build and push an image to container registry
       inputs:
         command: buildAndPush
-        repository: $(imageRepository)
-        dockerfile: $(dockerfilePath)
+        repository: spaceportReg
+        Dockerfile: SpacePort/Dockerfile
         containerRegistry: 'spaceportConnection'
-        tags: |
-          $(tag)
+##        tags: |
+##          $(tag)
     - task: PublishBuildArtifacts@1
       inputs:
         PathtoPublish: '$(Build.ArtifactStagingDirectory)'
