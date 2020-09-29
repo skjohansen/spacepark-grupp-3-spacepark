@@ -1,50 +1,95 @@
-<h2 align="center">SpacePort grupp 3</h2>
-Projektet går ut på att bygga ett program för ett parkingsföretag där enbart folk från Star Wars får lov att parkera. Viktigare än själva programmet var i denna övning att utforska Azure Tjänster, CI och CD. 
+<h2 align="center">Projekt SpacePort</h2>
+<p align="center">Grupp 3</p>
 
 ##### Innehållsförteckning 
 
-- Bakgrund 
-  * DevOps
-  * Molntjänster
-- Metod
-  * Arbetssätt
-  * Unit Tester
-    * Testkonvention
+- [Lista över förkortningar och begrepp](#lista-över-förkortningar-och-begrepp)
+- [Bakgrund](#bakgrund) 
+  * [DevOps](#devops)
+  * [Molntjänster](#molntjänster)
+- [Metod](#metod)
+  * [Arbetssätt](#arbetssätt)
+  * [Tester](#tester)
+  	* [Typ av tester](#typ-av-tester)
+    * [Testkonvention](#testkonvention)
   * [3 lagers-arkitektur](#3-lagers-arkitektur)
     * [Presentationslager](#presentationslager)
     * [Applikationslager](#applikationslager)
     * [Datalager](#datalager)
-  * Azure Portal
-  * Azure DevOps 
-    * Boards
+  * [Azure Portal](#azure-portal)
+  * [Azure DevOps](#azure-devops) 
+    * [Boards](#boards)
     * Build och Test pipeline
     * Release pipeline
 - [CI/CD](#ci/cd)
-  * [Repositories](#repositories)
-  * [Build Pipeline](#build-pipeline)
-    * Automatiserade tester
-    * [Pipeline Presentation](#pipeline-presentation)
-    * [Pipeline API](#pipeline-api)
+  * [Code repository](#code-repository)
+  * [Build pipeline](#build-pipeline)
+    * [Build pipeline presentation](#build-pipeline-presentation)
+    * [Build pipeline API](#build-pipeline-api)
 - Resultat
 
+# Lista över förkortningar och begrepp
+- **CI:** Continuous Integration
+- **CD:** Continuous Development/Deployment
+- **Presentation:** Frontend
 
 # Bakgrund
+Projektet innefattar att använda oss utav **Molntjänster** och **Azure DevOps**  samt bygga en applikation. Applikationen som ska byggas är ett parkeringssystem för ett företag där enbart folk med namn ifrån Star Wars får lov att parkera. Särskilt intressant med detta projekt är att vi redan är bekanta med applikationen från en tidigare uppgift. Alltså kan vi i detta projekt dra nytta utav misstag och framsteg vi tidigare gjort och integrera det i en så kallad *DevOps*-utvecklingsmiljö. Vi ska i projektet bland annat utnyttja oss av Continuous Integration (CI) samt Continuous Development (CD).
+
+Projektet går ut på att öka vår kompetens i *Molntjänster* och *Azure DevOps*. Det är 2 - för oss - nya teknologier som vi studerar i denna kurs och i detta projekt får lära oss att arbeta med och fördjupa oss inom. I denna rapport kommer vi gå igenom:
+
+* Verktyg vi använt oss av
+* Metoderna vi använt oss av
+* Resultat av projektet
+
 ## DevOps
+DevOps är en förening av begreppen **Developer** och **Operations** som traditionelt sett är 2 olika discipliner inom IT utveckling. Utvecklare skriver kod och bygger applikationer och Operations svarar för kvalitét, testning och kundbehov. **DevOps** är kombinationen av dessa 2 företagskulturella filosofier.
 ## Molntjänster
+I projektet ska vi utnyttja oss av Molnteknologi, och mer specifikt Azure Molntjänster. Förutom att det är namnet på kursen vi läser så kan man säga att Molntjänster är datortjänster som tillhandahålls över nätet. Det täcker allt ifrån lagring av data, säkerhetskopiering, publicering, säkerhetsanordningar, virtuella maskiner och mycket mer. 
+En annan egenskap med molntjänster är deras elastiska priser, dvs man betalar för vad man använder. Sällan har molntjänster fasta priser.
+Molntjänster vi ämnar att använda i projektet är åtminstone:
+
+-  **SQL Database**
+-  **Container Registry**
+-  **Container Instance**, alternativt **App Service**
 
 # Metod
+
+I detta avsnitt förklarar du hur du gick tillväga för att kunna utföra ditt exjobb. Vilka metoder, arbetssätt, verktyg, mätinstrument, maskiner och system har du använt dig av och varför?
+
+Beskriv så systematiskt och tydligt du kan vad du gjort och hur du gjort det. Inkludera all information som behövs för att läsaren ska förstå och få förtroende för det du har gjort, dvs att ditt arbete har gjorts på ett pålitligt sätt. 
+
+Kanske kan det vara en fördel att beskriva ordningen på de olika momenten eller beskriva de olika arbetssätten du valt. Ibland kan det vara en fördel att använda bilder och figurer för att förklara på ett bra sätt. Se tidigare rubrik i detta dokument, Examensarbete och Figur 1, för hur du använder figurer i examensarbetet. 
+
 ## Arbetssätt
-Vi börjar med att gemensamt sätta upp issues och eventuella tidsramar och tider för uppsamling. Vi jobbar enskilt med issues i separata branches som vi sedan, ofta gemensamt, mergar till master.
+Vi började dagarna med att samlas på Discord och diskutera hur vi låg till. Vi satte sedan gemensamt upp **Issues** för att arbeta med i separata GitHub-branches. Varje branch fick lov att mergas till GitHub master när minst 2 kontrollanter gav godkännande.
 
-Varje vardag då vi inte har lektion jobbar vi på projektet från 9 till 16. Behöver man komma in senare, gå tidigare eller rent av missa  en dag ska man kommunicera det i god tid.
+Våra arbetstider var vardagar **9** till **16**. Kunde man inte komma in och arbeta skulle man ge förvarning om det.
 
+## Tester
 
-## Unit Tester
+### Typ av tester
+
+Vi valde att endast använda oss av unit tester och inte försöka oss på integrations eller funktionell testning. Detta för att vi inte använt oss av annat än unit tester innan och detta då skulle ta alldeles för stor del i projektet.
+
 ### Testkonvention
-Så mycket som möjligt ska testas. Testnamn ska skrivas utförliga utifrån följande:
+
+Vi valde xUnit som vårat test ramverk. Så mycket som möjligt ska testas helst att alla klasser åtminstone har ett test. Dessa tester ska köras automatiskt i våran pipeline.
+
+ Testklassnamn ska skrivas utifrån följande:
+
+```
+KlassensNamnTests
+```
+
+Testmetodnamn ska skrivas utifrån följande:
+
 ```
 MetodensNamn_VadSomTestas_VadSomFörväntas
 ```
+
+Däremot valde vi att förutom namnen på klasser och metoder inte ha någon mer invecklad standard på hur man skriver själva testet utan att detta är upp till var och en vad man föredrar.
+
 ## 3 lagers-arkitektur
 Programmet använder sig av 3 komponenter i ett så kallat 3 lagers-arkitektur (eller *n*-tiered architecture).
 
@@ -92,14 +137,13 @@ Varje Model har en tillhörande Controller och ett tillhörande Repository. Inte
 Vi använder en Azure SQL relationsdatabas. Vi valde sedan att bygga upp och populera denna med EntityFrameworkCore och Code first metoden. Vi var alla som mest bekanta med relationsdatabaser och detta var ett väldigt billigt alternativ.
 
 <img src="datalayer.png">
-## Azure Portal
 
-Vi använde Azure Portal för att skapa app service och container registry eftersom det är lättare och mer tydligt att skapa saker. Man kan till exempel se vilken specifikation har en container registry och vad det kostar per månad. Med CLI det är svårare att skapa saker eftersom man måste följa en viss order när man matar in kommanden och det är lätt att få error på grund av felstavning eller fel kommand order. Om man får error man är tvungen att skriva om allting från början vilket är jobbigt. 
+## Azure Portal
+Vi valde använder Azure Portal för att skapa **App Service** och **Container Registry** eftersom vi finner alternativet enklare än Azure CLI. Man kan till exempel se vilken specifikation har en container registry har och vad det kostar per månad. Med CLI det är svårare att skapa saker eftersom man måste följa en viss ordning när man matar in kommandon och det är lätt att få fel på grund av felstavning. Om man får fel man är tvungen att skriva om allting från början vilket är besvärligt. 
 
 ## Azure DevOps 
 ### Boards
-
-För att behålla allting på en samma ställe använde oss av Azure DevOps Boards för att skapa issues för vår gruppmedlemmar.  Detta gjorde vår arbete lättare eftersom vi behövde inte navigera till en annan sida för att logga in och skapa issues. 
+Vi valde att använda oss utav Azure DevOps Boards mestadels för att vi skulle ha ett bra sett att organisera oss på och för att ha ett bra sätt att dela upp vårat arbete på. När vi började projektet så diskuterade vi i gruppen om vi skulle använda oss utav Boards eller Jira. Vi valde i slutändan Boards eftersom ingen av oss hade använt sig utav det tidigare och vi tyckte det skulle vara intressant att lära oss ett till sätt att skapa sprints etc. Dessutom så var det en fördel med Boards eftersom vi redan använde oss utav Azure DevOps så det blev lite smidigare att ha så mycket samlat på samma ""verktyg"" som möjligt.
 
 ### Build och Test pipeline
 ### Release pipeline
@@ -117,13 +161,17 @@ Vi har skapat två release pipeline, en pipeline för API(backend) och en för p
 
 
 ## CI/CD
-### Repositories
-För vårat projekt använder vi ett GitHub repository. Detta repository kopplar vi till ett projekt i Azure DevOps där vi tidigt i projektets gång sätter upp våra build pipelines.
+Continuous- Integration/Development var ett fokus för detta projekt. Dessa arbetsfilosofiska begrepp beskriver kontinuerligt integrerande av kod, byggnad, testning och slutligen publicering av projektet. I vårt projekt använder vi främst CI då vi testar och bygger upp Docker Images kontinuerligt. Denna pipeline är länkad till vår GitHub master branch, vilket vill säga att varje committill - samt pull request mot - master bygger upp vår applikation.
+
+### Code Repository
+För vårat projekt använde vi ett GitHub repository. Detta repository kopplar vi till ett projekt i Azure DevOps där vi tidigt i projektets gång sätter upp våra build pipelines.
 
 ### Build Pipeline
-Vi använder vi oss av 2 st build pipelines, en för API:et och en för vår Web App. Dessa yaml-filer(pipelines) ska genomföra testning och konstruktion (build) av hela applikationen. Slutligen ska dessa pipelines skapa Docker Images som sedan skickas upp till Azure Container Registry (ACR).
+Vi väljer att separera våra build pipelines i 2 st filer. Detta för att lättare hålla isär projektspecifika skillnader, och dela upp kod:
+- **azure-pipelines-api.yml**
+- **azure-pipelines-presentation.yml**
 
-#### Pipeline Presentation
+#### Build pipeline Presentation
 ```yaml
 trigger:
 - master
@@ -151,8 +199,8 @@ steps:
     Dockerfile: '**/Dockerfile'
 ```
 
-#### Pipeline API
-> ***Uppdatera här!***
+#### Build pipeline API
+I vårat API körs våra unit tester, och ger felutskrift ifall versionen ej går igenom testprocessen. Annars så fortlöper processen, bygger samt publicerar en Docker Container.
 ```yaml
 trigger:
 - master

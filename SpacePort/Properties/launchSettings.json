@@ -11,30 +11,30 @@
       "sslPort": 0
     }
   },
-    "profiles": {
-        "IIS Express": {
-            "commandName": "IISExpress",
-            "launchBrowser": true,
-            "launchUrl": "api/v1.0/drivers",
-            "environmentVariables": {
-                "ASPNETCORE_ENVIRONMENT": "Development"
-            }
-        },
-        "SpacePort": {
-            "commandName": "IISExpress",
-            "launchBrowser": true,
-            "launchUrl": "api/v1.0/drivers",
-            "environmentVariables": {
-                "ASPNETCORE_ENVIRONMENT": "Development"
-            },
-            "applicationUrl": "https://localhost:443/;http://localhost:80"
-        },
-        "Docker": {
-            "commandName": "Docker",
-            "launchBrowser": true,
-            "launchUrl": "{Scheme}://{ServiceHost}:{ServicePort}",
-            "publishAllPorts": true,
-            "useSSL": true
-        }
+  "profiles": {
+    "IIS Express": {
+      "commandName": "IISExpress",
+      "launchBrowser": true,
+      "launchUrl": "api/v1.0/drivers",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      }
+    },
+    "SpacePort": {
+      "commandName": "Project",
+      "launchBrowser": true,
+      "launchUrl": "api/v1.0/drivers",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      },
+      "applicationUrl": "https://localhost:443/;http://localhost:80"
+    },
+    "Docker": {
+      "commandName": "Docker",
+      "launchBrowser": true,
+      "launchUrl": "{Scheme}://{ServiceHost}:{ServicePort}",
+      "publishAllPorts": true,
+      "useSSL": true
     }
+  }
 }

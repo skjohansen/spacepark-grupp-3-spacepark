@@ -1,4 +1,3 @@
-##lägger ihop release och build
 trigger:
 - master
 
@@ -6,21 +5,10 @@ pool:
   vmImage: 'ubuntu-latest'
 
 steps:
-- task: CopyFiles@2
-  inputs:
-    SourceFolder: 'Presentation'
-    Contents: '**'
-    TargetFolder: '$(Build.ArtifactStagingDirectory)'
-    OverWrite: true
-
-##- task: ArchiveFiles@2
-##  inputs:
-##    rootFolderOrFile: '$(Build.ArtifactStagingDirectory)'
-##    includeRootFolder: false
-##- task: PublishBuildArtifacts@1
+## kopiera in här
 - task: Docker@2
   inputs:
-    containerRegistry: 'spaceportConnection'
-    repository: 'presentationRepo'
+    containerRegistry: 'sp3connection'
+    repository: 'sp3presentation'
     command: 'buildAndPush'
-    Dockerfile: '**/Dockerfile'
+    Dockerfile: Presentation/Dockerfile

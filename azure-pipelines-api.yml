@@ -1,46 +1,30 @@
 trigger:
 - master
 
-resources:
-- repo: self
+pool:
+ vmImage: 'ubuntu-latest'
 
 variables:
-  imageRepository: 'APIRepo'
-  dockerfilePath: '$(Build.SourcesDirectory)/SpacePort/Dockerfile'
-  tag: '$(Build.BuildId)'
-  apiFolder: '$(Build.SourcesDirectory)/SpacePort'
-  testFolder: '$(Build.SourcesDirectory)/SpacePort.Tests'
+ buildConfiguration: 'Release'
 
-  
-  vmImageName: 'ubuntu-latest'
+steps:
+- script: dotnet build --configuration $(buildConfiguration)
+  displayName: 'dotnet build $(buildCOnfiguration)'
 
-stages:
-- stage: Build
-  displayName: Build and push stage
-  jobs:  
-  - job: Build
-    displayName: Build
-    pool:
-      vmImage: $(vmImageName)
-    steps:
-    - task: DotNetCoreCLI@2
-      displayName: Builds API and tests
-      inputs:
-        command: 'build'
-        projects: |
-          $(apiFolder)/SpacePort.csproj
-          $(testFolder)/SpacePort.Tests.csproj
-    - task: Docker@2
-      displayName: Build and push an image to container registry
-      inputs:
-        command: buildAndPush
-        repository: $(imageRepository)
-        dockerfile: $(dockerfilePath)
-        containerRegistry: 'spaceportConnection'
-        tags: |
-          $(tag)
-    - task: PublishBuildArtifacts@1
-      inputs:
-        PathtoPublish: '$(Build.ArtifactStagingDirectory)'
-        ArtifactName: 'drop'
-        publishLocation: 'Container'
+- task: dotNetCoreCLI@2
+  displayName: 'dotnet publish $(buildConfiguration)'
+  inputs:
+    command: publish
+    publishWebProjects: true
+    arguments: '--configuration $(buildConfiguration) --output $(build.ArtifactStagingDirectory)'
+    zipAfterPublish: true
+
+- task: PublishBuildArtifacts@1
+  displayName: 'publish artifacts'
+
+- task: Docker@2
+  inputs:
+    containerRegistry: 'apiConnection'
+    repository: 'apiRepo'
+    command: 'buildAndPush'
+    Dockerfile: SpacePort/Dockerfile
