@@ -2,25 +2,29 @@ trigger:
 - master
 
 pool:
-  vmImage: 'ubuntu-latest'
+ vmImage: 'ubuntu:latest'
 
 variables:
-  apiFolder: '$(Build.SourcesDirectory)/SpacePort'
-  testFolder: '$(Build.SourcesDirectory)/SpacePort.Tests'
+ buildConfiguration: 'Release'
 
 steps:
-## kopiera in här
-- task: DotNetCoreCLI@2
-  displayName: Builds API and tests
+- script: dotnet build --configuration $(buildConfiguration)
+  displayName: 'dotnet build $(buildCOnfiguration)'
+
+- task: dotNetCoreCLI@2
+  displayName: 'dotnet publish $(buildConfiguration)'
   inputs:
-    command: 'build'
-    projects: |
-      $(apiFolder)/SpacePort.csproj
-      $(testFolder)/SpacePort.Tests.csproj
+    command: publish
+    publishWebProjects: true
+    arguments: '--configuration $(buildConfiguration) --output $(build.ArtifactStagingDirectory)'
+    zipAfterPublish: true
+
+- task: PublishBuildArtifacts@1
+  displayName: 'publish artifacts'
+
 - task: Docker@2
   inputs:
-    containerRegistry: 'sp3connection'
-    repository: 'sp3api'
+    containerRegistry: 'spacepark-api-dev-connnection'
+    repository: 'spacepark-api-dev-01'
     command: 'buildAndPush'
-    Dockerfile: SpacePort/Dockerfile
-
+    Dockerfile: '**/Dockerfile'
