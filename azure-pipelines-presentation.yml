@@ -21,4 +21,4 @@ steps:
     containerRegistry: 'spaceportConnection'
     repository: 'spaceportReg'
     command: 'buildAndPush'
-    Dockerfile: '/Presentation/Dockerfile'
+    Dockerfile: Presentation/Dockerfile
