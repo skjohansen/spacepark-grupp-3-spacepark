@@ -153,9 +153,35 @@ Vi  separerar våra build pipelines i 2 st filer. Detta för att lättare hålla
 - **azure-pipelines-api.yml**
 - **azure-pipelines-presentation.yml**
 
+## azure-pipeline-presentation
+
+Vi har en enkel pipeline för frontend som gör sitt jobb med få rader kod. Vi bestämmer att den ska köras i gång varje gång en ändring kommer till master branchen.  Vi väljer en image med hjälp av <pool> från microsoft-hosted agent för att köra vår <job> på VM/Container.  Därefter bestämmer vi att den ska göra en build och sedan pusha vår container till <container registry> på azure.  När vår container är färdig med sin uppgift då körs igång vår <Presentation Release pipeline> som vi kan se längre ner.
+
+```yaml
+trigger:
+- master
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+steps:
+- task: Docker@2
+  inputs:
+    containerRegistry: 'sp3connection'
+    repository: 'sp3presentation'
+    command: 'buildAndPush'
+    Dockerfile: Presentation/Dockerfile
+```
+
+
+
 I vårat API körs våra unit tester, och ger felutskrift ifall versionen ej går igenom testprocessen. Annars så fortlöper processen, bygger samt publicerar en Docker Container.
 
 ### Release pipelines
+
+#### Presentation Release Pipeline
+
+Vår Release pipeline för presentation körs igång varje gång vår Build pipeline<azure pipeline presentation> körs, detta händer eftersom vi har lagt till en <Artifact> som är baserat på vår senast version av Build Pipeline och satte på <continuous deployment trigger>. Därefter vår release pipeline tar vår image och deployer det till en container instance. 
 
 
 # Resultat

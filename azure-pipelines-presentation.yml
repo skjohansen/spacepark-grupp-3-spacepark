@@ -5,7 +5,6 @@ pool:
   vmImage: 'ubuntu-latest'
 
 steps:
-## kopiera in här
 - task: Docker@2
   inputs:
     containerRegistry: 'sp3connection'
