@@ -23,7 +23,8 @@
   * [Azure DevOps](#azure-devops) 
     * [Boards](#boards)
     * [Build och Test pipelines](#build-och-test-pipelines)
-    * [Release pipelines](#release-pipelines)
+    * [Presentation build pipeline](#presentation-build-pipeline)
+    * [Presentation release pipeline](#presentation-release-pipeline)
 - Resultat
 
 # Lista över förkortningar och begrepp
@@ -153,8 +154,7 @@ Vi  separerar våra build pipelines i 2 st filer. Detta för att lättare hålla
 
 I vårat API körs våra unit tester, och ger felutskrift ifall versionen ej går igenom testprocessen. Annars så fortlöper processen, bygger samt publicerar en Docker Container.
 
-### Azure presentation pipeline
-
+### Presentation build pipeline
 Vi har en enkel pipeline för frontend som gör sitt jobb med få rader kod. Vi bestämmer att den ska köras i gång varje gång en ändring kommer till master branchen.  Vi väljer en image med hjälp av pool från microsoft-hosted agent för att köra vår job på VM/Container.  Därefter bestämmer vi att den ska göra en build och sedan pusha vår container till **container registry** på azure.  När vår container är färdig med sin uppgift då körs vår **Presentation Release pipeline** igång som vi kan se längre ner.
 
 ```yaml
@@ -172,7 +172,6 @@ steps:
 ```
 
 ### Presentation Release Pipeline
-
 Vår Release pipeline för presentation körs igång varje gång vår *Presentation Build pipeline* körs, detta händer eftersom vi har lagt till en **Artifact** som är baserat på vår senast version av Build Pipeline och har aktiverat **continuous deployment trigger**. Därefter så tar vår release pipeline vår image och deployar det till en container instance. 
 
 # Resultat
