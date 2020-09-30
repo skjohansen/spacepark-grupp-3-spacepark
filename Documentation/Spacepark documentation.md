@@ -7,6 +7,7 @@
 - [Bakgrund](#bakgrund) 
   * [DevOps](#devops)
   * [Molntjänster](#molntjänster)
+- [Beslut om priser och kostnader](#beslut-om-priser-och-kostnader)
 - [Metod](#metod)
   * [Arbetssätt](#arbetssätt)
   * [Tester](#tester)
@@ -16,16 +17,17 @@
     * [Presentationslager](#presentationslager)
     * [Applikationslager](#applikationslager)
     * [Datalager](#datalager)
+  * [CI/CD](#ci/cd)
+  * [Code repository](#code-repository)
   * [Azure Portal](#azure-portal)
   * [Azure DevOps](#azure-devops) 
     * [Boards](#boards)
-    * Build och Test pipeline
-    * Release pipeline
-- [CI/CD](#ci/cd)
-  * [Code repository](#code-repository)
-  * [Build pipeline](#build-pipeline)
-    * [Build pipeline presentation](#build-pipeline-presentation)
-    * [Build pipeline API](#build-pipeline-api)
+    * [Build pipeline](#build-pipeline)
+      * [Build pipeline presentation](#build-pipeline-presentation)
+      * [Build pipeline API](#build-pipeline-api)
+    * [Release pipeline](#release-pipeline)
+      * [Release pipeline presentation](#release-pipeline-presentation)
+      * [Release pipeline api](#release-pipeline-api)
 - Resultat
 
 # Lista över förkortningar och begrepp
@@ -53,6 +55,9 @@ Molntjänster vi ämnar att använda i projektet är åtminstone:
 -  **Container Registry**
 -  **Container Instance**, alternativt **App Service**
 
+# Beslut om priser och kostnader
+> Fortsätt här
+
 # Metod
 
 I detta avsnitt förklarar du hur du gick tillväga för att kunna utföra ditt exjobb. Vilka metoder, arbetssätt, verktyg, mätinstrument, maskiner och system har du använt dig av och varför?
@@ -67,16 +72,13 @@ Vi började dagarna med att samlas på Discord och diskutera hur vi låg till. V
 Våra arbetstider var vardagar **9** till **16**. Kunde man inte komma in och arbeta skulle man ge förvarning om det.
 
 ## Tester
-
 ### Typ av tester
-
 Vi valde att endast använda oss av unit tester och inte försöka oss på integrations eller funktionell testning. Detta för att vi inte använt oss av annat än unit tester innan och detta då skulle ta alldeles för stor del i projektet.
 
 ### Testkonvention
-
 Vi valde xUnit som vårat test ramverk. Så mycket som möjligt ska testas helst att alla klasser åtminstone har ett test. Dessa tester ska köras automatiskt i våran pipeline.
 
- Testklassnamn ska skrivas utifrån följande:
+Testklassnamn ska skrivas utifrån följande:
 
 ```
 KlassensNamnTests
@@ -92,7 +94,6 @@ Däremot valde vi att förutom namnen på klasser och metoder inte ha någon mer
 
 ## 3 lagers-arkitektur
 Programmet använder sig av 3 komponenter i ett så kallat 3 lagers-arkitektur (eller *n*-tiered architecture).
-
 ### Presentationslager
 Vi valde att bygga vårat Presentationslager som en anpassad webbsida. Denna är byggd på HTML, CSS och JavaScript (JQuery). Vi gjorde och såg detta valet som fördelaktigt för att slippa lära oss t ex Razorpages, och kunde hellre fokusera på CI och CD genom projektets gång.
 
@@ -138,33 +139,18 @@ Vi använder en Azure SQL relationsdatabas. Vi valde sedan att bygga upp och pop
 
 <img src="datalayer.png">
 
+## CI/CD
+Continuous- Integration/Development var ett fokus för detta projekt. Dessa arbetsfilosofiska begrepp beskriver kontinuerligt integrerande av kod, byggnad, testning och slutligen publicering av projektet. I vårt projekt använder vi främst CI då vi testar och bygger upp Docker Images kontinuerligt. Denna pipeline är länkad till vår GitHub master branch, vilket vill säga att varje commit till master - samt pull request mot master - bygger upp vår applikation.
+
+## Code Repository
+För vårat projekt använde vi ett GitHub repository. Detta repository kopplar vi till ett projekt i Azure DevOps där vi tidigt i projektets gång sätter upp våra build pipelines.
+
 ## Azure Portal
 Vi valde använder Azure Portal för att skapa **App Service** och **Container Registry** eftersom vi finner alternativet enklare än Azure CLI. Man kan till exempel se vilken specifikation har en container registry har och vad det kostar per månad. Med CLI det är svårare att skapa saker eftersom man måste följa en viss ordning när man matar in kommandon och det är lätt att få fel på grund av felstavning. Om man får fel man är tvungen att skriva om allting från början vilket är besvärligt. 
 
 ## Azure DevOps 
 ### Boards
 Vi valde att använda oss utav Azure DevOps Boards mestadels för att vi skulle ha ett bra sett att organisera oss på och för att ha ett bra sätt att dela upp vårat arbete på. När vi började projektet så diskuterade vi i gruppen om vi skulle använda oss utav Boards eller Jira. Vi valde i slutändan Boards eftersom ingen av oss hade använt sig utav det tidigare och vi tyckte det skulle vara intressant att lära oss ett till sätt att skapa sprints etc. Dessutom så var det en fördel med Boards eftersom vi redan använde oss utav Azure DevOps så det blev lite smidigare att ha så mycket samlat på samma ""verktyg"" som möjligt.
-
-### Build och Test pipeline
-### Release pipeline
-
-Vi har skapat två release pipeline, en pipeline för API(backend) och en för presentation(frontend). 
-
-#### Presentation Release Pipeline
-
-
-
-#### API Release Pipeline
-
-
-
-
-
-## CI/CD
-Continuous- Integration/Development var ett fokus för detta projekt. Dessa arbetsfilosofiska begrepp beskriver kontinuerligt integrerande av kod, byggnad, testning och slutligen publicering av projektet. I vårt projekt använder vi främst CI då vi testar och bygger upp Docker Images kontinuerligt. Denna pipeline är länkad till vår GitHub master branch, vilket vill säga att varje committill - samt pull request mot - master bygger upp vår applikation.
-
-### Code Repository
-För vårat projekt använde vi ett GitHub repository. Detta repository kopplar vi till ett projekt i Azure DevOps där vi tidigt i projektets gång sätter upp våra build pipelines.
 
 ### Build Pipeline
 Vi väljer att separera våra build pipelines i 2 st filer. Detta för att lättare hålla isär projektspecifika skillnader, och dela upp kod:
@@ -227,4 +213,15 @@ steps:
     Dockerfile: '**/Dockerfile'
 ```
 
+### Release Pipeline
+> Fortsätt här
+
+#### Release pipeline Presentation
+> Fortsätt här
+
+#### Release pipeline API
+> Fortsätt här
+
 # Resultat
+
+> Fortsätt här
