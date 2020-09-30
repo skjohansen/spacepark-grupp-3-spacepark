@@ -1,26 +1,53 @@
 trigger:
 - master
 
-pool:
-  vmImage: 'ubuntu-latest'
-variables:
- buildConfiguration: 'Release'
+# pool:
+#   vmImage: 'ubuntu-latest'
 
-steps:
-- task: DotNetCoreCLI@2
-  inputs:
-    command: 'build'
-    projects: 'SpacePort/*.csproj'
-- task: DotNetCoreCLI@2
-  inputs: 
-    command: test
-    projects: '/SpacePort.Tests/*.csproj'
-    arguments: '--configuration $(buildConfiguration)'
-- script: dotnet build --configuration $(buildConfiguration)
-  displayName: 'dotnet build $(buildConfiguration)'
-- task: Docker@2
-  inputs:
-    containerRegistry: 'apiconnection'
-    repository: 'sp3api'
-    command: 'buildAndPush'
-    Dockerfile: SpacePort/Dockerfile
+variables:
+  solution: '**/*.sln'
+  # buildPlatform: 'Any CPU'
+  buildConfiguration: 'Release'
+  tag: '$(Build.BuildId)'
+
+stages:
+- stage: Build
+  jobs:
+  - job: Build
+    steps:
+    - task: NuGetToolInstaller@1
+    - task: NuGetCommand@2
+      inputs:
+        restoreSolution: '$(solution)'
+    - task: VSBuild@1
+      inputs:
+        solution: '$(solution)'
+        msbuildArgs: '/p:DeployOnBuild=true /p:WebPublishMethod=Package /p:PackageAsSingleFile=true /p:SkipInvalidConfigurations=true /p:DesktopBuildPackageLocation="$(build.artifactStagingDirectory)\WebApp.zip" /p:DeployIisAppPath="Spaceport web Site"'
+        # platform: '$(buildPlatform)'
+        configuration: '$(buildConfiguration)'
+
+- stage: Test
+  dependsOn: Build
+  condition: succeeded()
+  jobs:
+  - job: Test
+    steps:
+    - task: VSTest@2
+      inputs:
+        # platform: '$(buildPlatform)'
+        configuration: '$(buildConfiguration)'
+
+- stage: Push
+  dependsOn: Test
+  condition: succeeded()
+  pool:
+   -vmImage: 'ubuntu-latest'
+  jobs:
+  - job: Push
+    steps:
+    - task: Docker@2
+      inputs:
+        containerRegistry: 'apiConnection'
+        repository: 'spaceport-api'
+        command: 'buildAndPush'
+        Dockerfile: 'SpacePort/Dockerfile'
