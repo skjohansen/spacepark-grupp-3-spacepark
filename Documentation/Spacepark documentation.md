@@ -7,7 +7,7 @@
 - [Bakgrund](#bakgrund) 
   * [DevOps](#devops)
   * [Molntjänster](#molntjänster)
-  * [CI CD](#ci-&-cd)
+  * [CI/CD](#ci-cd)
 - [Beslut om priser och kostnader](#beslut-om-priser-och-kostnader)
 - [Metod](#metod)
   * [Arbetssätt](#arbetssätt)
@@ -52,7 +52,7 @@ Molntjänster vi ämnar att använda i projektet är åtminstone:
 -  **Container Registry**
 -  **Container Instance**, alternativt **App Service**
 
-## CI & CD
+## CI CD
 Continuous- Integration/Development var ett fokus för detta projekt. Dessa arbetsfilosofiska begrepp beskriver kontinuerligt integrerande av kod, byggnad, testning och slutligen publicering av projektet. Vi ämnar att använda främst CI då vi testar och bygger upp Docker Images kontinuerligt. Denna pipeline är länkad till vår GitHub master branch, vilket vill säga att varje commit till master - samt pull request mot master - bygger upp vår applikation.
 
 # Beslut om priser och kostnader
