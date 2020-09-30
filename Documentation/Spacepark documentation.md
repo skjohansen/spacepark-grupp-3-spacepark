@@ -133,7 +133,7 @@ Varje Model har en tillhörande Controller och ett tillhörande Repository. Inte
 ### Datalager
 Vi använder en Azure SQL relationsdatabas. Vi valde sedan att bygga upp och populera denna med EntityFrameworkCore och Code first metoden. Vi var alla som mest bekanta med relationsdatabaser och detta var ett väldigt billigt alternativ.
 
-<img src="datalayer.png">
+
 
 ## CI/CD
 Continuous- Integration/Development var ett fokus för detta projekt. Dessa arbetsfilosofiska begrepp beskriver kontinuerligt integrerande av kod, byggnad, testning och slutligen publicering av projektet. I vårt projekt använder vi främst CI då vi testar och bygger upp Docker Images kontinuerligt. Denna pipeline är länkad till vår GitHub master branch, vilket vill säga att varje commit till master - samt pull request mot master - bygger upp vår applikation.
@@ -160,4 +160,40 @@ I vårat API körs våra unit tester, och ger felutskrift ifall versionen ej gå
 
 # Resultat
 
-> Fortsätt här
+Resultatet av projektet blev nästan som förväntat. Vi har mestadels lyckats uppnå våra uppsatta mål av applikationen, fördjupning inom CI/CD, Molntjänster och Azure DevOps. 
+
+Vi satte av med att först bygga upp basen för vårat API samt att sätta upp en relationsdatabas på Azure. Vi förde dagliga standups på morgonen med hög närvaro, och samlades alltid minst en gång innan lunch och innan dagens slut för att återkoppla. Cirka en vecka in i projektet så designade vi ett interface för vår Frontend och använde oss av jQuery Ajax för att kommunicera med API:et. Allt detta gick helt smärtfritt.
+
+Vi låg bra till tidsmässigt fram emot slutet där vi började stöta på problem. **Release Pipelines** för API ville inte fungera för oss och detta stal mycket tid. Dessutom var detta i ett sent skede när vi nästan var färdiga och behövde fokusera på dokumentation och video presentation. 
+
+Vår lösning innehåller: 
+
+- De mest kostnadseffektiva Molnlösningarna vi kunde hitta på Azure Portal
+  - Azure SQL
+  - Azure Container Instance
+  - Azure Container Registry
+- Frontend byggd i statisk html, css och JavaScript (jQuery)
+- .NET Core Backend API
+
+Vi gjorde ett diagram av hur vi tänkte oss att applikationen ska fungera. Detta är mer eller mindre slutresultatet. En skillnad är att en använder inte kan återanvända sitt tidigare Konto utan behöver skapa ett nytt.
+
+<div align="center"><img width="50%" src="gfx/diagram-flowchart.png"></div> 
+
+En Frontend App byggd i HTML, JS, CSS som kommunicerar med vårat REST API för att presentera information. Slutresultatet av vår Frontend ser ni nedan:
+
+<div align="center"><img width="75%" src="gfx/presentation-demo.png"></div> 
+
+Vår lösning på API innehåller följande: 
+
+<div align="center"><img src="gfx/api-solution.png"></div> 
+
+
+
+Som tänkt från början ville vi ha en simpel tabellstruktur och inte allt för många tabeller och modeller till API:et. Vi ville ha en "minimum viable solution" och vår databas återspeglar detta:  
+
+<div align="center"><img src="gfx/datalayer.png"></div> 
+
+Våra Pipelines (Test, Build och Publish) kan enklast demonstreras med ett diagram:
+
+<div align="center"><img src="gfx/diagram-pipelines.png"></div> 
+
