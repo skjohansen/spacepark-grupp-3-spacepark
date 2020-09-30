@@ -5,20 +5,10 @@ pool:
   vmImage: 'ubuntu-latest'
 
 steps:
-- task: CopyFiles@2
-  inputs:
-    SourceFolder: 'Presentation'
-    Contents: '**'
-    TargetFolder: '$(Build.ArtifactStagingDirectory)'
-    OverWrite: true
-- task: PublishBuildArtifacts@1
-  inputs:
-    PathtoPublish: '$(Build.ArtifactStagingDirectory)'
-    ArtifactName: 'drop'
-    publishLocation: 'Container'
+## kopiera in här
 - task: Docker@2
   inputs:
-    containerRegistry: 'spaceportConnection'
-    repository: 'spaceportReg'
+    containerRegistry: 'sp3connection'
+    repository: 'sp3presentation'
     command: 'buildAndPush'
     Dockerfile: Presentation/Dockerfile

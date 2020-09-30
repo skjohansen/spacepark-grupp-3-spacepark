@@ -1,43 +1,26 @@
 trigger:
 - master
 
-resources:
-- repo: self
-
+pool:
+  vmImage: 'ubuntu-latest'
 variables:
-##  tag: '$(Build.BuildId)'
-  apiFolder: '$(Build.SourcesDirectory)/SpacePort'
-  testFolder: '$(Build.SourcesDirectory)/SpacePort.Tests'
+ buildConfiguration: 'Release'
 
-  vmImageName: 'ubuntu-latest'
-
-stages:
-- stage: Build
-  displayName: Build and push stage
-  jobs:  
-  - job: Build
-    displayName: Build
-    pool:
-      vmImage: $(vmImageName)
-    steps:
-    - task: DotNetCoreCLI@2
-      displayName: Builds API and tests
-      inputs:
-        command: 'build'
-        projects: |
-          $(apiFolder)/SpacePort.csproj
-          $(testFolder)/SpacePort.Tests.csproj
-    - task: Docker@2
-      displayName: Build and push an image to container registry
-      inputs:
-        command: buildAndPush
-        repository: spaceportReg
-        Dockerfile: SpacePort/Dockerfile
-        containerRegistry: 'spaceportConnection'
-##        tags: |
-##          $(tag)
-    - task: PublishBuildArtifacts@1
-      inputs:
-        PathtoPublish: '$(Build.ArtifactStagingDirectory)'
-        ArtifactName: 'drop'
-        publishLocation: 'Container'
+steps:
+- task: DotNetCoreCLI@2
+  inputs:
+    command: 'build'
+    projects: 'SpacePort/*.csproj'
+- task: DotNetCoreCLI@2
+  inputs: 
+    command: test
+    projects: '/SpacePort.Tests/*.csproj'
+    arguments: '--configuration $(buildConfiguration)'
+- script: dotnet build --configuration $(buildConfiguration)
+  displayName: 'dotnet build $(buildConfiguration)'
+- task: Docker@2
+  inputs:
+    containerRegistry: 'apiconnection'
+    repository: 'sp3api'
+    command: 'buildAndPush'
+    Dockerfile: SpacePort/Dockerfile
