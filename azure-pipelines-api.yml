@@ -3,6 +3,7 @@ trigger:
 
 variables:
   buildConfiguration: 'Release'
+  tag: '$(Build.BuildId)'
 
 jobs:
 - job: WebApp1
@@ -42,9 +43,9 @@ jobs:
     displayName: Build and push an image to container registry
     inputs:
       command: buildAndPush
-      repository: apirepo
+      repository: apiConnection
       dockerfile: SpacePort/Dockerfile
-      containerRegistry: apiConnection
+      containerRegistry: spaceportReg
       tags: |
         $(tag)
 # stages:
