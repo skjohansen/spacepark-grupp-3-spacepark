@@ -7,6 +7,7 @@
 - [Bakgrund](#bakgrund) 
   * [DevOps](#devops)
   * [Molntjänster](#molntjänster)
+  * [CI CD](#ci-&-cd)
 - [Beslut om priser och kostnader](#beslut-om-priser-och-kostnader)
 - [Metod](#metod)
   * [Arbetssätt](#arbetssätt)
@@ -17,7 +18,6 @@
     * [Presentationslager](#presentationslager)
     * [Applikationslager](#applikationslager)
     * [Datalager](#datalager)
-  * [CI/CD](#ci/cd)
   * [Code repository](#code-repository)
   * [Azure Portal](#azure-portal)
   * [Azure DevOps](#azure-devops) 
@@ -50,6 +50,9 @@ Molntjänster vi ämnar att använda i projektet är åtminstone:
 -  **SQL Database**
 -  **Container Registry**
 -  **Container Instance**, alternativt **App Service**
+
+## CI & CD
+Continuous- Integration/Development var ett fokus för detta projekt. Dessa arbetsfilosofiska begrepp beskriver kontinuerligt integrerande av kod, byggnad, testning och slutligen publicering av projektet. Vi ämnar att använda främst CI då vi testar och bygger upp Docker Images kontinuerligt. Denna pipeline är länkad till vår GitHub master branch, vilket vill säga att varje commit till master - samt pull request mot master - bygger upp vår applikation.
 
 # Beslut om priser och kostnader
 > Fortsätt här
@@ -133,11 +136,6 @@ Varje Model har en tillhörande Controller och ett tillhörande Repository. Inte
 ### Datalager
 Vi använder en Azure SQL relationsdatabas. Vi valde sedan att bygga upp och populera denna med EntityFrameworkCore och Code first metoden. Vi var alla som mest bekanta med relationsdatabaser och detta var ett väldigt billigt alternativ.
 
-
-
-## CI/CD
-Continuous- Integration/Development var ett fokus för detta projekt. Dessa arbetsfilosofiska begrepp beskriver kontinuerligt integrerande av kod, byggnad, testning och slutligen publicering av projektet. I vårt projekt använder vi främst CI då vi testar och bygger upp Docker Images kontinuerligt. Denna pipeline är länkad till vår GitHub master branch, vilket vill säga att varje commit till master - samt pull request mot master - bygger upp vår applikation.
-
 ## Code Repository
 För vårat projekt använder vi ett GitHub repository. Detta repository kopplar vi till ett projekt i Azure DevOps där vi tidigt i projektets gång satte upp våra build och test pipelines.
 
@@ -155,11 +153,29 @@ Vi  separerar våra build pipelines i 2 st filer. Detta för att lättare hålla
 
 I vårat API körs våra unit tester, och ger felutskrift ifall versionen ej går igenom testprocessen. Annars så fortlöper processen, bygger samt publicerar en Docker Container.
 
-### Release pipelines
+### Azure presentation pipeline
 
+Vi har en enkel pipeline för frontend som gör sitt jobb med få rader kod. Vi bestämmer att den ska köras i gång varje gång en ändring kommer till master branchen.  Vi väljer en image med hjälp av pool från microsoft-hosted agent för att köra vår job på VM/Container.  Därefter bestämmer vi att den ska göra en build och sedan pusha vår container till **container registry** på azure.  När vår container är färdig med sin uppgift då körs vår **Presentation Release pipeline** igång som vi kan se längre ner.
+
+```yaml
+trigger:
+- master
+pool:
+  vmImage: 'ubuntu-latest'
+steps:
+- task: Docker@2
+  inputs:
+    containerRegistry: 'sp3connection'
+    repository: 'sp3presentation'
+    command: 'buildAndPush'
+    Dockerfile: Presentation/Dockerfile
+```
+
+### Presentation Release Pipeline
+
+Vår Release pipeline för presentation körs igång varje gång vår *Presentation Build pipeline* körs, detta händer eftersom vi har lagt till en **Artifact** som är baserat på vår senast version av Build Pipeline och har aktiverat **continuous deployment trigger**. Därefter så tar vår release pipeline vår image och deployar det till en container instance. 
 
 # Resultat
-
 Resultatet av projektet blev nästan som förväntat. Vi har mestadels lyckats uppnå våra uppsatta mål av applikationen, fördjupning inom CI/CD, Molntjänster och Azure DevOps. 
 
 Vi satte av med att först bygga upp basen för vårat API samt att sätta upp en relationsdatabas på Azure. Vi förde dagliga standups på morgonen med hög närvaro, och samlades alltid minst en gång innan lunch och innan dagens slut för att återkoppla. Cirka en vecka in i projektet så designade vi ett interface för vår Frontend och använde oss av jQuery Ajax för att kommunicera med API:et. Allt detta gick helt smärtfritt.
