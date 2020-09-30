@@ -4,6 +4,12 @@ trigger:
 
 pool:
   vmImage: 'windows-latest'
+
+
+variables:
+  solution: '**/*.sln'
+  buildConfiguration: 'Release'
+  
 stages:
 - stage: Build
   jobs:
