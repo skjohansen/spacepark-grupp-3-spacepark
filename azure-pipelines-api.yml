@@ -1,8 +1,8 @@
 trigger:
 - master
 
-# pool:
-#   vmImage: 'ubuntu-latest'
+pool:
+  vmImage: 'ubuntu-latest'
 
 variables:
   solution: '**/*.sln'
@@ -40,8 +40,8 @@ stages:
 - stage: Push
   dependsOn: Test
   condition: succeeded()
-  pool:
-   -vmImage: 'ubuntu-latest'
+  # pool:
+  #  -vmImage: 'ubuntu-latest'
   jobs:
   - job: Push
     steps:
