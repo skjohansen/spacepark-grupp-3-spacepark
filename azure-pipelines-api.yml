@@ -37,6 +37,16 @@ jobs:
       targetPath: '$(Build.ArtifactStagingDirectory)'
       artifact: 'Spaceport'
       publishLocation: 'pipeline'
+
+  - task: Docker@2
+    displayName: Build and push an image to container registry
+    inputs:
+      command: buildAndPush
+      repository: apirepo
+      dockerfile: SpacePort/Dockerfile
+      containerRegistry: apiConnection
+      tags: |
+        $(tag)
 # stages:
 # - stage: Build
 #   jobs:
