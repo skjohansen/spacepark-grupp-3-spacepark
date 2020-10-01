@@ -1,18 +1,16 @@
 trigger:
-- master
+- main
 
 pool:
-  vmImage: 'ubuntu-latest'
-
+  vmImage: 'Ubuntu-16.04'
 
 variables:
-  buildConfiguration: 'Release'
+  imageName: 'g3api'
 
 steps:
-- task: DotNetCoreCLI@2
-  inputs: 
-    command: test
-    projects: '/SpacePort.Tests/*.csproj'
-    arguments: '--configuration $(buildConfiguration)'
-- script: dotnet build --configuration $(buildConfiguration)
-  displayName: 'dotnet build $(buildConfiguration)'
+- task: Docker@2
+  displayName: Build an image
+  inputs:
+    repository: $(imageName)
+    command: build
+    Dockerfile: SpacePort/Dockerfile
