@@ -14,3 +14,4 @@ steps:
     repository: $(imageName)
     command: build
     Dockerfile: SpacePort/Dockerfile
+    containerRegistry: $(dockerRegistryServiceConnection)
