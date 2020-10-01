@@ -5,9 +5,6 @@ pool:
   vmImage: 'ubuntu-latest'
 
 steps:
-- task: Docker@2
+- task: DotNetCoreCLI@2
   inputs:
-    containerRegistry: 'apiConnection'
-    repository: 'apirepo'
-    command: 'buildAndPush'
-    Dockerfile: SpacePort/Dockerfile
+    command: 'build'
